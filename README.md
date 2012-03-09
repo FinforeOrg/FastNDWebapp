@@ -5,6 +5,7 @@ Built with:
 * JavascriptMVC
 * jQuery Mobile
 
+
 Dependencies:
 
 * jQuery UI Sortable - Sorting the columns on the desktop UI
