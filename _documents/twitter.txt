@@ -1,0 +1,27 @@
+MAIN PARAMETER:
+feed_account_id or feed_token_id
+auth_token
+
+METHOD :
+GET or POST
+
+FORMAT :
+json only
+
+------------------------------------------------
+Friend Add:
+PATH : /tweetfores/friend_add
+PARAMETER : 
+friend_id : user twitter id
+------------------------------------------------
+Friend Remove
+PATH : /tweetfores/friend_remove
+PARAMETER : 
+friend_id : user twitter id
+------------------------------------------------
+Pending Friend Requests:
+PATH : /tweetfores/friends_pending
+------------------------------------------------
+Pending Follower Request
+PATH : /tweetfores/followers_pending
+------------------------------------------------

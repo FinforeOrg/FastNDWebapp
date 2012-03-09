@@ -1,0 +1,19 @@
+Hi Cris,
+
+this is messaging feature:
+
+PATH: /users/contact_admin
+METHOD: post
+params :
+
+    form[:subject]
+    form[:message]
+    form[:name]
+    form[:phone]
+    form[:email]
+
+
+You should generate captcha from here:
+http://test.finfore.net/generate_captcha
+
+the source code should be embed to your panel form. if any question please contact me.

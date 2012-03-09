@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />	
+	<title>Google Prices Documentation</title>
+	<style>
+		body {
+			width: 800px;
+			margin: 0 auto;
+			
+			font-family: sans-serif;
+		}
+		pre {
+			padding: 10px;
+			background-color: #f1f1f1;
+		}
+		blockquote {
+			margin: 0;
+			color: #999;
+			font-style: italic;
+		}
+	</style>
+</head>
+<body>
+	
+	<h1>Google Prices Documentation</h1>
+	
+	<blockquote>This documentation assumes you have at least medium/basic knowledge of JavaScript and jQuery. </blockquote>
+	
+	<h2>How it works:</h2>
+	
+	<p>To get pricing data from Google, we need to have the company’s ticker (eg. NASDAQ:GOOG), and make an ajax request to one of Google Finance’s undocumented APIs (http://www.google.com/finance/info?infotype=infoquoteall&q=TICKER), using the ticker as a parameter. </p>
+	<p>You can also use multiple tickers, to get the pricing data for multiple companies in a single request, by separating them with a comma (eg. NASDAQ:GOOG,NASDAQ:AAPL). </p>
+	<p>Since this is a cross-domain request we’ll have to get the data as JSONP (we’ll configure jQuery’s $.ajax() function to do this). This is a feature of the API, and will return the pricing data in JSON format. </p>
+	<blockquote>
+		<strong>Note: </strong>
+		<p>If you're using a server-side language (such as PHP, Ruby, etc.), you can get the prices data, without using JavaScript, by making a GET request to the API Url above, with the ticker parameter.</p>		
+	</blockquote>
+	
+	<h2>Example: </h2>
+	
+<pre>
+// ticker
+// can contain single company ticker (NASDAQ:GOOG) or multiple tickers 
+// separated by commas (NASDAQ:GOOG,NASDAQ:AAPL)
+var ticker = 'NASDAQ:GOOG,NASDAQ:AAPL';
+
+// make Ajax request
+$.ajax({
+    url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker,
+    dataType: 'jsonp',
+    success: function(stocks) {                
+        // parse each company in returned result
+        $.each(stocks, function(i,n) {
+            // create a couple of variables from the each object in the array
+            // you should also examine the returned `stocks` object, as it contains a number
+			// of other properties that could be usefull
+			
+            var symbol = n.e + ':' + n.t,
+                name = n.name,
+                price = n.l,
+                chg = n.c,
+                pct_chg = n.cp;
+            
+            // create an example string of how you could use the data
+            var company = name + '(' + symbol + '): ' + price + '|' + chg + '|' + pct_chg;            
+            alert(company);
+        });
+    }
+});
+</pre>
+	
+</body>
+</html>

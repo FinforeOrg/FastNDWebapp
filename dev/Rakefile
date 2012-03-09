@@ -1,0 +1,112 @@
+# Finfore.net Webapp Deploy Script
+# Configuration
+version = "1.5"
+
+local_dir = '../build/'
+remote_dir = '/var/www/live_test/'
+releases_dir = '/var/www/live_test/releases/'
+
+server = 'live-test.finfore.net'
+port = 9847
+username = 'cristian'
+password = '76finfore123cristian'
+# End Config
+
+print "== Finfore.net Webapp Deploy Script " + version + " == \nUse [rake -T] for available options \n\n"
+
+require 'rubygems'
+require 'net/sftp'
+require 'fileutils'
+require 'rbconfig'
+win = Config::CONFIG['host_os'] =~ /mswin|mingw/
+
+time = Time.now.to_i.to_s
+previous_release = releases_dir + time + '/'
+
+class Net::SFTP::Session
+  def rm_r!(path)
+    self.dir.entries(path).each do |entry|
+      next if entry.name == '.' or entry.name == '..'
+			
+      child_path = File.join(path, entry.name)
+			
+      if self.stat!(child_path).directory?
+        self.rm_r!(child_path) 
+      else
+        # puts "remove! #{child_path}"
+        self.remove!(child_path)
+      end
+    end
+
+    # puts "rmdir! #{path}"
+    self.rmdir!(path)
+  end
+	
+  def clear!(path)
+    # puts "clear! #{path}"
+    self.dir.entries(path).each do |entry|
+      self.rm_r!(File.join(path, entry.name))
+    end
+  end
+end
+
+desc "Deploy script to live-test.finfore.net"
+task :deploy do
+  Net::SFTP.start(server, username, :password => password, :port => port) do |sftp|
+	print "1. Move the current release to /releases.. "
+	sftp.rename!(remote_dir + 'current/', previous_release)
+	print "[ DONE ] \n"
+	
+	print "2. Upload the latest release.. "
+    sftp.upload!(local_dir, remote_dir + 'current/')
+	print "[ DONE ] \n"
+	
+	print "3. Done! \n"
+  end
+end
+
+desc "Rollback previous release"
+task :rollback do
+  Net::SFTP.start(server, :password => password, :port => port, :username => username) do |sftp|  
+	print "1. Remove the current release.. "
+	sftp.rm_r!(remote_dir + 'current/')
+	print "[ DONE ] \n"
+	
+	print "2. Restore the latest archived release.. "
+	folder_list = []
+	sftp.dir.entries(releases_dir).each do |entry| folder_list << entry.name end
+	
+	last_release = releases_dir + folder_list.sort.last + '/'
+	sftp.rename!(last_release, remote_dir + 'current/')
+	print "[ DONE ] \n"
+
+	print "3. Done! \n"
+  end
+end
+
+desc "Finfore.net Build Tool"
+task :build do
+  working_dir = Dir.pwd
+  extension = ''
+  if win
+	extension = '.bat'
+  end
+  
+  print "1. Copy webapp/ to Build directory .. "
+  FileUtils.cp_r 'webapp/', local_dir
+  print "[ DONE ] \n"
+  
+  puts "2. Desktop Production Build .. "
+  sh 'js' + extension + ' steal/buildjs index.html -to webapp/production/'
+  FileUtils.mv 'webapp/production/production.js', local_dir + 'webapp/production/production.js'
+  FileUtils.mv 'webapp/production/production.css', local_dir + 'webapp/production/production.css'    
+  print "[ DONE ] \n"
+  
+  puts "3. Mobile Production Build .. "
+  sh 'js' + extension + ' steal/buildjs m/index.html -to webapp/mobile/'
+  FileUtils.mv 'webapp/mobile/production.js', local_dir + 'webapp/mobile/production.js'
+  FileUtils.mv 'webapp/mobile/production.css', local_dir + 'webapp/mobile/production.css'    
+  print "[ DONE ] \n"
+    
+  puts "3. Done! \n"
+end

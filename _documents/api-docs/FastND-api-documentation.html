@@ -1,0 +1,507 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<title>FastND - API/Web Service Documentation</title>
+
+	<link href="http://github.github.com/github-flavored-markdown/shared/css/documentation.css" media="screen" rel="stylesheet" type="text/css"> 
+	<style>
+		body {padding: 3% 20%;}
+	</style>
+</head>
+<body>
+	
+
+<h1>
+FastND (previously Finfore.net)
+</h1>
+
+<p>
+
+<em>
+Web Service/API Documentation
+</em>
+
+</p>
+
+<p>
+The FastND web service acts as an API for other applications (web based, Air, or native blackberry/android/ios mobile apps, for now). 
+</p>
+
+<h2>
+How it works
+</h2>
+
+<p>
+The web service provides a REST interface for the external apps to get/add/delete/modify data stored in the database. It also provides methods for authenticating various third party services through OAuth, such as Google, Facebook, Twitter or LinkedIn.
+</p>
+
+<h2>
+Technical Details
+</h2>
+
+<p>
+The API is built using Ruby on Rails 3 and MongoDB. 
+</p>
+
+<h3>
+Formats
+</h3>
+
+<p>
+The API supports JSON and XML as response formats. Each request takes the format as a parameter, by specifying the extension at the each of each method/URL from the API.
+</p>
+
+<p>
+For example:
+</p>
+
+<ul>
+
+<li>
+
+<code>
+/category_focus.json
+</code>
+ for the JSON format, or
+</li>
+
+<li>
+
+<code>
+/category_focus.xml
+</code>
+ for the XML format
+</li>
+
+</ul>
+
+<h3>
+Cross-Domain Requests
+</h3>
+
+<p>
+In order to be able to use the API from other domains, we're using the 
+<a href="https://developer.mozilla.org/En/HTTP_access_control">
+CORS
+</a>
+ standard. Each method from the API also sends the custom headers (such as 
+<code>
+Access-Control-Allow-Origin: *
+</code>
+) required, so that the requests can be made from different domains.
+</p>
+
+<h2>
+Workflow
+</h2>
+
+<h3>
+Focus areas
+</h3>
+
+<p>
+Each account has a number (unlimited) of focus/interest areas selected, from three categories: Profession, Industry and Geography.
+<br />
+This is, most often, the first request an application has to make, so that it has the data needed for the following actions.
+</p>
+
+<p>
+In other to get the complete list/array of focus/interest areas, an application has to make the following request:
+</p>
+
+<p>
+
+<code>
+GET /category_focus
+</code>
+
+</p>
+
+<p>
+The API will respond with an array of focus/interest areas, as objects, each with it's own 
+<code>
+_id
+</code>
+ and other properties.
+</p>
+
+<h3>
+Register
+</h3>
+
+<p>
+A user can create an account by providing certain details such as an email address, name, password, and interest/focus areas.
+</p>
+
+<p>
+The API creates a user account using:
+</p>
+
+<p>
+
+<code>
+POST /users
+</code>
+
+</p>
+
+<p>
+with the required parameters.
+</p>
+
+<h3>
+Sign-in
+</h3>
+
+<p>
+There are three types of singing-in processes.
+</p>
+
+<h4>
+Regular Account Sign-in
+</h4>
+
+<p>
+To authenticate a regular account use:
+</p>
+
+<p>
+
+<code>
+POST /user_sessions
+</code>
+
+</p>
+
+<p>
+with the 
+<code>
+login
+</code>
+ and 
+<code>
+password
+</code>
+ parameters, representing the user's email address and their password. These have to be wrapped in the 
+<code>
+user_session
+</code>
+ object.
+</p>
+
+<p>
+The method will respond with the contents of the 
+<code>
+User
+</code>
+ object. We'll use the contents of this response for most of the other requests.
+</p>
+
+<p>
+The 
+<code>
+User
+</code>
+ object also contains the 
+<code>
+single_access_token
+</code>
+ and 
+<code>
+persistence_token
+</code>
+. These tokens need to be provided as parameters for all requests, from this point onward, for security reasons.
+</p>
+
+<h4>
+Public Account Sign-in
+</h4>
+
+<p>
+FastND provides a number of 
+<em>
+test accounts
+</em>
+, to which we refer to as 
+<em>
+Public Accounts
+</em>
+. These are real accounts, the only difference to a regular account being that they have an extra 
+<code>
+is_public
+</code>
+ property in the 
+<code>
+User
+</code>
+ object, set to 
+<code>
+true
+</code>
+.
+</p>
+
+<p>
+These accounts can be logged into by with a different a method, using focus areas as the parameters for it, instead of the email/password combination, as with the regular Sign-in method.
+</p>
+
+<p>
+
+<code>
+POST /user_sessions/public_login
+</code>
+, with the 
+<code>
+_id
+</code>
+s of the selected focus areas.
+</p>
+
+<h4>
+Sign-in with Social Account
+</h4>
+
+<p>
+Users can also sign-in with their existing Google, Facebook, Twitter of LinkedIn accounts, and the API will automatically create an account in the FastND database.
+</p>
+
+<p>
+An app has to open the following URL:
+</p>
+
+<p>
+
+<code>
+/auth/[social-network]?callback=[callback_url]
+</code>
+
+</p>
+
+<p>
+The 
+<code>
+social-network
+</code>
+ parameter can be:
+</p>
+
+<ul>
+
+<li>
+google
+</li>
+
+<li>
+facebook
+</li>
+
+<li>
+twitter
+</li>
+
+<li>
+linkedin
+</li>
+
+</ul>
+
+<p>
+The 
+<code>
+callback-url
+</code>
+ parameter has to be an URL, from the app, to which the API will redirect after going through the authorization process of the social network.
+</p>
+
+<p>
+The API will return the 
+<code>
+User
+</code>
+ object as a GET parameter in the callback URL.
+</p>
+
+<h3>
+Columns
+</h3>
+
+<p>
+FastND uses the concept of 
+<em>
+column
+</em>
+, as the main way of representing data.
+<br />
+Columns can be of several types (RSS, Twitter, LinkedIn, Google Calendar, etc.) and aggregate different types of data from different sources. 
+</p>
+
+<p>
+An app can get the full list of columns from a users account, from the 
+<code>
+User
+</code>
+ object, returned from the sign-in process.
+<br />
+The list/array of columns is included in the 
+<code>
+feed_accounts
+</code>
+ object. 
+</p>
+
+<p>
+Each of these columns have a number of properties associated with them, such as a list of URLs for RSS feeds, from which to aggregate data in the specific column, for example.
+</p>
+
+<h3>
+Tabs
+</h3>
+
+<p>
+Another concept heavily used in FastND is 
+<em>
+tabs
+</em>
+.
+</p>
+
+<p>
+All columns, except for the ones with the 
+<code>
+portfolio
+</code>
+ type, from the 
+<code>
+feed_accounts
+</code>
+ object, in the 
+<code>
+User
+</code>
+ object, are placed in a 
+<em>
+Main
+</em>
+ tab.
+</p>
+
+<h3>
+Portfolios
+</h3>
+
+<p>
+If there are any 
+<code>
+feed_accounts
+</code>
+ with the 
+<code>
+portfolio
+</code>
+ type, these represent Google Finance accounts associated with the user's account, and contain details needed in order to get the list of portfolios from the Google account.
+</p>
+
+<p>
+To get the list of portfolios, for a 
+<code>
+feed_account
+</code>
+:
+</p>
+
+<p>
+
+<code>
+GET /portfolios/list
+</code>
+ with the 
+<code>
+_id
+</code>
+ property from the current 
+<code>
+feed_account
+</code>
+ account as a parameter.
+</p>
+
+<p>
+This will return the list/array of portfolios associated with the current Google account, each with it's specific properties.
+</p>
+
+<p>
+The app will use this data, to create three columns for each portfolio.
+</p>
+
+<h3>
+Companies
+</h3>
+
+<p>
+Another important concept in FastND is the concept of 
+<em>
+company
+</em>
+. Each company has it's separate tab in the app.
+</p>
+
+<p>
+The list of companies from a user's account can be got from the 
+<code>
+user_company_tabs
+</code>
+ object, in the 
+<code>
+User
+</code>
+ object. 
+<br />
+This contains an array of all associated companies, with their specific properties.
+</p>
+
+<p>
+The app will create a number of columns inside a company tab, using data from 
+<code>
+user_company_tabs
+</code>
+.
+</p>
+
+<h3>
+Management
+</h3>
+
+<p>
+Each of these objects can be modified and/or deleted using the REST interface:
+</p>
+
+<ul>
+
+<li>
+Details from the 
+<code>
+User
+</code>
+ account, such as a user's email address, can be changed
+</li>
+
+<li>
+Columns can be edited/deleted
+</li>
+
+<li>
+Companies can be added/deleted
+</li>
+
+</ul>
+
+<hr />
+
+<p>
+This is just a rough description of the capabilities and workflow of the API.
+<br />
+Please feel free to request more specific details or clarifications.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+All requests below support GET and POST only.
+
+SEARCH
+is facebook functionality to search keyword.
+Parameters:
+type   : value is album, event, group, link, note, page, photo, post, status, user, video
+limit    : max no of records
+offset : result offset
+feed_account_id : column id
+
+example:
+http://test.finfore.net/facebookers/search.json?type=post&feed_account_id=1166&auth_token=oBiLNlF8p-6KWJCzYHoF&keyword=watermelon
+
+MY
+is facebook functionality to show active user data
+Parameters:
+category  : value is friends, home, feed, likes, movies, books, notes, photos, videos, events, groups
+feed_account_id : column id
+
+example:
+http://test.finfore.net/facebookers/my.json?category=home&feed_account_id=1166&auth_token=oBiLNlF8p-6KWJCzYHoF
+
+PUBLISH
+is facebook functionality to post message to active user facebook.
+Parameters:
+pubtype : publish type, the value should be feed, comments, notes, links, attending, maybe, declined
+pid : the id of pubtype parameter (facebook username or id, profile id, post id, event id)
+feed_account_id : column id
+option : it is option for pubtype (this parameter optional)
+option_value : it is value for the option (this parameter depend on option parameter)
+
+example:
+http://test.finfore.net/facebookers/publish.json?pubtype=feed&pid=reinhart.ariando&option=message&option_value=test_posting_message_with_underline&feed_account_id=1166&auth_token=oBiLNlF8p-6KWJCzYHoF
+
+MORE DETAIL ABOUT PUBTYPE FROM PUBLISH
+feed : write to the given profile's feed/wall, the option parameter : message, picture, link, name or description
+comments : comment on the given post, the option parameter : message
+likes : like the given post, no option parameter here
+notes: write a note on the given profile, the option parameter : message or subject
+links : write a link on the given profile, the option parameter : link
+attending : attend the given event, no option parameter here
+maybe : maybe attend the give event, no option parameter here
+declined : decline the given event, no option parameter here

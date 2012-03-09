@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />	
+	<title>Finfore.net</title>
+</head>
+<body>
+
+	<select name="profession" id="profession"></select>
+	<select name="industry" id="industry"></select>
+	<select name="geographic" id="geographic"></select>
+	
+	<button>Try account!</button>	
+	
+	<div class="console" style="border: 1px solid black"></div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script>
+		var focus = {},
+			$button,
+			$profession,
+			professionMarkup = '',
+			$industry,
+			industryMarkup = '',
+			$geographic,
+			geographicMarkup = '',
+			$console,
+			consoleMarkup = '',
+			pids;
+		
+		var getFocus = function() {
+			
+			$.ajax({
+				url: 'http://api.finfore.net/category_focus.json',
+				type: 'GET',
+				success: function(focuses) {
+					
+					$.each(focuses, function(i, n) {
+						if(n.title == 'Profession') {
+							focus.professional = n;
+						} else if(n.title == 'Geography') {
+							focus.geographic = n;
+						} else if(n.title == 'Industry') {
+							focus.industrial = n;
+						}
+					});
+					
+					createMarkup();
+					
+				},
+				error: function(error) {
+				
+					alert('Couldnt reach /category_focus.json');
+					
+				}
+			});
+			
+		};
+	
+		var createMarkup = function() {
+		
+			$.each(focus.professional.profiles, function() {
+				professionMarkup += '<option value="' + this._id + '">' + this.title + '</option>';
+			});
+			$profession.html(professionMarkup);
+			
+			$.each(focus.industrial.profiles, function() {
+				industryMarkup += '<option value="' + this._id + '">' + this.title + '</option>';
+			});
+			$industry.html(industryMarkup);
+			
+			$.each(focus.geographic.profiles, function() {
+				geographicMarkup += '<option value="' + this._id + '">' + this.title + '</option>';
+			});
+			$geographic.html(geographicMarkup);
+		
+		};
+		
+		var publicLogin = function(params) {
+		
+			$.ajax({
+				url: 'http://api.finfore.net/user_sessions/public_login.json',
+				type: 'POST',
+				data: {
+					pids: params.ids
+				},
+				success: function(response) {
+					
+					if(response.user) {
+						
+						consoleMarkup = '<p>The logged-in account is: <strong>' + response.user.email_work + '</strong></p>';
+						consoleMarkup += '<p>The selected focuses areas are: <strong>';
+						
+						$.each(response.selecteds, function() {
+							consoleMarkup += this.title + ', ';
+						});
+
+						consoleMarkup += '</strong></p><hr/>';
+						
+						$console.append(consoleMarkup);
+						
+					} else {
+					
+						alert('There is no account available');
+						
+					};
+					
+				},
+				error: function(error) {			
+					
+					alert('There was an error accessing ');
+					
+				}
+			});
+		
+		};
+	
+		$(document).ready(function() {
+		
+			$button = $('button');
+			$profession = $('#profession');
+			$industry = $('#industry');
+			$geographic = $('#geographic');
+			
+			getFocus();
+			
+			$console = $('.console');
+		
+			$button.bind('click', function() {
+			
+				pids = $profession.val() + ',' + $industry.val() + ',' + $geographic.val(); 
+			
+				publicLogin({
+					ids: pids
+				});
+			
+			
+			});
+		
+		});
+	</script>
+	
+	
+</body>
+</html>
