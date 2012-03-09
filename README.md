@@ -1,10 +1,12 @@
 # FastND Web App
 
 Built with:
+
 * JavascriptMVC
 * jQuery Mobile
 
 Dependencies:
+
 * jQuery UI Sortable - Sorting the columns on the desktop UI
 * mediaelement.js
 * iScroll4
