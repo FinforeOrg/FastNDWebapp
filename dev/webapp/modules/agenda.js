@@ -62,6 +62,8 @@ finfore.modules.agenda = function() {
 					var calendar = [];
 					if(result) calendar = eval(result);
 					
+					alert(calendar);
+					
 					var today = new Date(),
 						itemDate;
 

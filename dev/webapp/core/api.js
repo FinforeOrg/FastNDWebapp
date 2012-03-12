@@ -14,6 +14,8 @@ var finforeBaseUrl = 'http://api.finfore.net', // web service url
 /* Web Service API */
 var WebService = {
 	
+	connectError: '<strong>Could not connect to FastND web service. </strong><br>Please try again in a few minutes. <br> Sorry for the delay in accessing our service. If the problem persists, please contact us.',
+	
 	// authentification
 	auth: function(param) {
 		$.mobile.showPageLoadingMsg();
@@ -76,7 +78,7 @@ var WebService = {
 			error: function(error) {
 			
 				$().toastmessage('showToast', {
-					text: '<strong>Could not connect to Finfore.net web service. </strong><br>Please try again in a few minutes. <br> Sorry for the delay in accessing our service. If the problem persists, please contact us. ',
+					text: WebService.connectError,
 					sticky: true,
 					position: 'top-right',
 					type: 'error'
@@ -150,7 +152,7 @@ var WebService = {
 			error: function() {
 				
 				$().toastmessage('showToast', {
-					text: '<strong>Could not connect to Finfore.net web service. </strong><br>Please try again in a few minutes. <br> Sorry for the delay in accessing our service. If the problem persists, please contact us. ',
+					text: WebService.connectError,
 					sticky: true,
 					position: 'top-right',
 					type: 'error'
