@@ -52,17 +52,20 @@ finfore.modules.agenda = function() {
 			// remove all spaces (if they exist, because of web service error) from tickers			
 			ticker_data = ticker_data.replace(/\s/g, '');
 			
+			alert(finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data));
+			
 			$.ajax({
 				url: finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data),
 				dataType: 'text',
 				success: function(result){
+				
+					alert(result);
+					
 					var currentMonth = '';
 					var markup = '';
 					
 					var calendar = [];
 					if(result) calendar = eval(result);
-					
-					alert(calendar);
 					
 					var today = new Date(),
 						itemDate;
