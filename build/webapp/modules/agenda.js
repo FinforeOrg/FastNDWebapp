@@ -16,15 +16,20 @@ finfore.modules.agenda = function() {
 		var loadData = function() {
 			$container.addClass('panel-loading');
 			
-			var markup = '';
-			var ticker_data = '';			
+			var markup = '',
+				ticker_data = '',
+				columnId; // needed for 
 			
 			if(options.company) {
 				if(options.competitor) {
 					ticker_data = options.company.feed_info.company_competitor.competitor_ticker;
 				} else {
 					ticker_data = options.company.feed_info.company_competitor.company_ticker;					
-				}
+				};
+				
+				// company id
+				columnId = options.company._id;
+				
 			} else {
 				
 				if($.isArray(options.portfolio.overview.rss.chanel.item)) {
@@ -39,8 +44,10 @@ finfore.modules.agenda = function() {
 					if(options.portfolio.overview.rss.chanel.item) {
 						ticker_data = options.portfolio.overview.rss.chanel.item.google_ticker;
 					};
-					
-				}
+				};
+				
+				// portfolio id
+				columnId = options.portfolio.id_bare;
 				
 			};			
 			
@@ -52,80 +59,30 @@ finfore.modules.agenda = function() {
 			// remove all spaces (if they exist, because of web service error) from tickers			
 			ticker_data = ticker_data.replace(/\s/g, '');
 			
+			var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
+				q = 'select * from json where url="http://www.google.com/finance/events?output=json&q=' + ticker_data + '"', // YQL query
+				callbackName = 'agendaModuleCallback' + columnId; // generate callback name based on unique _id, for YQL caching
+			
+			// generated callback
+			window[callbackName] = function(response) {
+				agendaCalendarCallback(response, {
+					$container: $container
+				}); // call real callback with params
+			};
+		
+			// YQL call
 			$.ajax({
-				url: finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data),
-				dataType: 'text',
-				success: function(result){
-					
-					var currentMonth = '';
-					var markup = '';
-					
-					var calendar = [];
-					if(result) calendar = eval(result);
-					
-					var today = new Date(),
-						itemDate;
-
-					if($.isArray(calendar) && calendar.length) {
-						calendar = calendar.reverse();
-					
-						$.each(calendar, function() {
-							// get calendar date
-							itemDate = new Date(this.LocalizedInfo.start_date);
-							// reset hour
-							itemDate.setHours(0);
-							
-							
-							if(itemDate >= today) {
-								var date = this.LocalizedInfo.start_date;
-								var event_name = this.desc;
-								
-								var myregexp = /^[A-Za-z]{3}/;
-								var match = myregexp.exec(date);
-								if (match != null) {
-									result = match[0];
-								}
-								
-								var myregexp_year = /[0-9]{4}$/;
-								var match_year = myregexp_year.exec(date);
-								if (match_year != null) {
-									result_year = match_year[0];
-								}
-								
-								if(currentMonth != result) {											
-									if(currentMonth == '') {
-										currentMonth = result;							
-										markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
-									} else {
-										currentMonth = result;
-										markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
-									}
-								}
-								
-								markup += '<tr class="ui-btn-up-c">';
-								markup += '<td>' + date + ', ';
-								if(this.LocalizedInfo.start_time) {
-									markup += this.LocalizedInfo.start_time;
-								} else {
-									markup += 'All Day';
-								}
-								markup += '</td><td>' + event_name + '</td>';						
-								markup += '</tr>';
-							};
-						});
-					}
-					
-					if(!markup) {
-						markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
-					};
-					
-					$(markup).appendTo($('.events-months-container', $container));					
-					$container.removeClass('panel-loading');
-				},
-				complete: function() {
-					$container.removeClass('panel-loading');
+				url: yqlUrl,
+				dataType: 'jsonp',
+				jsonpCallback: callbackName,
+				cache: true,
+				data: {
+					q: q,
+					format: 'json',
+					_maxage: 300,
+					diagnostics: false
 				}
-			});			
+			});
 			
 		}
 	
@@ -176,3 +133,69 @@ finfore.modules.agenda = function() {
 		init: init		
 	}
 }();
+
+// yql callback
+var agendaCalendarCallback = function(result, params) {
+	var currentMonth = '',
+		markup = '',
+		calendar = [],
+		today = new Date(),
+		itemDate;
+	
+	if(result) calendar = result.query.results.json.events;
+
+	if($.isArray(calendar) && calendar.length) {
+		calendar = calendar.reverse(); // reverse to have the most recent events first
+	
+		$.each(calendar, function() {
+			// get calendar date
+			itemDate = new Date(this.LocalizedInfo.start_date);
+			// reset hour
+			itemDate.setHours(0);
+			
+			if(itemDate >= today) {
+				var date = this.LocalizedInfo.start_date,
+					event_name = this.desc,
+					myregexp = /^[A-Za-z]{3}/,
+					match = myregexp.exec(date),
+					myregexp_year = /[0-9]{4}$/,
+					match_year = myregexp_year.exec(date);
+				
+				if (match != null) {
+					result = match[0];
+				};
+				
+				if (match_year != null) {
+					result_year = match_year[0];
+				};
+				
+				if(currentMonth != result) {
+					if(currentMonth == '') {
+						currentMonth = result;							
+						markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
+					} else {
+						currentMonth = result;
+						markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
+					}
+				}
+				
+				markup += '<tr class="ui-btn-up-c">';
+				markup += '<td>' + date + ', ';
+				if(this.LocalizedInfo.start_time) {
+					markup += this.LocalizedInfo.start_time;
+				} else {
+					markup += 'All Day';
+				}
+				markup += '</td><td>' + event_name + '</td>';						
+				markup += '</tr>';
+			};
+		});
+	}
+	
+	if(!markup) {
+		markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
+	};
+	
+	$(markup).appendTo($('.events-months-container', params.$container));					
+	params.$container.removeClass('panel-loading');
+};
