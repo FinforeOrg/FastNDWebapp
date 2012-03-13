@@ -16,8 +16,9 @@ finfore.modules.agenda = function() {
 		var loadData = function() {
 			$container.addClass('panel-loading');
 			
-			var markup = '';
-			var ticker_data = '';			
+			var markup = '',
+				ticker_data = '',
+				columnId; // needed for 
 			
 			if(options.company) {
 				if(options.competitor) {
@@ -25,6 +26,9 @@ finfore.modules.agenda = function() {
 				} else {
 					ticker_data = options.company.feed_info.company_competitor.company_ticker;					
 				};
+				
+				// company id
+				columnId = options.company._id;
 				
 			} else {
 				
@@ -40,8 +44,10 @@ finfore.modules.agenda = function() {
 					if(options.portfolio.overview.rss.chanel.item) {
 						ticker_data = options.portfolio.overview.rss.chanel.item.google_ticker;
 					};
-					
-				}
+				};
+				
+				// portfolio id
+				columnId = options.portfolio.id_bare;
 				
 			};			
 			
@@ -55,7 +61,7 @@ finfore.modules.agenda = function() {
 			
 			var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
 				q = 'select * from json where url="http://www.google.com/finance/events?output=json&q=' + ticker_data + '"', // YQL query
-				callbackName = 'agendaModuleCallback' + options.company._id; // generate callback name based on company _id, for YQL caching
+				callbackName = 'agendaModuleCallback' + columnId; // generate callback name based on unique _id, for YQL caching
 			
 			// generated callback
 			window[callbackName] = function(response) {
