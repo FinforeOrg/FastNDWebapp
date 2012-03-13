@@ -24,7 +24,8 @@ finfore.modules.agenda = function() {
 					ticker_data = options.company.feed_info.company_competitor.competitor_ticker;
 				} else {
 					ticker_data = options.company.feed_info.company_competitor.company_ticker;					
-				}
+				};
+				
 			} else {
 				
 				if($.isArray(options.portfolio.overview.rss.chanel.item)) {
@@ -52,14 +53,11 @@ finfore.modules.agenda = function() {
 			// remove all spaces (if they exist, because of web service error) from tickers			
 			ticker_data = ticker_data.replace(/\s/g, '');
 			
-			alert(finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data));
-			
+			/*
 			$.ajax({
 				url: finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data),
 				dataType: 'text',
 				success: function(result){
-				
-					alert(result);
 					
 					var currentMonth = '';
 					var markup = '';
@@ -129,7 +127,91 @@ finfore.modules.agenda = function() {
 				complete: function() {
 					$container.removeClass('panel-loading');
 				}
-			});			
+			});	*/
+			
+			var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
+				q = 'select * from json where url="http://www.google.com/finance/events?output=json&q=' + ticker_data + '"',
+				callbackName = 'agendaModuleCallback' + options.company.feed_info._id; // COMPANY ID
+			
+			window[callbackName] = function(result) {
+				var currentMonth = '';
+				var markup = '';
+				
+				var calendar = [];
+				if(result) calendar = eval(result);
+				
+				var today = new Date(),
+					itemDate;
+
+				if($.isArray(calendar) && calendar.length) {
+					calendar = calendar.reverse();
+				
+					$.each(calendar, function() {
+						// get calendar date
+						itemDate = new Date(this.LocalizedInfo.start_date);
+						// reset hour
+						itemDate.setHours(0);
+						
+						if(itemDate >= today) {
+							var date = this.LocalizedInfo.start_date;
+							var event_name = this.desc;
+							
+							var myregexp = /^[A-Za-z]{3}/;
+							var match = myregexp.exec(date);
+							if (match != null) {
+								result = match[0];
+							}
+							
+							var myregexp_year = /[0-9]{4}$/;
+							var match_year = myregexp_year.exec(date);
+							if (match_year != null) {
+								result_year = match_year[0];
+							}
+							
+							if(currentMonth != result) {											
+								if(currentMonth == '') {
+									currentMonth = result;							
+									markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
+								} else {
+									currentMonth = result;
+									markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
+								}
+							}
+							
+							markup += '<tr class="ui-btn-up-c">';
+							markup += '<td>' + date + ', ';
+							if(this.LocalizedInfo.start_time) {
+								markup += this.LocalizedInfo.start_time;
+							} else {
+								markup += 'All Day';
+							}
+							markup += '</td><td>' + event_name + '</td>';						
+							markup += '</tr>';
+						};
+					});
+				}
+				
+				if(!markup) {
+					markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
+				};
+				
+				$(markup).appendTo($('.events-months-container', $container));					
+				$container.removeClass('panel-loading');
+			};
+		
+			$.ajax({
+				url: yqlUrl,
+				dataType: 'jsonp',
+				jsonpCallback: callbackName,
+				cache: true,
+				data: {
+					q: q,
+					format: 'json',
+					_maxage: 300,
+					diagnostics: false
+				}
+			});
+			
 			
 		}
 	
