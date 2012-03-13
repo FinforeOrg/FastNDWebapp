@@ -53,152 +53,18 @@ finfore.modules.agenda = function() {
 			// remove all spaces (if they exist, because of web service error) from tickers			
 			ticker_data = ticker_data.replace(/\s/g, '');
 			
-			/*
-			$.ajax({
-				url: finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode('http://www.google.com/finance/events?output=json&q=' + ticker_data),
-				dataType: 'text',
-				success: function(result){
-					
-					var currentMonth = '';
-					var markup = '';
-					
-					var calendar = [];
-					if(result) calendar = eval(result);
-					
-					var today = new Date(),
-						itemDate;
-
-					if($.isArray(calendar) && calendar.length) {
-						calendar = calendar.reverse();
-					
-						$.each(calendar, function() {
-							// get calendar date
-							itemDate = new Date(this.LocalizedInfo.start_date);
-							// reset hour
-							itemDate.setHours(0);
-							
-							
-							if(itemDate >= today) {
-								var date = this.LocalizedInfo.start_date;
-								var event_name = this.desc;
-								
-								var myregexp = /^[A-Za-z]{3}/;
-								var match = myregexp.exec(date);
-								if (match != null) {
-									result = match[0];
-								}
-								
-								var myregexp_year = /[0-9]{4}$/;
-								var match_year = myregexp_year.exec(date);
-								if (match_year != null) {
-									result_year = match_year[0];
-								}
-								
-								if(currentMonth != result) {											
-									if(currentMonth == '') {
-										currentMonth = result;							
-										markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
-									} else {
-										currentMonth = result;
-										markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
-									}
-								}
-								
-								markup += '<tr class="ui-btn-up-c">';
-								markup += '<td>' + date + ', ';
-								if(this.LocalizedInfo.start_time) {
-									markup += this.LocalizedInfo.start_time;
-								} else {
-									markup += 'All Day';
-								}
-								markup += '</td><td>' + event_name + '</td>';						
-								markup += '</tr>';
-							};
-						});
-					}
-					
-					if(!markup) {
-						markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
-					};
-					
-					$(markup).appendTo($('.events-months-container', $container));					
-					$container.removeClass('panel-loading');
-				},
-				complete: function() {
-					$container.removeClass('panel-loading');
-				}
-			});	*/
-			
 			var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
-				q = 'select * from json where url="http://www.google.com/finance/events?output=json&q=' + ticker_data + '"',
-				callbackName = 'agendaModuleCallback' + options.company.feed_info._id; // COMPANY ID
+				q = 'select * from json where url="http://www.google.com/finance/events?output=json&q=' + ticker_data + '"', // YQL query
+				callbackName = 'agendaModuleCallback' + options.company._id; // generate callback name based on company _id, for YQL caching
 			
-			window[callbackName] = function(result) {
-				var currentMonth = '';
-				var markup = '';
-				
-				var calendar = [];
-				if(result) calendar = eval(result);
-				
-				var today = new Date(),
-					itemDate;
-
-				if($.isArray(calendar) && calendar.length) {
-					calendar = calendar.reverse();
-				
-					$.each(calendar, function() {
-						// get calendar date
-						itemDate = new Date(this.LocalizedInfo.start_date);
-						// reset hour
-						itemDate.setHours(0);
-						
-						if(itemDate >= today) {
-							var date = this.LocalizedInfo.start_date;
-							var event_name = this.desc;
-							
-							var myregexp = /^[A-Za-z]{3}/;
-							var match = myregexp.exec(date);
-							if (match != null) {
-								result = match[0];
-							}
-							
-							var myregexp_year = /[0-9]{4}$/;
-							var match_year = myregexp_year.exec(date);
-							if (match_year != null) {
-								result_year = match_year[0];
-							}
-							
-							if(currentMonth != result) {											
-								if(currentMonth == '') {
-									currentMonth = result;							
-									markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
-								} else {
-									currentMonth = result;
-									markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
-								}
-							}
-							
-							markup += '<tr class="ui-btn-up-c">';
-							markup += '<td>' + date + ', ';
-							if(this.LocalizedInfo.start_time) {
-								markup += this.LocalizedInfo.start_time;
-							} else {
-								markup += 'All Day';
-							}
-							markup += '</td><td>' + event_name + '</td>';						
-							markup += '</tr>';
-						};
-					});
-				}
-				
-				if(!markup) {
-					markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
-				};
-				
-				$(markup).appendTo($('.events-months-container', $container));					
-				$container.removeClass('panel-loading');
+			// generated callback
+			window[callbackName] = function(response) {
+				agendaCalendarCallback(response, {
+					$container: $container
+				}); // call real callback with params
 			};
 		
+			// YQL call
 			$.ajax({
 				url: yqlUrl,
 				dataType: 'jsonp',
@@ -211,7 +77,6 @@ finfore.modules.agenda = function() {
 					diagnostics: false
 				}
 			});
-			
 			
 		}
 	
@@ -262,3 +127,69 @@ finfore.modules.agenda = function() {
 		init: init		
 	}
 }();
+
+// yql callback
+var agendaCalendarCallback = function(result, params) {
+	var currentMonth = '',
+		markup = '',
+		calendar = [],
+		today = new Date(),
+		itemDate;
+	
+	if(result) calendar = result.query.results.json.events;
+
+	if($.isArray(calendar) && calendar.length) {
+		calendar = calendar.reverse(); // reverse to have the most recent events first
+	
+		$.each(calendar, function() {
+			// get calendar date
+			itemDate = new Date(this.LocalizedInfo.start_date);
+			// reset hour
+			itemDate.setHours(0);
+			
+			if(itemDate >= today) {
+				var date = this.LocalizedInfo.start_date,
+					event_name = this.desc,
+					myregexp = /^[A-Za-z]{3}/,
+					match = myregexp.exec(date),
+					myregexp_year = /[0-9]{4}$/,
+					match_year = myregexp_year.exec(date);
+				
+				if (match != null) {
+					result = match[0];
+				};
+				
+				if (match_year != null) {
+					result_year = match_year[0];
+				};
+				
+				if(currentMonth != result) {
+					if(currentMonth == '') {
+						currentMonth = result;							
+						markup += '<div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';
+					} else {
+						currentMonth = result;
+						markup += '</tbody></table></div><div class="events-month"><table class="events-table"><thead><tr class="ui-bar-a"><td colspan="2">' + currentMonth + ' ' + result_year + '</td></tr></thead><tbody>';	
+					}
+				}
+				
+				markup += '<tr class="ui-btn-up-c">';
+				markup += '<td>' + date + ', ';
+				if(this.LocalizedInfo.start_time) {
+					markup += this.LocalizedInfo.start_time;
+				} else {
+					markup += 'All Day';
+				}
+				markup += '</td><td>' + event_name + '</td>';						
+				markup += '</tr>';
+			};
+		});
+	}
+	
+	if(!markup) {
+		markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
+	};
+	
+	$(markup).appendTo($('.events-months-container', params.$container));					
+	params.$container.removeClass('panel-loading');
+};
