@@ -8,12 +8,8 @@
 finfore.modules.agenda = function() {
 	
 	var init = function($container, options) {
-		current_user_id = finfore.data.user.id;
-		var exists = false;
 		
-		var feedNumber;
-		
-		var loadData = function() {
+		var loadData = function($container) {
 			$container.addClass('panel-loading');
 			
 			var markup = '',
@@ -84,11 +80,11 @@ finfore.modules.agenda = function() {
 				}
 			});
 			
-		}
+		};
 	
 		var refresh = function(event, params) {
 			empty($('[data-role=content] .events-months-container', $container)[0]);
-			loadData();
+			loadData($container);
 		};
 		
 		var build = function() {	
@@ -114,7 +110,7 @@ finfore.modules.agenda = function() {
 			
 			if(!finfore.smallScreen) {
 				var autorefresh = setInterval(refresh, 300000);
-				loadData();
+				loadData($container);
 			};
 			
 			// render markup
@@ -142,7 +138,7 @@ var agendaCalendarCallback = function(result, params) {
 		today = new Date(),
 		itemDate;
 	
-	if(result) calendar = result.query.results.json.events;
+	if(result.query.results) calendar = result.query.results.json.events;
 
 	if($.isArray(calendar) && calendar.length) {
 		calendar = calendar.reverse(); // reverse to have the most recent events first
