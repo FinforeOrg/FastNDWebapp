@@ -9,7 +9,7 @@ finfore.modules.agenda = function() {
 	
 	var init = function($container, options) {
 		
-		var loadData = function($container) {
+		var loadData = function(container) {
 			$container.addClass('panel-loading');
 			
 			var markup = '',
@@ -61,9 +61,7 @@ finfore.modules.agenda = function() {
 			
 			// generated callback
 			window[callbackName] = function(response) {
-				agendaCalendarCallback(response, {
-					$container: $container
-				}); // call real callback with params
+				agendaCalendarCallback(response, container); // call real callback with params
 			};
 		
 			// YQL call
@@ -131,7 +129,7 @@ finfore.modules.agenda = function() {
 }();
 
 // yql callback
-var agendaCalendarCallback = function(result, params) {
+var agendaCalendarCallback = function(result, $container) {
 	var currentMonth = '',
 		markup = '',
 		calendar = [],
@@ -192,6 +190,7 @@ var agendaCalendarCallback = function(result, params) {
 		markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
 	};
 	
-	$(markup).appendTo($('.events-months-container', params.$container));					
-	params.$container.removeClass('panel-loading');
+	$(markup).appendTo($('.events-months-container', $container));
+	
+	$container.removeClass('panel-loading');
 };

@@ -6,7 +6,7 @@
  
 // Define module
 finfore.modules.feed = function() {
-	var multiplier = 20;
+	var multiplier = 15;
 	
 	// Feed Module Management
 	var management = function($container) {
@@ -133,7 +133,7 @@ finfore.modules.feed = function() {
 		// detect if Bing API, to add count offset to url
 		if(options.bingsearch && options.limit > multiplier) {
 			sources[0] += '&news.offset=';
-			sources[0] += (options.limit * 1) - 9;
+			sources[0] += (options.limit * 1) - 14;
 		}
 		
 		feedReader.get({			
@@ -214,8 +214,6 @@ finfore.modules.feed = function() {
 				options.company.feed_info.company_competitor.bing_keyword = options.company.feed_info.company_competitor.bing_keyword.replace(',', ' OR ');
 				
 				sourceUrl = 'http://api.bing.com/rss.aspx?Source=News&Market=en-US&Version=2.0&Query=' + $.URLEncode(options.company.feed_info.company_competitor.bing_keyword) + '&news.count=' + multiplier;
-				
-				console.log(sourceUrl);
 			} else {
 				sourceUrl = 'http://www.google.com/finance/company_news?q=' + options.company.feed_info.company_competitor.finance_keyword + '&authuser=0&output=rss&num=100';
 			}
