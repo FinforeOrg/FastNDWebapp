@@ -574,7 +574,8 @@ var finfore = function() {
 			
 			// create companies
 			$.each(companies, function() {
-				var	companyID = this._id,
+				var	company = this,
+					companyID = this._id,
 					tabTitle = this.feed_info.title;
 				
 				finfore.desktop.tabs.add({
@@ -601,7 +602,7 @@ var finfore = function() {
 					type: 'prices',
 					tab: $tabView,
 					options: {
-						company: this
+						company: company
 						}
 				});					
 				
@@ -610,7 +611,7 @@ var finfore = function() {
 					type: 'feed',
 					tab: $tabView,
 					options: {
-						company: this
+						company: company
 						}
 				});
 				
@@ -619,7 +620,7 @@ var finfore = function() {
 					type: 'feed',
 					tab: $tabView,
 					options: {
-						company: this,
+						company: company,
 						blogsearch: true
 						}
 				});
@@ -629,7 +630,7 @@ var finfore = function() {
 					type: 'twitter',
 					tab: $tabView,
 					options: {
-						company: this
+						company: company
 						}
 				});
 				
@@ -638,7 +639,7 @@ var finfore = function() {
 					type: 'feed',
 					tab: $tabView,
 					options: {
-						company: this,
+						company: company,
 						bingsearch: true
 						}
 				});
@@ -648,7 +649,7 @@ var finfore = function() {
 					type: 'agenda',
 					tab: $tabView,
 					options: {
-						company: this
+						company: company
 						}
 				});
 				
@@ -657,7 +658,7 @@ var finfore = function() {
 					type: 'agenda',
 					tab: $tabView,
 					options: {
-						company: this,
+						company: company,
 						competitor: true
 						}
 				});
@@ -667,7 +668,7 @@ var finfore = function() {
 					type: 'twitter',
 					tab: $tabView,
 					options: {
-						company: this,
+						company: company,
 						competitor: true
 						}
 				});
@@ -677,7 +678,7 @@ var finfore = function() {
 					type: 'blinkx',
 					tab: $tabView,
 					options: {
-						company: this
+						company: company
 						}
 				});
 				

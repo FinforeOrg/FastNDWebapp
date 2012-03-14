@@ -174,6 +174,8 @@ finfore.modules.prices = function() {
 			// remove all spaces (if they exist, because of web service error) from tickers				
 			ticker_data = ticker_data.replace(/\s/g, '');
 			
+			// TODO: use YQL
+			
 			$.ajax({
 				url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
 				dataType: 'jsonp',

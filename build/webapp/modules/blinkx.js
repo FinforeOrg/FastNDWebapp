@@ -12,82 +12,36 @@ finfore.modules.blinkx = function() {
 	// grab data
 	var getBlinkxData = function(options) {
 		
+		// replace spaces with +
 		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/ /g, '+');
 		
-		// blinkx api url
-		var apiUrl = 'http://usp1.blinkx.com/partnerapi/user/?uid=2ehiek5947&text="' + options.company.feed_info.company_competitor.broadcast_keyword + '"&start=' + options.start + '&MaxResults=' + options.end + '&sortby=date&AdultFilter=true&ReturnLink=true';		
-		apiUrl = finforeAppUrl + 'ffproxy.php?url=' + $.URLEncode(apiUrl);
+		// remove &
+		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/&/g, '');
 		
+		// yql and blinkx api
+		var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
+			blinkxUrl = 'http://usp1.blinkx.com/partnerapi/user/?uid=2ehiek5947&text=%22' + options.company.feed_info.company_competitor.broadcast_keyword + '%22&start=' + options.start + '&MaxResults=' + options.end + '&sortby=date&AdultFilter=true&ReturnLink=true',
+			q = 'select * from xml where url=\'' + blinkxUrl + '\'', // YQL query
+			callbackName = 'blinkxModuleCallback' + options.company._id; // generate callback name based on unique _id, for YQL caching
 		
+		// generated callback
+		window[callbackName] = function(response) {
+			blinkxCallback(response, options); // call real callback with params
+		};
+		
+		// YQL call
 		$.ajax({
-			url: apiUrl,			
-			type: 'GET',
-			dataType: 'xml',
-			success: function(response) {
-				var $hits = $('responsedata hit', response);
-				
-				// parse entries
-				var markup = '';
-				var entriesLength = $hits.length - 1;
-				
-				var $this,
-					date,
-					extension,
-					title,
-					source,
-					summary,
-					image,
-					url,
-					pubDate;
-				
-				$.each($hits, function(index, value) {
-					$this = $(this);
-					
-					date = $('date', $this).text();
-					extension = $('media_format_string', $this).text();
-					title = $('title', $this).text();
-					source = $('channel', $this).text();
-					summary = $('summary', $this).text();					
-					image = $('staticpreview', $this).text();					
-					url = $('url', $this).text();					
-					
-					// check date
-					pubDate = new Date(date * 1000);					
-					
-					if(finfore.smallScreen || finfore.tablet) {
-						url = url.replace('http://www.blinkx.com/burl?v=', 'http://m.blinkx.com/info/');
-					};
-					
-					if((options.loadMore === true) || (pubDate > options.date)) {
-						if(index === entriesLength) {
-							markup += '<li class="last-in-group" data-icon="false">';
-						} else {
-							markup += '<li data-icon="false">';				
-						};
-						
-						markup += '<a href="' + url + '" target="_blank"><abbr>' + source + '</abbr>';
-						markup += '<h3>' + title + '</h3>';
-						
-						markup += '<img src="' + image + '" />';
-						
-						markup += '<p>' + summary.substring(0, 100) + '..' + '</p>';
-						markup += '<abbr>' + pubDate.toUTCString() + '</abbr>';
-						markup += '</a></li>';
-					}
-				});
-				
-				var $loadMoreLi = $('.load-more-entries', options.$container).parents('li').first();
-				var $markup = $(markup);
-				$markup.insertBefore($loadMoreLi);
-				
-				var $listview = $('[data-role=content] ul', options.$container);
-				$listview.listview('refresh');
-				
-			},
-			complete: function() {
-				options.$container.removeClass('panel-loading');				
+			url: yqlUrl,
+			dataType: 'jsonp',
+			jsonpCallback: callbackName,
+			cache: true,
+			data: {
+				q: q,
+				format: 'json',
+				_maxage: 300,
+				diagnostics: false
 			}
-		});		
+		});	
 	};
 	
 	var init = function($container, options) {
@@ -177,3 +131,71 @@ finfore.modules.blinkx = function() {
 		init: init
 	}
 }();
+
+// yql callback
+var blinkxCallback = function(result, params) {
+	var hits = [],
+		hit,
+		markup,
+		entriesLength,
+		date,
+		extension,
+		title,
+		source,
+		summary,
+		image,
+		url,
+		pubDate;
+	
+	// check for response
+	if(result.query.results && result.query.results.response.responsedata) hits = result.query.results.response.responsedata.hit;
+
+	// cache length
+	entriesLength = hits.length - 1;
+	
+	$.each(hits, function(index, value) {
+		hit = this;
+		
+		date = hit.date;
+		extension = hit.media_format_string;
+		title = hit.title;
+		source = hit.channel;
+		summary = hit.summary;
+		image = hit.staticpreview;
+		url = hit.url;
+		
+		// check date
+		pubDate = new Date(date * 1000);					
+		
+		if(finfore.smallScreen || finfore.tablet) {
+			url = url.replace('http://www.blinkx.com/burl?v=', 'http://m.blinkx.com/info/');
+		};
+		
+		if((params.loadMore === true) || (pubDate > params.date)) {
+			if(index === entriesLength) {
+				markup += '<li class="last-in-group" data-icon="false">';
+			} else {
+				markup += '<li data-icon="false">';				
+			};
+			
+			markup += '<a href="' + url + '" target="_blank"><abbr>' + source + '</abbr>';
+			markup += '<h3>' + title + '</h3>';
+			
+			markup += '<img src="' + image + '" />';
+			
+			markup += '<p>' + summary.substring(0, 100) + '..' + '</p>';
+			markup += '<abbr>' + pubDate.toUTCString() + '</abbr>';
+			markup += '</a></li>';
+		}
+	});
+	
+	var $loadMoreLi = $('.load-more-entries', params.$container).parents('li').first();
+	var $markup = $(markup);
+	$markup.insertBefore($loadMoreLi);
+	
+	var $listview = $('[data-role=content] ul', params.$container);
+	$listview.listview('refresh');
+	
+	params.$container.removeClass('panel-loading');
+
+};

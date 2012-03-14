@@ -6,7 +6,7 @@
  
 // Define module
 finfore.modules.feed = function() {
-	var multiplier = 20;
+	var multiplier = 15;
 	
 	// Feed Module Management
 	var management = function($container) {
@@ -133,7 +133,7 @@ finfore.modules.feed = function() {
 		// detect if Bing API, to add count offset to url
 		if(options.bingsearch && options.limit > multiplier) {
 			sources[0] += '&news.offset=';
-			sources[0] += (options.limit * 1) - 9;
+			sources[0] += (options.limit * 1) - 14;
 		}
 		
 		feedReader.get({			

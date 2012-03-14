@@ -8,12 +8,8 @@
 finfore.modules.agenda = function() {
 	
 	var init = function($container, options) {
-		current_user_id = finfore.data.user.id;
-		var exists = false;
 		
-		var feedNumber;
-		
-		var loadData = function() {
+		var loadData = function(container) {
 			$container.addClass('panel-loading');
 			
 			var markup = '',
@@ -65,9 +61,7 @@ finfore.modules.agenda = function() {
 			
 			// generated callback
 			window[callbackName] = function(response) {
-				agendaCalendarCallback(response, {
-					$container: $container
-				}); // call real callback with params
+				agendaCalendarCallback(response, container); // call real callback with params
 			};
 		
 			// YQL call
@@ -84,11 +78,11 @@ finfore.modules.agenda = function() {
 				}
 			});
 			
-		}
+		};
 	
 		var refresh = function(event, params) {
 			empty($('[data-role=content] .events-months-container', $container)[0]);
-			loadData();
+			loadData($container);
 		};
 		
 		var build = function() {	
@@ -114,7 +108,7 @@ finfore.modules.agenda = function() {
 			
 			if(!finfore.smallScreen) {
 				var autorefresh = setInterval(refresh, 300000);
-				loadData();
+				loadData($container);
 			};
 			
 			// render markup
@@ -135,14 +129,14 @@ finfore.modules.agenda = function() {
 }();
 
 // yql callback
-var agendaCalendarCallback = function(result, params) {
+var agendaCalendarCallback = function(result, $container) {
 	var currentMonth = '',
 		markup = '',
 		calendar = [],
 		today = new Date(),
 		itemDate;
 	
-	if(result) calendar = result.query.results.json.events;
+	if(result.query.results) calendar = result.query.results.json.events;
 
 	if($.isArray(calendar) && calendar.length) {
 		calendar = calendar.reverse(); // reverse to have the most recent events first
@@ -196,6 +190,7 @@ var agendaCalendarCallback = function(result, params) {
 		markup = '<table class="events-table"><thead><tr><td class="ui-bar-d">No upcoming events </td></tr></thead></table>';
 	};
 	
-	$(markup).appendTo($('.events-months-container', params.$container));					
-	params.$container.removeClass('panel-loading');
+	$(markup).appendTo($('.events-months-container', $container));
+	
+	$container.removeClass('panel-loading');
 };
