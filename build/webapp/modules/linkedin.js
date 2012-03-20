@@ -168,7 +168,7 @@ finfore.modules.linkedin = function() {
 			// if a token is not set
 			if(connected) {
 				//var authUrl = options.feed_account.feed_token.url_oauth;
-				var authUrl = finforeBaseUrl + '/feed_accounts/linkedin/auth?feed_account_id=' + options.feed_account._id + '&callback=' + finforeAppUrl + '/authorize.php';
+				var authUrl = finforeBaseUrl + '/feed_accounts/linkedin/auth?feed_account_id=' + options.feed_account._id + '&callback=' + finforeAppUrl + '/authorize.html';
 				
 				$connectButton.click(function() {
 					$connectButton.hide();
@@ -222,7 +222,6 @@ finfore.modules.linkedin = function() {
 				
 				if(!finfore.smallScreen) {
 					var autorefresh = setInterval(refresh, 300000);
-					$container.trigger('refresh');
 				};
 				
 			};			

@@ -199,7 +199,22 @@ finfore.desktop = function() {
 			
 			// scroll to tab
 			nodes.tabletTabsScroller.scrollToElement($tab[0], 100);
-		};		
+		};
+
+		// load column on show
+		var $panels = $('.panel', $tabView),
+			$panel;
+		
+		$panels.each(function() {
+			var $panel = $(this),
+				isLoaded = $panel.hasClass('column-loaded');
+				
+			if(!isLoaded) {
+				$panel.trigger('refresh', [true]);
+				$panel.addClass('column-loaded');
+			};
+		});
+		
 	};
 	
 	/* 
@@ -876,21 +891,18 @@ finfore.desktop = function() {
 				title: 'Main',
 				closable: false
 			});			
-			nodes.tabs.$main = $('#main');		
-			tabs.select($mainTabBtn);			
+			nodes.tabs.$main = $('#main');
 			
 			// Add Portfolio tab
 			tabs.add({
 				id: 'portfolio',
 				title: 'Portfolio',
 				closable: false
-			});			
-			nodes.tabs.$portfolio = $('#portfolio');			
+			});
+			nodes.tabs.$portfolio = $('#portfolio');
 			
 			// add tab loaders
 			nodes.tabs.$main.add(nodes.tabs.$portfolio);
-			
-			finfore.populate();
 			
 			// ticker nodes
 			ticker.$node = $('.scrolling-ticker', nodes.$page);
@@ -953,6 +965,12 @@ finfore.desktop = function() {
 				
 				$('.add-company-button', nodes.$page).click(finfore.addcompany.init);
 			};
+			
+			finfore.populate();
+			
+			setTimeout(function() {
+				tabs.select($mainTabBtn);
+			}, 10);
 		
 		};
 		

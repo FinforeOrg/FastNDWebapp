@@ -300,7 +300,6 @@ finfore.modules.twitter = function() {
 			
 				if(!finfore.smallScreen) {
 					var autorefresh = setInterval(refresh, 300000);
-					refresh();
 				};
 				
 			};

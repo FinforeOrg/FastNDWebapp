@@ -568,12 +568,13 @@ var finfore = function() {
 	/* Companies */
 	var companies = {
 		// Add Company
-		add: function(companies, switchTab) {
+		add: function(companiesList, switchTab) {
 			// update data
-			finfore.data.companies = finfore.data.companies.concat(companies);			
+			finfore.data.companies = finfore.data.companies.concat(companiesList);			
 			
 			// create companies
-			$.each(companies, function() {
+			$.each(companiesList, function() {
+				
 				var	company = this,
 					companyID = this._id,
 					tabTitle = this.feed_info.title;
@@ -596,7 +597,7 @@ var finfore = function() {
 					
 					finfore.desktop.tabs.select($tab);
 				};
-				
+					
 				// prices
 				finfore.panels.create({
 					type: 'prices',
@@ -735,11 +736,10 @@ var finfore = function() {
 	
 	/* Init Core */
 	var init = function() {
-		/* Set $.ajax defaults
+		// Set $.ajax defaults
 		$.ajaxSetup({
 			dataType: 'json'
 		});
-		*/
 		
 		// if a user is logged in
 		if(user) ajaxDefaults();

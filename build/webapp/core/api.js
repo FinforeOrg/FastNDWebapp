@@ -8,9 +8,6 @@
  
 /*** APIs ***/
 
-var finforeBaseUrl = 'http://api.finfore.net', // web service url
-	finforeAppUrl = 'http://' + window.location.hostname + window.location.pathname; // web app url
-
 /* Web Service API */
 var WebService = {
 	
@@ -67,7 +64,7 @@ var WebService = {
 			type: 'GET',
 			success: function(response) {
 				
-				// sort focuses ascending based on ids
+				// sort focuses ascending based on title
 				response[0].profiles.sort(sortFocus);
 				response[1].profiles.sort(sortFocus);
 				response[2].profiles.sort(sortFocus);

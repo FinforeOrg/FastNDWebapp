@@ -103,7 +103,7 @@ task :build do
   print "[ DONE ] \n"
   
   puts "3. Mobile Production Build .. "
-  sh 'js' + extension + ' steal/buildjs m/index.html -to webapp/mobile/'
+  sh 'js' + extension + ' steal/buildjs mobile.html -to webapp/mobile/'
   FileUtils.mv 'webapp/mobile/production.js', local_dir + 'webapp/mobile/production.js'
   FileUtils.mv 'webapp/mobile/production.css', local_dir + 'webapp/mobile/production.css'    
   print "[ DONE ] \n"
