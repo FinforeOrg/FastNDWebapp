@@ -31,6 +31,11 @@ Build (in /dev/):
 To deply to live-test.finfore.net:
 `rake deploy`
 
+### Deploy checklist
+
+1. Rename title
+
+
 ## CSS
 base.css - Desktop + Tablet
 small-screen.css - Mobile
