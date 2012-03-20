@@ -64,7 +64,7 @@ var WebService = {
 			type: 'GET',
 			success: function(response) {
 				
-				// sort focuses ascending based on ids
+				// sort focuses ascending based on title
 				response[0].profiles.sort(sortFocus);
 				response[1].profiles.sort(sortFocus);
 				response[2].profiles.sort(sortFocus);

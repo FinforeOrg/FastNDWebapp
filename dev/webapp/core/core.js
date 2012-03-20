@@ -736,11 +736,10 @@ var finfore = function() {
 	
 	/* Init Core */
 	var init = function() {
-		/* Set $.ajax defaults
+		// Set $.ajax defaults
 		$.ajaxSetup({
 			dataType: 'json'
 		});
-		*/
 		
 		// if a user is logged in
 		if(user) ajaxDefaults();
