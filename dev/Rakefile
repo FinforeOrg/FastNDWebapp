@@ -6,7 +6,7 @@ local_dir = '../build/'
 remote_dir = '/var/www/live_test/'
 releases_dir = '/var/www/live_test/releases/'
 
-server = 'live-test.finfore.net'
+server = 'stage.fastnd.com'
 port = 9847
 username = 'cristian'
 password = '76finfore123cristian'

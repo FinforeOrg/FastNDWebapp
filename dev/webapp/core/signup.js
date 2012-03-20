@@ -83,10 +83,10 @@ finfore.signup = function() {
 		var $button = $(this);		
 		var type = $(this).attr('data-type');
 		
-		var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + type + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&callback=' + finforeAppUrl + '/authorize.php', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
+		var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + type + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&callback=' + finforeAppUrl + '/authorize.html', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
 		
 		window.addEventListener('message', authorized = function(e) {
-			//if (e.origin !== finforeAppUrl) return;		
+			//if (e.origin !== finforeAppUrl) return;
 			var feedAccountId = e.data;
 			
 			$button.hide();

@@ -8,9 +8,6 @@
  
 /*** APIs ***/
 
-var finforeBaseUrl = 'http://api.finfore.net', // web service url
-	finforeAppUrl = 'http://' + window.location.hostname + window.location.pathname; // web app url
-
 /* Web Service API */
 var WebService = {
 	
