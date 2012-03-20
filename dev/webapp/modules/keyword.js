@@ -206,7 +206,6 @@ finfore.modules.keyword = function() {
 			
 			if(!finfore.smallScreen) {
 				var autorefresh = setInterval(refresh, 300000);
-				$container.trigger('refresh');
 			};	
 			
 			$container.trigger('init');			

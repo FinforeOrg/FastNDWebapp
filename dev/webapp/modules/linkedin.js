@@ -222,7 +222,6 @@ finfore.modules.linkedin = function() {
 				
 				if(!finfore.smallScreen) {
 					var autorefresh = setInterval(refresh, 300000);
-					$container.trigger('refresh');
 				};
 				
 			};			

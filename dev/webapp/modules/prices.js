@@ -303,7 +303,6 @@ finfore.modules.prices = function() {
 			
 			if(!finfore.smallScreen) {
 				var autorefresh = setInterval(refresh, 300000);
-				loadData();
 			};
 			
 			// render markup

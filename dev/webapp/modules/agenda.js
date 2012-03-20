@@ -108,7 +108,6 @@ finfore.modules.agenda = function() {
 			
 			if(!finfore.smallScreen) {
 				var autorefresh = setInterval(refresh, 300000);
-				loadData($container);
 			};
 			
 			// render markup
