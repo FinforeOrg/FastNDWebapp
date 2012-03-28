@@ -133,6 +133,16 @@ finfore.signup = function() {
 			});	
 			
 			$pageContent.find('form').submit(register);
+			
+			// for native apps, but iframe
+			if(finforeNative) {
+				$('.social-signin a', $page).bind('click', function() {
+					window.parent.location.href = $(this).attr('href');
+					
+					return false;
+				});
+			};
+			
 		} else {
 			$.mobile.changePage($('#signup-page'), {
 				transition: 'slidedown'

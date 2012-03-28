@@ -124,13 +124,26 @@ finfore.login = function() {
 					return false;
 				});
 				
+				// for native apps, but iframe
+				if(!finforeNative) {
+					$('.social-signin a', $loginContainer).bind('click', function() {
+						//window.parent.location.href = $(this).attr('href');
+						alert('open');
+						
+						window.open($(this).attr('href'));
+						return false;
+					});
+				};
+				
 			};
 			
 		} else {
+		
 			$loginContainer = $('#login-page');
 			$.mobile.changePage($loginContainer, {
 				transition: 'slidedown'
 			});
+			
 		}		
 	};
 

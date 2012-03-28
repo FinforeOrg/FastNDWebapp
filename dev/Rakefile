@@ -3,8 +3,8 @@
 version = "1.5"
 
 local_dir = '../build/'
-remote_dir = '/var/www/live_test/'
-releases_dir = '/var/www/live_test/releases/'
+remote_dir = '/var/www/stage/'
+releases_dir = '/var/www/stage/releases/'
 
 server = 'stage.fastnd.com'
 port = 9847
@@ -50,7 +50,7 @@ class Net::SFTP::Session
   end
 end
 
-desc "Deploy script to live-test.finfore.net"
+desc "Deploy script to stage.fastnd.com"
 task :deploy do
   Net::SFTP.start(server, username, :password => password, :port => port) do |sftp|
 	print "1. Move the current release to /releases.. "
