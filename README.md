@@ -58,4 +58,4 @@ http://www.bing.com/developers/s/APIBasics.html
 * Convert tmpl template to ej, better performance
 * Better, native, notifications https://github.com/kbjr/Notifications
 * Manegement, use collapsile sets for each column
-* YQL proxy, instead of PHP: http://ajaxian.com/archives/using-yql-as-a-proxy-for-cross-domain-ajax (use column id for callback function, to keep caching)
+* Remove need for mobile.html, by using same method as in the native/debug

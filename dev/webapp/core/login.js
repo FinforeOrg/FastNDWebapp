@@ -125,12 +125,9 @@ finfore.login = function() {
 				});
 				
 				// for native apps, but iframe
-				if(!finforeNative) {
+				if(finforeNative) {
 					$('.social-signin a', $loginContainer).bind('click', function() {
-						//window.parent.location.href = $(this).attr('href');
-						alert('open');
-						
-						window.open($(this).attr('href'));
+						window.parent.open($(this).attr('href'));
 						return false;
 					});
 				};
