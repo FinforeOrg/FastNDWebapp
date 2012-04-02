@@ -83,7 +83,7 @@ finfore.signup = function() {
 		var $button = $(this);		
 		var type = $(this).attr('data-type');
 		
-		var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + type + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&callback=' + finforeAppUrl + '/authorize.html', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
+		var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + type + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&callback=' + finforeAppUrl + 'authorize.html', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
 		
 		window.addEventListener('message', authorized = function(e) {
 			//if (e.origin !== finforeAppUrl) return;
@@ -97,7 +97,8 @@ finfore.signup = function() {
 	};	
 	
 	var init = function() {
-		if(!$('#signup-page').length) {			
+		if(!$('#signup-page').length) {
+		
 			var template = $.View('//webapp/views/signup.tmpl', {
 				focus: finfore.data.focus,
 				finforeBaseUrl: finforeBaseUrl,
@@ -128,19 +129,32 @@ finfore.signup = function() {
 				window.location.reload();
 			});
 			
-			$.mobile.changePage($('#signup-page'), {
+			$.mobile.changePage($page, {
 				transition: 'slidedown'
 			});	
 			
 			$pageContent.find('form').submit(register);
 			
-			// for native apps, but iframe
+			/* native apps
+			 * Use childBrowser phoneGap plugin, for social sign-in
+			 */
 			if(finforeNative) {
 				$('.social-signin a', $page).bind('click', function() {
-					window.parent.location.href = $(this).attr('href');
+					window.plugins.childBrowser.showWebPage($(this).attr('href'), { showLocationBar: false });
 					
 					return false;
 				});
+				
+				/* If the URL is socialcallback.html, open it in the main view
+				 * (it's not possible to open it in ChildBrowser)
+				 * Close the ChildBrowser afterwards.
+				 */
+				window.plugins.childBrowser.onLocationChange = function (url) {
+					if(url.indexOf(finforeAppUrl + 'socialcallback.html') == 0) {
+						window.location.href = url;
+						window.plugins.childBrowser.close();
+					}
+				};
 			};
 			
 		} else {

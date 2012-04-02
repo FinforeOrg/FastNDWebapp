@@ -133,7 +133,7 @@ finfore.manage = function() {
 					index = finfore.data.panels.main[params.category].length;				
 				}
 				
-				var callbackUrl = finforeAppUrl + '/authorize.html',
+				var callbackUrl = finforeAppUrl + 'authorize.html',
 					category = (params.category == 'portfolio') ? 'google' : params.category + '';
 				
 				var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + category + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&callback=' + callbackUrl, '_blank', 'resizable=yes,scrollbars=yes,status=yes');
@@ -290,7 +290,7 @@ finfore.manage = function() {
 				panel = finfore.data.panels.main[params.category][index];
 				feedAccountId = panel.feed_account._id;				
 				
-				var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + params.category + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&feed_account_id=' + feedAccountId + '&callback=' + finforeAppUrl + '/authorize.html', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
+				var authWindow = window.open(finforeBaseUrl + '/feed_accounts/' + params.category + '/auth?auth_token=' + finfore.data.user.single_access_token + '&auth_secret=' + finfore.data.user.persistence_token + '&feed_account_id=' + feedAccountId + '&callback=' + finforeAppUrl + 'authorize.html', '_blank', 'resizable=yes,scrollbars=yes,status=yes');
 				
 				window.addEventListener('message', authorized = function(e) {
 					panels.authorizeListner(e, params, index);

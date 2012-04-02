@@ -62,7 +62,9 @@ finfore.login = function() {
 	};
 	
 	var init = function() {
+		
 		if(!$('#login-page').length) {
+		
 			var template = $.View('//webapp/views/login.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,
@@ -123,15 +125,28 @@ finfore.login = function() {
 					});
 					return false;
 				});
+			};
+			
+			/* native apps
+			 * Use childBrowser phoneGap plugin, for social sign-in
+			 */
+			if(finforeNative) {
+				$('.social-signin a', $loginContainer).bind('click', function() {
+					window.plugins.childBrowser.showWebPage($(this).attr('href'), { showLocationBar: false });
+					
+					return false;
+				});
 				
-				// for native apps, but iframe
-				if(finforeNative) {
-					$('.social-signin a', $loginContainer).bind('click', function() {
-						window.parent.open($(this).attr('href'));
-						return false;
-					});
+				/* If the URL is socialcallback.html, open it in the main view
+				 * (it's not possible to open it in ChildBrowser)
+				 * Close the ChildBrowser afterwards.
+				 */
+				window.plugins.childBrowser.onLocationChange = function (url) {
+					if(url.indexOf(finforeAppUrl + 'socialcallback.html') == 0) {
+						window.location.href = url;
+						window.plugins.childBrowser.close();
+					}
 				};
-				
 			};
 			
 		} else {
