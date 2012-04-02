@@ -57,5 +57,4 @@ http://www.bing.com/developers/s/APIBasics.html
 
 * Convert tmpl template to ej, better performance
 * Better, native, notifications https://github.com/kbjr/Notifications
-* Manegement, use collapsile sets for each column
-* Remove need for mobile.html, by using same method as in the native/debug
+* Manegement, use collapsile sets for each colums

@@ -127,9 +127,21 @@ finfore.login = function() {
 				// for native apps, but iframe
 				if(finforeNative) {
 					$('.social-signin a', $loginContainer).bind('click', function() {
-						window.parent.open($(this).attr('href'));
+						window.plugins.childBrowser.showWebPage($(this).attr('href'), { showLocationBar: false });
+						
 						return false;
 					});
+					
+					/* If the URL is socialcallback.html, open it in the main view
+					 * (it's not possible to open it in ChildBrowser)
+					 * Close the ChildBrowser afterwards.
+					 */
+					window.plugins.childBrowser.onLocationChange = function (url) {
+						if(url.indexOf(finforeAppUrl + 'socialcallback.html') == 0) {
+							window.location.href = url;
+							window.plugins.childBrowser.close();
+						}
+					};
 				};
 				
 			};
