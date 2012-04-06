@@ -66,64 +66,65 @@ finfore.modules.linkedin = function() {
 				success: function(updates) {
 					var markup = '',
 						user, userUrl, connection, comment, connectionUrl, pictureUrl, timestamp,
-						contentTitle, contentUrl, privateUser,
+						contentTitle, contentUrl,
 						time = new Date();
-						
+					
 					if(updates && updates.length) {
 						$.each(updates, function(i, n) {
 							
-							timestamp = n.timestamp;
-							time.setTime(timestamp * 1);
-							
-							markup += '<li class="ui-li ui-btn-up-c">';
-							
-							// check if user is private
-							privateUser = true;
+							/* Check if user is private
+							 * If the user is private, we won't get any data.
+							 */
 							if(n.updateContent.person.id != 'private') {
-								privateUser = false;
-									
+							
+								timestamp = n.timestamp;
+								time.setTime(timestamp * 1);
+								
+								markup += '<li class="ui-li ui-btn-up-c">';
+							
 								user = n.updateContent.person.firstName + ' ' + n.updateContent.person.lastName;
 								userUrl = n.updateContent.person.apiStandardProfileRequest.url;
 								pictureUrl = n.updateContent.person.pictureUrl;
-							};
 							
-							if(pictureUrl) {
-								markup += '<a href="' + userUrl + '" target="_blank"><img src="' + pictureUrl + '" width="80" height="80" /></a>';
-							};
-							
-							// connection
-							if(n.updateContent.person.connections && !privateUser) {						
-								
-								connection = n.updateContent.person.connections.person.firstName + ' ' + n.updateContent.person.connections.person.lastName;
-								connectionUrl = n.updateContent.person.connections.person.apiStandardProfileRequest.url;
-								
-								markup += '<p><a href="' + userUrl + '" target="_blank" class="user">' + user + '</a> connected with <a href="' + connectionUrl + '" class="connection" target="_blank">' + connection + '</a></p>';
-								
-							} else if (n.updateContent.person.currentShare) {
-								
-								// comment
-								if(n.updateContent.person.currentShare.comment && !privateUser) {
-									comment = $.linkUrl(n.updateContent.person.currentShare.comment);
-
-									markup += '<p><a href="' + userUrl + '" target="_blank" class="user">' + user + '</a> ' + comment + '</p>';
+								if(pictureUrl) {
+									markup += '<a href="' + userUrl + '" target="_blank"><img src="' + pictureUrl + '" width="80" height="80" /></a>';
 								};
 								
-								// comment content
-								if(n.updateContent.person.currentShare.content) {
-									contentTitle = n.updateContent.person.currentShare.content.title;
-									contentUrl = n.updateContent.person.currentShare.content.submittedUrl;
+								// connection
+								if(n.updateContent.person.connections) {						
 									
-									markup += '<p><a href="' + contentUrl + '" target="_blank" class="user">' + contentTitle + '</a></p>';
+									connection = n.updateContent.person.connections.person.firstName + ' ' + n.updateContent.person.connections.person.lastName;
+									connectionUrl = n.updateContent.person.connections.person.apiStandardProfileRequest.url;
+									
+									markup += '<p><a href="' + userUrl + '" target="_blank" class="user">' + user + '</a> connected with <a href="' + connectionUrl + '" class="connection" target="_blank">' + connection + '</a></p>';
+									
+								} else if (n.updateContent.person.currentShare) {
+									
+									// comment
+									if(n.updateContent.person.currentShare.comment) {
+										comment = $.linkUrl(n.updateContent.person.currentShare.comment);
+
+										markup += '<p><a href="' + userUrl + '" target="_blank" class="user">' + user + '</a> ' + comment + '</p>';
+									};
+									
+									// comment content
+									if(n.updateContent.person.currentShare.content) {
+										contentTitle = n.updateContent.person.currentShare.content.title;
+										contentUrl = n.updateContent.person.currentShare.content.submittedUrl;
+										
+										markup += '<p><a href="' + contentUrl + '" target="_blank" class="user">' + contentTitle + '</a></p>';
+									};
+									
 								};
 								
-							};
+								markup += '<time>' + time.toUTCString() + '</time>';
+								markup += '</li>';
 							
-							markup += '<time>' + time.toUTCString() + '</time>';
-							markup += '</li>';
+							};
 							
 						});
 					} else {
-						markup = '<li>No LinkedIn events</li>';
+						markup = '<li class="ui-li ui-btn-up-d">No LinkedIn events</li>';
 					}
 					
 					$(markup).appendTo($updatesList);

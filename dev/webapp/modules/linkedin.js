@@ -124,7 +124,7 @@ finfore.modules.linkedin = function() {
 							
 						});
 					} else {
-						markup = '<li>No LinkedIn events</li>';
+						markup = '<li class="ui-li ui-btn-up-d">No LinkedIn events</li>';
 					}
 					
 					$(markup).appendTo($updatesList);
