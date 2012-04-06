@@ -6,7 +6,7 @@
  
 // Define module
 finfore.modules.podcast = function() {
-	var multiplier = 5;
+	var multiplier = 15;
 	
 	// Podcast Module Management
 	var management = function($container) {		
@@ -134,30 +134,42 @@ finfore.modules.podcast = function() {
 	// grab feed data
 	var getFeedData = function(options) {
 		
-		feedReader.get({			
+		feedReader.get({
+			callbackId: options.callbackId,
 			sources: options.sources,
 			limit: options.limit,
 			complete: function(entries) {
-				
+		
 				// if loading more entries, slice the array to only show the latest 5
 				if((options.loadMore === true) && (options.limit > 5)) {
-					entries = entries.slice(options.limit - 5, options.limit);
+					entries = entries.slice(options.limit - multiplier, options.limit);
 				}				
 				
 				// parse entries
 				var markup = '',
-					entriesLength = entries.length - 1;
+					entriesLength = entries.length - 1,
+					filename;
 				
 				$.each(entries, function(index, value) {
-					if((options.loadMore === true) || (this.pubDate > options.date)) {
+				
+					// check for podcast file
+					filename = '';
+					if(this.link) {
+						filename = this.link;
+					} else if(this.enclosure) {
+						filename = this.enclosure.url;
+					}
+				
+					if((options.loadMore === true || this.pubDate > options.date) && filename) {
+					
 						if(index === entriesLength) {
 							markup += '<li class="last-in-group" data-icon="false">';
 						} else {
-							markup += '<li data-icon="false">';				
+							markup += '<li data-icon="false">';
 						};
+
 						// check file type
-						var filename = this.link,
-							extension = filename.split('.').pop();				
+						var extension = filename.split('.').pop();				
 						
 						markup += '<abbr>' + this.source + '</abbr>';
 						markup += '<h3><a href="' + this.link + '" target="_blank">' + this.title + '</a></h3>';
@@ -217,7 +229,8 @@ finfore.modules.podcast = function() {
 				$container: $container,
 				date: new Date(),
 				loadMore: loadmore,				
-				limit: feedNumber
+				limit: feedNumber,
+				callbackId: options.feed_account._id
 			});			
 			
 		};		
