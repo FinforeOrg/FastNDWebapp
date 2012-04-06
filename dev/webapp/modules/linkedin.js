@@ -68,7 +68,9 @@ finfore.modules.linkedin = function() {
 						user, userUrl, connection, comment, connectionUrl, pictureUrl, timestamp,
 						contentTitle, contentUrl, privateUser,
 						time = new Date();
-						
+					
+					console.log(updates);
+					
 					if(updates && updates.length) {
 						$.each(updates, function(i, n) {
 							

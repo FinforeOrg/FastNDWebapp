@@ -247,6 +247,13 @@ finfore.modules.feed = function() {
 				feedNumber += multiplier;
 			};
 			
+			var callbackId;
+			if(options.feed_account) {
+				callbackID = options.feed_account._id;
+			} else if(options.company) {
+				callbackID = options.company._id;
+			}
+			
 			getFeedData({
 				sources: sources,
 				$container: $container,
@@ -255,7 +262,7 @@ finfore.modules.feed = function() {
 				limit: feedNumber,
 				blogsearch: options.blogsearch,
 				bingsearch: options.bingsearch,
-				callbackId: options.feed_account._id
+				callbackId: callbackId
 			});
 			
 		};		

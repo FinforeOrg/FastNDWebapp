@@ -233,7 +233,7 @@ var feedReader = {},
 
 feedReader.get = function(params) {
 	var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
-		q = 'select channel.title, channel.item.title, channel.item.link, channel.item.description, channel.item.date, channel.item.pubDate from xml where url in(';
+		q = 'select channel.title, channel.item.title, channel.item.link, channel.item.enclosure, channel.item.description, channel.item.date, channel.item.pubDate from xml where url in(';
 	
 	// set sources
 	$.each(params.sources, function(i, n) {
@@ -246,10 +246,18 @@ feedReader.get = function(params) {
 	/* using a specific jsonp callback named function we can take advantage of
 	 * both the browser's and yql's caching mechanisms.
 	 */
-	callbackCounter++;
-	
+	 
 	// generated callback name
-	var callbackName = 'feedReaderCallback' + callbackCounter;
+	var callbackName = 'feedReaderCallback';
+	
+	if(params.callbackId) {
+		// unique column id for caching
+		callbackName += params.callbackId;
+	} else {
+		// use number instead of id
+		callbackCounter++;
+		callbackName += callbackCounter;
+	}
 	
 	// generated callback
 	window[callbackName] = function(response) {
@@ -297,7 +305,8 @@ function feedReaderCallback(response, params) {
 					link: '' || e.channel.item.link,
 					description: '' || description,
 					pubDate: (e.channel.item.pubDate) ? new Date(e.channel.item.pubDate) : new Date(e.channel.item.date),
-					source: '' || e.channel.title
+					source: '' || e.channel.title,
+					enclosure: '' || e.channel.item.enclosure
 				}
 			} catch(e) {
 				return null;

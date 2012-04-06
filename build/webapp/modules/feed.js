@@ -136,7 +136,8 @@ finfore.modules.feed = function() {
 			sources[0] += (options.limit * 1) - 14;
 		}
 		
-		feedReader.get({			
+		feedReader.get({
+			callbackId: options.callbackId,
 			sources: sources,
 			limit: options.limit,
 			complete: function(entries) {
@@ -253,7 +254,8 @@ finfore.modules.feed = function() {
 				loadMore: loadmore,
 				limit: feedNumber,
 				blogsearch: options.blogsearch,
-				bingsearch: options.bingsearch
+				bingsearch: options.bingsearch,
+				callbackId: options.feed_account._id
 			});
 			
 		};		

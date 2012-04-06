@@ -547,6 +547,7 @@
 	padding: 0;
 }
 .linkedin ul li {
+	overflow: hidden;
 	position: relative;
 	padding: 10px 10px 10px 100px;
 	
