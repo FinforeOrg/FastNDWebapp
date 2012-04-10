@@ -587,16 +587,6 @@ var finfore = function() {
 				
 				var $tabView = $('#' + companyID),
 					$tab;
-				
-				if(switchTab) {
-					if(largeScreen) {
-						$tab = $('li:last', finfore.desktop.nodes.$tabList);
-					} else {
-						$tab = $('.collapsible-company:last', finfore.desktop.nodes.$tabletTabs);
-					}
-					
-					finfore.desktop.tabs.select($tab);
-				};
 					
 				// prices
 				finfore.panels.create({
@@ -683,12 +673,27 @@ var finfore = function() {
 						}
 				});
 				
+				// switch to newly added company
+				// used by add-company
+				if(switchTab) {
+					if(largeScreen) {
+						$tab = $('li:last', finfore.desktop.nodes.$tabList);
+					} else {
+						$tab = $('.collapsible-company:last', finfore.desktop.nodes.$tabletTabs);
+					}
+					
+					// wait for the panels to be created
+					setTimeout(function() {
+						finfore.desktop.tabs.select($tab);
+					}, 100);
+				};
+				
 			});
 		},
 		// Remove Company
 		remove: function() {
 			var $tab = $(this).parent('li');
-			var companyID = $('a', $tab).attr('href').substr(1);
+			var companyId = $('a', $tab).attr('href').substr(1);
 			var companyName = $('a', $tab).text();
 			
 			var form = '<h2>Are you sure you sure you want to remove <em>' + companyName + '</em>?</h2>';
@@ -697,10 +702,22 @@ var finfore = function() {
 					
 					if(confirm) {
 						$.ajax({
-							url: finforeBaseUrl + '/user_company_tabs/' + companyID + '.json',
+							url: finforeBaseUrl + '/user_company_tabs/' + companyId + '.json',
 							type: 'DELETE',
 							data: {
-								feed_account_id: companyID
+								feed_account_id: companyId
+							},
+							success: function() {
+
+								// remove company from internal data store
+								$.each(finfore.data.companies, function(i, n) {
+									if(n._id == companyId) {
+										finfore.data.companies.splice(i, 1);
+										
+										return false;
+									}
+								});
+
 							}
 						});
 						
