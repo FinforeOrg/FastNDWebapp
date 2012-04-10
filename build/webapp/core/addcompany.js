@@ -13,18 +13,33 @@ finfore.addcompany = function() {
 		var companyIndex = parseInt($(this).attr('data-index')),
 			companyId = allCompanies[companyIndex]._id,
 			companyExists = false,
-			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$companiesPage : finfore.desktop.nodes.$page;
-	
-		var confirmCompany = function() {
-			
-			$.mobile.changePage($callbackPage, {
-				transition: 'slidedown', 
-				reverse: true
-			});
-			
-			// stop exection if company exists
-			if(companyExists) return false;
-			
+			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$companiesPage : finfore.desktop.nodes.$page,
+			tabSelector;
+		
+		// check if company already exists
+		$.each(finfore.data.companies, function(i, n) {
+			if(n.feed_info_id == companyId) {
+				var $tab = $('#' + n._id, $callbackPage);
+				
+				tabSelector = $tab;
+				if(!finfore.smallScreen) tabSelector = $.data($tab[0], 'selector');
+				finfore.desktop.tabs.select(tabSelector);
+				
+				companyExists = true;
+				
+				return false;
+			}
+		});
+		
+		// close add company dialog
+		$.mobile.changePage($callbackPage, {
+			transition: 'slidedown',
+			reverse: true
+		});
+		
+		// if company isn't added already
+		if(!companyExists) {
+		
 			if(finfore.data.user.is_public) {
 				
 				finfore.companies.add([{
@@ -49,52 +64,13 @@ finfore.addcompany = function() {
 					success: function(company) {
 						finfore.companies.add([company], true);
 						
-						Loader.hide();					
+						Loader.hide();
 					}
 				});
 				
 			}
-		};
-		
-		
-		// check if company already exists
-		$.each(finfore.data.companies, function(i, n) {
-			if(n.feed_info_id == companyId) {
-				var $tab = $('#' + n._id, $callbackPage),
-					selector = $tab;
-					
-				if(!finfore.smallScreen) selector = $.data($tab[0], 'selector');
-				
-				finfore.desktop.tabs.select(selector);
-				companyExists = true;
-				
-				return false;
-			}
-		});
-		
-		confirmCompany();
-		
-		/* Commented the Add Company confirm dialog, since we don't have the `followers` option any more
-		var form = '<p>Before adding a company tab, please let us know how you will filter companys and competitors tweets. </p>\		<p><label>Minimum followers: \
-		<select name="followers" id="followers">\
-		<option value="0">Any number of followers</option>\
-		<option value="100">At least 100 followers</option>\
-		<option value="1000">At least 1000 followers</option>\
-		</select>\
-		</label></p>';
-		
-		if(!companyExists) {
 			
-			$.prompt(form, {
-				callback: function(confirm, m, f) {
-					if(confirm) {
-						confirmCompany(f.followers, true);
-					}
-				},
-				buttons: { Cancel: false, 'Add Company': true }
-			});
 		};
-		*/			
 		
 	};
 	

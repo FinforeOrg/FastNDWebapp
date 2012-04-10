@@ -18,6 +18,9 @@ finfore.modules.blinkx = function() {
 		// remove &
 		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/&/g, '');
 		
+		// remove double quotes
+		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/"/g, '');
+		
 		// yql and blinkx api
 		var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
 			blinkxUrl = 'http://usp1.blinkx.com/partnerapi/user/?uid=2ehiek5947&text=%22' + options.company.feed_info.company_competitor.broadcast_keyword + '%22&start=' + options.start + '&MaxResults=' + options.end + '&sortby=date&AdultFilter=true&ReturnLink=true',

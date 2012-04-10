@@ -203,11 +203,12 @@ finfore.desktop = function() {
 
 		// load column on show
 		var $panels = $('.panel', $tabView),
-			$panel;
+			$panel,
+			isLoaded;
 		
 		$panels.each(function() {
-			var $panel = $(this),
-				isLoaded = $panel.hasClass('column-loaded');
+			$panel = $(this);
+			isLoaded = $panel.hasClass('column-loaded');
 				
 			if(!isLoaded) {
 				$panel.trigger('refresh', [true]);
