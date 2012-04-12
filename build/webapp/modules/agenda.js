@@ -60,8 +60,10 @@ finfore.modules.agenda = function() {
 				callbackName = 'agendaModuleCallback' + columnId; // generate callback name based on unique _id, for YQL caching
 			
 			// generated callback
+			// make container param local in function, to be passed correctly to the callback
+			var localContainer = container;
 			window[callbackName] = function(response) {
-				agendaCalendarCallback(response, container); // call real callback with params
+				agendaCalendarCallback(response, localContainer); // call real callback with params
 			};
 		
 			// YQL call
