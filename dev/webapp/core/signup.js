@@ -17,7 +17,6 @@ finfore.signup = function() {
 	};
 	
 	var showPageTwo = function(response) {
-		
 		// log user in
 		finfore.data.user = response;
 		Storage.setItem('user', JSON.stringify(finfore.data.user));
