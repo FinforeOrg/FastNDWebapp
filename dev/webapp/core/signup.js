@@ -17,8 +17,9 @@ finfore.signup = function() {
 	};
 	
 	var showPageTwo = function(response) {
+		
 		// log user in
-		finfore.data.user = response.user;
+		finfore.data.user = response;
 		Storage.setItem('user', JSON.stringify(finfore.data.user));
 		
 		// show the second page
@@ -54,24 +55,26 @@ finfore.signup = function() {
 						});	
 						return false;
 					}
-					$.each(response, function(i, n) {						
-						if(n[0] == 'email_work') {
-							n[0] = 'Your email';
-						}						
-						if(n[0] == 'password') {
-							n[0] = 'Your password';
-						}
+					
+					// parse error messages
+					var errorField;
+					for(prop in response) {
+						errorField = prop;
+						
+						if(errorField == 'email_work') errorField = 'Your email';						
+						if(errorField == 'password') errorField = 'Your password';
 						
 						// don't show error notice if related to 'login' or 'password_confirmation'
-						if(n[0] !== 'password_confirmation' && n[0] !== 'login') {
-							var errorMessage = '<strong>' + n[0] + '</strong> ' + n[1];
+						if(errorField !== 'password_confirmation' && errorField !== 'login') {
+							var errorMessage = '<strong>' + errorField + '</strong> ' + response[prop][0];
 							$().toastmessage('showToast', {
 								text: errorMessage,
 								sticky: true,
 								type: 'error'
 							});
 						}
-					});	
+					};	
+
 			},
 			success: showPageTwo
 		});

@@ -155,7 +155,7 @@ var blinkxCallback = function(result, params) {
 	// check for response
 	if(result.query.results && result.query.results.response.responsedata) hits = result.query.results.response.responsedata.hit;
 
-	if(hits.length) {
+	if(hits) {
 	
 		// cache length
 		entriesLength = hits.length - 1;
