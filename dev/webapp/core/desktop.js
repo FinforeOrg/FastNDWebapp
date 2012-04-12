@@ -202,6 +202,13 @@ finfore.desktop = function() {
 		};
 
 		// load column on show
+		tabs.loadColumns($tabView);
+		
+	};
+	
+	// load column content
+	tabs.loadColumns = function($tabView) {
+	
 		var $panels = $('.panel', $tabView),
 			$panel,
 			isLoaded;
@@ -504,6 +511,12 @@ finfore.desktop = function() {
 		};
 		
 		finfore.modules[data.type].init($panel, data.options);
+		
+		// if column is created in current tab, load it
+		if(data.options.$tab.parent('.tab').hasClass('active-tab')) {
+			// load column on show
+			tabs.loadColumns(data.options.$tab);
+		};
 	
 	};
 	panels.remove = function(data) {

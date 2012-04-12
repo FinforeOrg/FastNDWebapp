@@ -459,7 +459,7 @@ var finfore = function() {
 				var match = myregexp.exec(this.id);				
 				if (match != null) {
 					this.id_bare = match[0];		
-				}				
+				}
 				
 				// give the browser some time to breathe
 				setTimeout(function() {
@@ -491,7 +491,7 @@ var finfore = function() {
 									panel: finfore.data.portfolios[index],
 									portfolio: element
 									}
-							});							
+							});
 								
 							finfore.panels.create({
 								type: 'feed',
