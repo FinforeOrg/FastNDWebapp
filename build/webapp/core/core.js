@@ -491,7 +491,7 @@ var finfore = function() {
 									panel: finfore.data.portfolios[index],
 									portfolio: element
 									}
-							});							
+							});
 								
 							finfore.panels.create({
 								type: 'feed',
