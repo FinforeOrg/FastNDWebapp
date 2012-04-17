@@ -15,9 +15,6 @@ finfore.modules.blinkx = function() {
 		// replace spaces with +
 		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/ /g, '+');
 		
-		// remove &
-		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/&/g, '');
-		
 		// remove double quotes
 		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/"/g, '');
 		

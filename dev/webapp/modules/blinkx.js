@@ -29,8 +29,6 @@ finfore.modules.blinkx = function() {
 		
 		// generated callback
 		window[callbackName] = function(response) {
-			console.log(response);
-			console.log(blinkxUrl);
 			blinkxCallback(response, options); // call real callback with params
 		};
 		
