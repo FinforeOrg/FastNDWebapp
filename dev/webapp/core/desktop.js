@@ -539,8 +539,7 @@ finfore.desktop = function() {
 		$heading.append(template);
 		
 		// refresh controlgroup
-		$heading.find("[data-role=controlgroup] a").button();
-		$heading.find("[data-role=controlgroup]").controlgroup();
+		$heading.trigger('create');
 
 		// bind panel manage event		
 		data.options.$node.bind('manage', function() {

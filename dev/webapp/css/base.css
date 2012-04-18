@@ -11,7 +11,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	font-size: 12px;
+	font-size: 12px !important;
 	
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: none;
@@ -351,7 +351,6 @@ html, body {
 #tab-bar {
 	float: left;
 	position: relative;
-	top: 1px;
 	overflow: hidden;
 }
 #tab-bar ul {
@@ -466,15 +465,16 @@ html, body {
 	bottom: 0;
 	width: auto;
 }
-#desktop > .ui-header > .ui-select .ui-btn {
-	position: absolute;
-	bottom: 0;
-	padding: 0.4em 3px 0.4em 6px;
-	right: 0;
+#desktop #tab-list-selector-button {
+	top: 0 !important;
+	padding: 0.5em 3px 0.5em 6px;
 	
 	-moz-border-radius: 5px 0px 0px 0px;
 	-webkit-border-radius: 5px 0px 0px 0px;
 	border-radius: 5px 0px 0px 0px;
+}
+#desktop #tab-list-selector-button .ui-btn-inner {
+	padding: 0;
 }
 #tab-list-selector-menu {
 	overflow-x: hidden;
@@ -556,10 +556,6 @@ html, body {
 }
 .panel .ui-controlgroup {
 	margin: 0;
-}
-.panel .ui-controlgroup-horizontal .ui-btn, .panel .ui-controlgroup-horizontal .ui-checkbox, .panel .ui-controlgroup-horizontal .ui-radio {
-	margin: 0;
-	float: left;
 }
 .panel a {
 	color: #375DDB;	
@@ -1179,6 +1175,10 @@ html, body {
 }
 
 /* ===== JQUERY MOBILE FIXES ===== */
+
+.ui-footer .ui-btn-icon-notext, .ui-header .ui-btn-icon-notext {
+	top: 0 !important;
+}
 
 [data-role="page"], [data-role="header"] {
 	width: 100%;
