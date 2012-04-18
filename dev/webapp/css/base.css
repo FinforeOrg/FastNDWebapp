@@ -707,9 +707,6 @@ html, body {
 	line-height: 36px;
 	vertical-align: middle;
 }
-.scrolling-ticker marquee {
-	-webkit-transform: translate3d(0, 0, 0);
-}
 .scrolling-ticker a {
 	display: inline-block;
 	max-width: 800px;
@@ -741,9 +738,11 @@ html, body {
 #add-company-page {
 	padding-bottom: 10px;
 }
+/*
 #add-company-page [data-role="header"], #add-company-page [data-role="content"] {
 	width: 300px;
 }
+*/
 
 #add-company-page li:last-of-type {
 	-webkit-border-bottom-right-radius: 5px;
