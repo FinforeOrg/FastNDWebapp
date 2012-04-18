@@ -794,7 +794,20 @@ var finfore = function() {
 			}
 		});
 		
-		if(finfore.data.user && !finfore.data.user.is_public) finfore.data.blankState = false;		
+		if(finfore.data.user && !finfore.data.user.is_public) finfore.data.blankState = false;
+		
+		/* native apps
+		 * Use childBrowser phoneGap plugin to open all _blank urls
+		 */
+		if(finforeNative) {
+			
+			$(document).on('click', 'a[target="_blank"]', function(event) {
+				window.plugins.childBrowser.showWebPage($(this).attr('href'), { showLocationBar: true });
+				
+				return false;
+			});
+			
+		};
 		
 	};
 	
