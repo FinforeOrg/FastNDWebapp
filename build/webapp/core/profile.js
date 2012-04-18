@@ -52,8 +52,8 @@ finfore.profile = function() {
 		return false;
 	};
 	
-	var init = function() {		
-		if(!$container) {			
+	var init = function() {
+		if(!$container) {	
 			var template = $.View('//webapp/views/profile.tmpl', {
 				user: finfore.data.user,
 				updateProfile: finfore.data.updateProfile,
@@ -80,15 +80,9 @@ finfore.profile = function() {
 			$twitterAuthBtn.click(finfore.signup.authorizeService);
 			$linkedinAuthBtn.click(finfore.signup.authorizeService);			
 			$googleAuthBtn.click(finfore.signup.authorizeService);
-			
-			$.mobile.changePage($container, {
-				transition: 'slidedown'
-			});
-		} else {
-			$.mobile.changePage($container, {
-				transition: 'slidedown'
-			});
-		}		
+		}
+		
+		$.mobile.changePage($container);
 	};
 
 	return {

@@ -7,10 +7,11 @@
 /* Main */
 html, body {
 	height: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	font-size: 12px;
+	font-size: 12px !important;
 	
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: none;
@@ -221,6 +222,9 @@ html, body {
 	-moz-border-radius-bottomleft: 5px;
 	border-bottom-left-radius: 5px;
 }
+#public-account-selectors .ui-btn-text {
+	font-size: 12px;
+}
 #public-account-selectors p {
 	float: left;
 	width: 160px;
@@ -235,6 +239,9 @@ html, body {
 #public-account-selectors > .ui-btn {
 	float: left;
 	margin-top: 10px;
+}
+#public-account-selectors > .ui-btn .ui-btn-inner {
+	padding: 0.2em 25px;
 }
 #public-account-selectors form {
 	overflow: hidden;
@@ -350,7 +357,6 @@ html, body {
 #tab-bar {
 	float: left;
 	position: relative;
-	top: 1px;
 	overflow: hidden;
 }
 #tab-bar ul {
@@ -413,7 +419,7 @@ html, body {
 	float: left;
 	top: 0;
 	left: 0;	
-	padding: 0.4em 0 0.4em 0;
+	padding: 0.5em 0;
 	
 	-moz-border-radius: 5px 5px 0px 0px;
 	-webkit-border-radius: 5px 5px 0px 0px;
@@ -447,15 +453,15 @@ html, body {
 	display: none;
 	float: left;
 	position: relative;
-	bottom: 0;
-	left: auto;	
+	top: 0;
+	left: auto;
 	
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	border-radius: 0;
 	
-	padding-bottom: 0.4em;
-    padding-top: 0.4em;
+	padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 
 /* Tab List Selector */
@@ -465,15 +471,16 @@ html, body {
 	bottom: 0;
 	width: auto;
 }
-#desktop > .ui-header > .ui-select .ui-btn {
-	position: absolute;
-	bottom: 0;
-	padding: 0.4em 3px 0.4em 6px;
-	right: 0;
+#desktop #tab-list-selector-button {
+	top: 0 !important;
+	padding: 0.5em 3px 0.5em 6px;
 	
 	-moz-border-radius: 5px 0px 0px 0px;
 	-webkit-border-radius: 5px 0px 0px 0px;
 	border-radius: 5px 0px 0px 0px;
+}
+#desktop #tab-list-selector-button .ui-btn-inner {
+	padding: 0;
 }
 #tab-list-selector-menu {
 	overflow-x: hidden;
@@ -555,10 +562,6 @@ html, body {
 }
 .panel .ui-controlgroup {
 	margin: 0;
-}
-.panel .ui-controlgroup-horizontal .ui-btn, .panel .ui-controlgroup-horizontal .ui-checkbox, .panel .ui-controlgroup-horizontal .ui-radio {
-	margin: 0;
-	float: left;
 }
 .panel a {
 	color: #375DDB;	
@@ -676,19 +679,20 @@ html, body {
 
 /* ===== DESKTOP DIALOGS ===== */
 .small-dialog {
+	margin-top: 0;
 	background: hsla(0, 0%, 10%, 0.6) !important;
 	z-index: 9999;
 }
 
-.small-dialog [data-role=header] {
-	width: 470px;
+.small-dialog [data-role="header"] {
+	width: 500px;
 	margin: 0 auto;
 	
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	border-radius: 0;
 }
-.small-dialog [data-role=content] {
+.small-dialog [data-role="content"] {
 	width: 470px;
 	margin: 0 auto;
 }
@@ -702,9 +706,6 @@ html, body {
 	font-size: 14px;
 	line-height: 36px;
 	vertical-align: middle;
-}
-.scrolling-ticker marquee {
-	-webkit-transform: translate3d(0, 0, 0);
 }
 .scrolling-ticker a {
 	display: inline-block;
@@ -737,9 +738,11 @@ html, body {
 #add-company-page {
 	padding-bottom: 10px;
 }
+/*
 #add-company-page [data-role="header"], #add-company-page [data-role="content"] {
 	width: 300px;
 }
+*/
 
 #add-company-page li:last-of-type {
 	-webkit-border-bottom-right-radius: 5px;
@@ -1178,6 +1181,35 @@ html, body {
 }
 
 /* ===== JQUERY MOBILE FIXES ===== */
+
+#desktop .ui-footer .ui-btn-icon-notext, #desktop .ui-header .ui-btn-icon-notext {
+	top: 0 !important;
+}
+
+[data-role="page"], [data-role="header"] {
+	width: 100%;
+}
+
+/* Disable fade transition */
+@-webkit-keyframes fadein {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fadein {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fadeout {
+	from { opacity: 1; }
+    to { opacity: 1; }
+}
+.fade.out {
+	opacity: 1;
+}
 
 /* Fixes webkit %percentage height issues */
 .panel embed {

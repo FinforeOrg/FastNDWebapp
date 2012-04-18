@@ -38,7 +38,7 @@ steal('jquery/view/tmpl')
 		$.support.cors = true;
 		
 		// set jquery mobile param to true
-		$.mobile.allowCrossDomainPages = true;		
+		$.mobile.allowCrossDomainPages = true;
 	});
 })
 .then('//webapp/lib/jquery.mobile.js', '//webapp/lib/jquery.mobile.css')

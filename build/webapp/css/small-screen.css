@@ -188,6 +188,7 @@ a.panel-back-button {
 	margin: .3em 0 1em;
 }
 .panel-mobile-sliders a {
+	top: 0 !important;
 	padding: 3px;
 }
 
@@ -333,13 +334,11 @@ a.panel-back-button {
 
 
 /* **** JQUERY MOBILE **** */
-/* Reduce dialog margins */
-.ui-dialog .ui-header, .ui-dialog .ui-content, .ui-dialog .ui-footer {
-	margin: 5px;
-	width: 88%;
+.ui-dialog  {
+	margin-top: 0;
 }
-.ui-dialog .ui-content, .ui-dialog .ui-footer {
-	margin-top: -5px;
+.ui-dialog .ui-header {
+	margin-top: 0;
 }
 /* Dialog titles */
 .ui-header .ui-title, .ui-footer .ui-title {
