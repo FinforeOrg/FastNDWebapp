@@ -222,6 +222,9 @@ html, body {
 	-moz-border-radius-bottomleft: 5px;
 	border-bottom-left-radius: 5px;
 }
+#public-account-selectors .ui-btn-text {
+	font-size: 12px;
+}
 #public-account-selectors p {
 	float: left;
 	width: 160px;
@@ -236,6 +239,9 @@ html, body {
 #public-account-selectors > .ui-btn {
 	float: left;
 	margin-top: 10px;
+}
+#public-account-selectors > .ui-btn .ui-btn-inner {
+	padding: 0.2em 25px;
 }
 #public-account-selectors form {
 	overflow: hidden;

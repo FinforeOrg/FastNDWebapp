@@ -80,11 +80,9 @@ finfore.profile = function() {
 			$twitterAuthBtn.click(finfore.signup.authorizeService);
 			$linkedinAuthBtn.click(finfore.signup.authorizeService);			
 			$googleAuthBtn.click(finfore.signup.authorizeService);
-			
-			//$.mobile.changePage($container);
-		} else {
-		}		
-			$.mobile.changePage($container);
+		}
+		
+		$.mobile.changePage($container);
 	};
 
 	return {

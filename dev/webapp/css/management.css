@@ -6,7 +6,9 @@
  
 /* Manage Page */
 #manage-page {
+	margin-top: 0;
 	padding: 1%;
+	background: #333 !important;
 }
 #manage-page > .ui-header, #manage-page > .ui-content, #manage-page > .ui-footer {
 	max-width: 98%;
@@ -74,6 +76,7 @@
 	margin: 0;
 }
 #manage-page .ui-footer .panel-controls .ui-controlgroup a {
+	top: 0;
 	padding: 2px;
 }
 
@@ -406,6 +409,7 @@
 }
 .add-preset-source {
 	float: right;
+	top: 0 !important;
 }
 
 /* LinkedIn */
