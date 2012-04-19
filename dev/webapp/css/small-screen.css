@@ -135,11 +135,6 @@ a.panel-back-button {
 .small-screen .ui-header {
 	border-bottom: 1px solid #555;
 	z-index: 3;
-	
-	-moz-box-shadow: -5px 0px 20px #333;
-	-webkit-box-shadow: -5px 0px 20px #333;
-	-o-box-shadow: -5px 0px 20px #333;
-	box-shadow: -5px 0px 20px #333;
 }
 
 /* Header Buttons */
@@ -343,4 +338,39 @@ a.panel-back-button {
 /* Dialog titles */
 .ui-header .ui-title, .ui-footer .ui-title {
 	margin: .6em 30px .8em 30px;
+}
+
+/* Remove box-shadows and text-shadows for performance */
+.ui-shadow,
+.ui-btn-up-a,
+.ui-btn-hover-a,
+.ui-btn-down-a,
+.ui-body-b,
+.ui-btn-up-b,
+.ui-btn-hover-b,
+.ui-btn-down-b,
+.ui-bar-c,
+.ui-body-c,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c,
+.ui-bar-c,
+.ui-body-d,
+.ui-btn-up-d,
+.ui-btn-hover-d,
+.ui-btn-down-d,
+.ui-bar-d,
+.ui-body-e,
+.ui-btn-up-e,
+.ui-btn-hover-e,
+.ui-btn-down-e,
+.ui-bar-e,
+.ui-overlay-shadow,
+.ui-shadow,
+.ui-btn-active,
+.ui-body-a,
+.ui-bar-a {
+ text-shadow: none;
+ box-shadow: none;
+ -webkit-box-shadow: none;
 }
