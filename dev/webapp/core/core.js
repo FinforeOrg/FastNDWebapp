@@ -32,6 +32,7 @@ var finfore = function() {
 	// User Details
 	var user = Storage.getItem('user');
 	if(user) user = JSON.parse(user);
+	if(user.error) user = false;
 	
 	// Update profile
 	var updateProfile = Storage.getItem('updateProfile');
@@ -102,7 +103,6 @@ var finfore = function() {
 			Storage.setItem('selectedFocus', JSON.stringify(options.selectedFocus));
 		};
 		
-		
 	};
 	
 	// sort and store selected focuses from user
@@ -123,7 +123,9 @@ var finfore = function() {
 		} else {
 			selectedFocus = finfore.data.user.profiles;
 		};
-
+		
+		if(!selectedFocus) selectedFocus = [];		
+		
 		// parse and place selected focus areas into data.selectedFocus
 		$.each(selectedFocus, function() {
 			var profileCategory = this.profile_category.title;
@@ -332,7 +334,7 @@ var finfore = function() {
 		var getPortfolios = [], getPanels;
 
 		// create panels for the Main and Portfolio tabs
-		var createMainPanels = function(feed_accounts) {			
+		var createMainPanels = function(feed_accounts) {
 			
 			// Column sorter based on feed_account.position on each feed_account
 			// if the position attribute is not set, we set it to 999
