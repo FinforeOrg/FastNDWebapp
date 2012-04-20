@@ -241,7 +241,7 @@ html, body {
 	margin-top: 10px;
 }
 #public-account-selectors > .ui-btn .ui-btn-inner {
-	padding: 0.2em 25px;
+	padding: 0.5em 25px;
 }
 #public-account-selectors form {
 	overflow: hidden;
@@ -357,6 +357,7 @@ html, body {
 #tab-bar {
 	float: left;
 	position: relative;
+	top: 2px;
 	overflow: hidden;
 }
 #tab-bar ul {
@@ -460,8 +461,7 @@ html, body {
 	-webkit-border-radius: 0;
 	border-radius: 0;
 	
-	padding-bottom: 0.5em;
-    padding-top: 0.5em;
+	padding: 0.5em 0;
 }
 
 /* Tab List Selector */
@@ -1262,4 +1262,12 @@ html, body {
 }
 .ui-page, .ui-dialog {
 	min-height: 100% !important;
+}
+
+/* Blurry text */
+.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner {
+	font-size: 12px !important;
+}
+.ui-btn-text {
+	font-size: 12px !important;
 }
