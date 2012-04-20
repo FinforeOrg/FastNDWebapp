@@ -32,8 +32,10 @@ steal('jquery/view/tmpl')
 			changeHash: false
 		});
 		
+		// swipe threshold
+		$.event.special.swipe.horizontalDistanceThreshold = 80;
+		
 		// phonegap
-
 		// make sure jQuery has CORS support
 		$.support.cors = true;
 		

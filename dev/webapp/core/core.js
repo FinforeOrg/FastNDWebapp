@@ -31,8 +31,12 @@ var finfore = function() {
 	
 	// User Details
 	var user = Storage.getItem('user');
-	if(user) user = JSON.parse(user);
-	if(user.error) user = false;
+	if(user) {
+		user = JSON.parse(user);
+		
+		// failsafe
+		if(user.error) user = false;
+	}
 	
 	// Update profile
 	var updateProfile = Storage.getItem('updateProfile');
