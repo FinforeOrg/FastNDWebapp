@@ -326,6 +326,7 @@ html, body {
 	position: absolute;
 	bottom: 0;
 	height: 38px;
+	width: 100%;
 	z-index: 1001;
 }
 #desktop-content {
@@ -1265,9 +1266,6 @@ html, body {
 }
 
 /* Blurry text */
-.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner {
-	font-size: 12px !important;
-}
-.ui-btn-text {
+.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner, .ui-btn-text {
 	font-size: 12px !important;
 }
