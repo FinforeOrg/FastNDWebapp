@@ -326,6 +326,7 @@ html, body {
 	position: absolute;
 	bottom: 0;
 	height: 38px;
+	width: 100%;
 	z-index: 1001;
 }
 #desktop-content {
