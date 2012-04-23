@@ -13,9 +13,7 @@ html, body {
 	font-family: sans-serif;
 	font-size: 12px !important;
 	
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: none;
-	text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased !important;
 }
 
 /* ===== Utilities ===== */
@@ -1268,4 +1266,9 @@ html, body {
 /* Blurry text */
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner, .ui-btn-text {
 	font-size: 12px !important;
+}
+
+/* Flickering Safari Issue */
+[data-role="page"] {
+    -webkit-backface-visibility: hidden;
 }
