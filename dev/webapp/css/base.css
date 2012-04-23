@@ -1267,3 +1267,8 @@ html, body {
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner, .ui-btn-text {
 	font-size: 12px !important;
 }
+
+/* Flickering Safari Issue */
+[data-role="page"] {
+    -webkit-backface-visibility: hidden;
+}
