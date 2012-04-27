@@ -24,8 +24,6 @@ finfore.modules.blinkx = function() {
 		// escape special chars
 		options.company.feed_info.company_competitor.broadcast_keyword = escape(options.company.feed_info.company_competitor.broadcast_keyword);
 		
-		console.log(options.company.feed_info.company_competitor.broadcast_keyword);
-		
 		// yql and blinkx api
 		var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
 			blinkxUrl = 'http://usp1.blinkx.com/partnerapi/user/?uid=2ehiek5947&text=%22' + options.company.feed_info.company_competitor.broadcast_keyword + '%22&start=' + options.start + '&MaxResults=' + options.end + '&sortby=date&AdultFilter=true&ReturnLink=true',
@@ -176,6 +174,9 @@ var blinkxCallback = function(result, params) {
 			// check date
 			pubDate = new Date(date * 1000);					
 			
+			// test if non-latin language, and don't show results from it
+			//if(containsNonLatinCodepoints(summary)) console.log(summary);
+			
 			if(finfore.smallScreen || finfore.tablet) {
 				url = url.replace('http://www.blinkx.com/burl?v=', 'http://m.blinkx.com/info/');
 			};
@@ -210,3 +211,9 @@ var blinkxCallback = function(result, params) {
 	params.$container.removeClass('panel-loading');
 
 };
+
+/*
+function containsNonLatinCodepoints(s) {
+    return /[^\u0000-\u00ff]/.test(s);
+}
+*/

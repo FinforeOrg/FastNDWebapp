@@ -18,8 +18,13 @@ finfore.modules.blinkx = function() {
 		// remove double quotes
 		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/"/g, '');
 		
+		// remove &
+		options.company.feed_info.company_competitor.broadcast_keyword = options.company.feed_info.company_competitor.broadcast_keyword.replace(/&/g, '');
+		
 		// escape special chars
 		options.company.feed_info.company_competitor.broadcast_keyword = escape(options.company.feed_info.company_competitor.broadcast_keyword);
+		
+		console.log(options.company.feed_info.company_competitor.broadcast_keyword);
 		
 		// yql and blinkx api
 		var yqlUrl = 'http://query.yahooapis.com/v1/public/yql',
