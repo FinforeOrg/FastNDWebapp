@@ -690,8 +690,18 @@ var finfore = function() {
 					
 					// wait for the panels to be created
 					setTimeout(function() {
-						finfore.desktop.tabs.select($tab);
+						
+						if(finfore.tablet) {
+							// Tablet binds the desktop.tabs.select event
+							// to the expand event.
+							// So we can just trigger expand.
+							$tab.trigger('expand');
+						} else {
+							finfore.desktop.tabs.select($tab);
+						};
+						
 					}, 100);
+					
 				};
 				
 			});

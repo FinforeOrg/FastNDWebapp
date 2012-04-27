@@ -192,6 +192,9 @@ html, body {
 	top: 3px;
 	opacity: 1;
 }
+#header-buttons .add-company-button {
+	background-image: url(../images/icons/addBigIcon.png);
+}
 #header-buttons a#profile-button {
 	background-image: url(../images/icons/userBigIcon.png);
 }

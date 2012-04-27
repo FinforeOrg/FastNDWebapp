@@ -192,6 +192,9 @@ html, body {
 	top: 3px;
 	opacity: 1;
 }
+#header-buttons .add-company-button {
+	background-image: url(../images/icons/addBigIcon.png);
+}
 #header-buttons a#profile-button {
 	background-image: url(../images/icons/userBigIcon.png);
 }
@@ -737,11 +740,6 @@ html, body {
 #add-company-page {
 	padding-bottom: 10px;
 }
-/*
-#add-company-page [data-role="header"], #add-company-page [data-role="content"] {
-	width: 300px;
-}
-*/
 
 #add-company-page li:last-of-type {
 	-webkit-border-bottom-right-radius: 5px;
