@@ -143,6 +143,8 @@ finfore.modules.twitter = function() {
 				};
 			});
 			
+			console.log(tweets);
+			
 			tweetTemplate = $.View('//webapp/views/module.twitter.tweet.tmpl', {
 								tweets: tweets
 							});
