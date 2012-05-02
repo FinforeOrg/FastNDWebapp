@@ -174,9 +174,6 @@ var blinkxCallback = function(result, params) {
 			// check date
 			pubDate = new Date(date * 1000);					
 			
-			// test if non-latin language, and don't show results from it
-			//if(containsNonLatinCodepoints(summary)) console.log(summary);
-			
 			if(finfore.smallScreen || finfore.tablet) {
 				url = url.replace('http://www.blinkx.com/burl?v=', 'http://m.blinkx.com/info/');
 			};
@@ -211,9 +208,3 @@ var blinkxCallback = function(result, params) {
 	params.$container.removeClass('panel-loading');
 
 };
-
-/*
-function containsNonLatinCodepoints(s) {
-    return /[^\u0000-\u00ff]/.test(s);
-}
-*/

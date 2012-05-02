@@ -16,6 +16,10 @@ steal('jquery/view/tmpl')
 .then('//webapp/core/utils.js', '//webapp/core/api.js')
 // Set jQuery Mobile Defaults
 .then(function() {
+	
+	// make sure jQuery has CORS support
+	jQuery.support.cors = true;
+	
 	$(document).bind("mobileinit", function() {
 		// jquery mobile defaults
 		$.extend($.mobile , {
@@ -32,13 +36,9 @@ steal('jquery/view/tmpl')
 			changeHash: false
 		});
 		
-		// phonegap
-
-		// make sure jQuery has CORS support
-		$.support.cors = true;
-		
 		// set jquery mobile param to true
 		$.mobile.allowCrossDomainPages = true;
+		
 	});
 })
 .then('//webapp/lib/jquery.mobile.js', '//webapp/lib/jquery.mobile.css')
