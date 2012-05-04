@@ -349,30 +349,6 @@
 .podcast .ui-li-desc {
 	margin: 0.5em 0 0.55em;
 }
-.podcast .mejs-container {
-	text-shadow: none !important;
-}
-.podcast .mejs-container .mejs-controls div.mejs-button {
-	width: 22px;
-}
-.mejs-inner {
-	overflow: hidden;
-}
-.me-cannotplay span {
-	padding: 10px;
-	
-	font-size: 12px;
-	color: #fff;
-}
-.me-cannotplay a.ui-link-inherit {
-	color: #fff !important;
-}
-.mejs-container .mejs-controls {
-	width: auto;
-}
-.mejs-container .mejs-controls .mejs-time-rail {
-	width: 130px !important;
-}
 
 .input-column-name {
 	padding-left: 50px;
