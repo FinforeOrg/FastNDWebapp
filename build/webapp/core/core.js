@@ -594,90 +594,109 @@ var finfore = function() {
 				var $tabView = $('#' + companyID),
 					$tab;
 					
-				// prices
-				finfore.panels.create({
-					type: 'prices',
-					tab: $tabView,
-					options: {
-						company: company
-						}
-				});					
+				// use timeouts to make sure the columns are rendered in this order
+				setTimeout(function() {
+					// prices
+					finfore.panels.create({
+						type: 'prices',
+						tab: $tabView,
+						options: {
+							company: company
+							}
+					});
+				}, 10);
 				
-				// company news
-				finfore.panels.create({
-					type: 'feed',
-					tab: $tabView,
-					options: {
-						company: company
-						}
-				});
+				setTimeout(function() {
+					// company news
+					finfore.panels.create({
+						type: 'feed',
+						tab: $tabView,
+						options: {
+							company: company
+							}
+					});
+				}, 10);
 				
-				// news from blogs
-				finfore.panels.create({
-					type: 'feed',
-					tab: $tabView,
-					options: {
-						company: company,
-						blogsearch: true
-						}
-				});
+				setTimeout(function() {
+					// news from blogs
+					finfore.panels.create({
+						type: 'feed',
+						tab: $tabView,
+						options: {
+							company: company,
+							blogsearch: true
+							}
+					});
+				}, 10);
 				
-				// breaking news
-				finfore.panels.create({
-					type: 'twitter',
-					tab: $tabView,
-					options: {
-						company: company
-						}
-				});
+				setTimeout(function() {
+					// breaking news
+					finfore.panels.create({
+						type: 'twitter',
+						tab: $tabView,
+						options: {
+							company: company
+							}
+					});
+				}, 10);
 				
-				// additional news
-				finfore.panels.create({
-					type: 'feed',
-					tab: $tabView,
-					options: {
-						company: company,
-						bingsearch: true
-						}
-				});
+				setTimeout(function() {
+					// additional news
+					finfore.panels.create({
+						type: 'feed',
+						tab: $tabView,
+						options: {
+							company: company,
+							bingsearch: true
+							}
+					});
+				}, 10);
 				
-				// calendar
-				finfore.panels.create({
-					type: 'agenda',
-					tab: $tabView,
-					options: {
-						company: company
-						}
-				});
+				setTimeout(function() {
+					// calendar
+					finfore.panels.create({
+						type: 'agenda',
+						tab: $tabView,
+						options: {
+							company: company
+							}
+					});
+				}, 10);
 				
-				// competitors calendar
-				finfore.panels.create({
-					type: 'agenda',
-					tab: $tabView,
-					options: {
-						company: company,
-						competitor: true
-						}
-				});
+				setTimeout(function() {
+					// competitors calendar
+					finfore.panels.create({
+						type: 'agenda',
+						tab: $tabView,
+						options: {
+							company: company,
+							competitor: true
+							}
+					});
+				}, 10);
 				
-				// competitor news
-				finfore.panels.create({
-					type: 'twitter',
-					tab: $tabView,
-					options: {
-						company: company,
-						competitor: true
-						}
-				});
+				setTimeout(function() {
+					// competitor news
+					finfore.panels.create({
+						type: 'twitter',
+						tab: $tabView,
+						options: {
+							company: company,
+							competitor: true
+							}
+					});
+				}, 10);
 				
-				// broadcast news
-				finfore.panels.create({
-					type: 'blinkx',
-					tab: $tabView,
-					options: {
-						company: company
-						}
-				});
+				setTimeout(function() {
+					// broadcast news
+					finfore.panels.create({
+						type: 'blinkx',
+						tab: $tabView,
+						options: {
+							company: company
+							}
+					});
+				}, 10);
 				
 				// switch to newly added company
 				// used by add-company

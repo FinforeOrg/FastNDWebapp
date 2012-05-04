@@ -249,13 +249,13 @@ finfore.modules.feed = function() {
 			
 			var callbackId;
 			if(options.feed_account) {
-				callbackID = options.feed_account._id;
+				callbackId = options.feed_account._id;
 			} else if(options.company) {
 				// prevent multiple feed columns in the same company
 				// from having the same callback
-				callbackID = options.company._id;
-				if(options.blogsearch) callbackID += 'blogsearch';
-				if(options.bingsearch) callbackID += 'bingsearch';
+				callbackId = options.company._id;
+				if(options.blogsearch) callbackId += 'blogsearch';
+				if(options.bingsearch) callbackId += 'bingsearch';
 			}
 			
 			getFeedData({
