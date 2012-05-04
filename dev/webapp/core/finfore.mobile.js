@@ -54,7 +54,7 @@ steal('jquery/view/tmpl')
 // Load Core Templates
 .then('//webapp/views/desktop.mobile.tmpl', '//webapp/views/login.tmpl', '//webapp/views/signup.tmpl', '//webapp/views/addcompany.tmpl')
 // Load Core CSS
-.then('../lib/jquery.mobile.css', '../lib/mediaelement/mediaelementplayer.min.css', '../lib/toast/jquery.toastmessage.css')
+.then('../lib/jquery.mobile.css', '../lib/mediaelement/mediaelementplayer.css', '../lib/toast/jquery.toastmessage.css')
 .then('../css/shared.css').then('../css/small-screen.css')
 // Load Core Components
 .then('./core.js')
