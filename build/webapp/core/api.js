@@ -285,6 +285,8 @@ function feedReaderCallback(response, params) {
 		description = '',
 		date = new Date();
 	
+	alert(response);
+	
 	if(response.query && response.query.results && response.query.results.rss) {
 		if(!$.isArray(response.query.results.rss)) {
 			response.query.results.rss = [response.query.results.rss];
