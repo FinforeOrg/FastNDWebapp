@@ -274,9 +274,12 @@ finfore.modules.prices = function() {
 			dataNumber = 10;
 			multiplier = dataNumber;
 			
-			empty($('[data-role=content] table tbody', $container)[0]);
+			// empty table content
+			$('.ui-content table tbody', $container).empty();
 			
-			$('[data-role=content] embed', $container).remove();
+			// remove charts, both flash and img based
+			$('.ui-content > embed, .ui-content > img', $container).remove();
+			
 			loadData();
 		};
 		
