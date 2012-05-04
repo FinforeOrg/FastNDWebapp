@@ -84,7 +84,9 @@ finfore.modules.agenda = function() {
 		};
 	
 		var refresh = function(event, params) {
+			
 			empty($('[data-role=content] .events-months-container', $container)[0]);
+			
 			// time to breath
 			// make sure it gets the right container
 			loadData({
