@@ -238,7 +238,7 @@ feedReader.get = function(params) {
 	// set sources
 	$.each(params.sources, function(i, n) {
 		if(i !== 0) q += ',';
-		q += "'" + n + "'";
+		q += '"' + n + '"';
 	});
 
 	q += ') | unique(field="channel.item.link") | sort(field="channel.item.date", descending="true") | sort(field="channel.item.pubDate", descending="true")  | truncate(count=' + params.limit + ')';
@@ -265,7 +265,7 @@ feedReader.get = function(params) {
 		delete window[callbackName]; // cleanup
 	};
 	
-	var yqlRequest = $.ajax({
+	$.ajax({
 		url: yqlUrl,
 		dataType: 'jsonp',
 		jsonpCallback: callbackName,
@@ -284,7 +284,7 @@ function feedReaderCallback(response, params) {
 	var entries = [],
 		description = '',
 		date = new Date();
-	
+		
 	if(response.query && response.query.results && response.query.results.rss) {
 		if(!$.isArray(response.query.results.rss)) {
 			response.query.results.rss = [response.query.results.rss];
