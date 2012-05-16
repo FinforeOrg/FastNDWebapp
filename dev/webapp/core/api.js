@@ -265,13 +265,14 @@ feedReader.get = function(params) {
 		delete window[callbackName]; // cleanup
 	};
 	
+	// Fix mobile webkit (Android, iOS) issue, by manualy encoding q
 	$.ajax({
-		url: yqlUrl,
+		url: yqlUrl + '?q=' + encodeURI(q),
 		dataType: 'jsonp',
 		jsonpCallback: callbackName,
 		cache: true,
 		data: {
-			q: q,
+			//q: q,
 			format: 'json',
 			_maxage: 300,
 			diagnostics: false
