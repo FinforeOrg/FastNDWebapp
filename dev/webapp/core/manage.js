@@ -16,6 +16,8 @@ finfore.manage = function() {
 		// add loading class
 		$(options.$node).addClass('loading-content');
 		
+		console.log(options.count);
+		
 		// make ajax call to get feed_infos
 		$.ajax({ 
 			url: finforeBaseUrl + '/feed_infos.json',
