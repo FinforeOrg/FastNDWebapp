@@ -435,15 +435,6 @@ var finfore = function() {
 				},
 				success: function(portfolio) {
 					portfolios.createPanels(portfolio, index);
-					
-					// DEBUG
-					var debugString = 'Received portfolios for ' + panel.name + ' public account are:\n';
-					$.each(portfolio.rss.chanel.item, function() {
-						debugString += this.title + '\n';
-					});
-					
-					alert(debugString);
-					// END DEBUG
 				}
 			});
 		

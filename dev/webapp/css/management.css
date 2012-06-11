@@ -385,7 +385,7 @@
 	height: 380px;
 }
 .preset-tab-content .list-view {
-	max-height: 340px;
+	max-height: 390px;
 }
 .preset-tabs .preset-tab-selector {
 	position: relative;
@@ -409,7 +409,7 @@
 }
 .preset-tabs .preset-tab-radio:checked + label {
 	display: block;
-	height: 30px;
+	height: 15px;
 	background: #e1e1e1;
 	border-color: transparent;
 	

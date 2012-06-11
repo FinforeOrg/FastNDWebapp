@@ -93,9 +93,7 @@ finfore.modules.podcast = function() {
 		// init feed_infos
 		var suggestedCount = allCount = 0;
 		var $presetSuggested = $('.preset-sources-suggested', $container),
-			$loadMoreSuggested = $('.load-more', $presetSuggested),
-			$presetAll = $('.preset-sources-all', $container),
-			$loadMoreAll = $('.load-more', $presetAll);
+			$presetAll = $('.preset-sources-all', $container);
 		
 		var loadMoreSuggested = function() {
 			suggestedCount++;
@@ -118,10 +116,6 @@ finfore.modules.podcast = function() {
 			});
 			return false;
 		};
-		
-		// bind load more buttons
-		$loadMoreSuggested.click(loadMoreSuggested);		
-		$loadMoreAll.click(loadMoreAll);
 		
 		// load more suggested feeds
 		loadMoreSuggested();
