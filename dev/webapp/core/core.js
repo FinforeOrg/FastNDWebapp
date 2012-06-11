@@ -842,7 +842,17 @@ var finfore = function() {
 				return false;
 			});
 			
+			// when resuming the app (from minimized in the background)
+			document.addEventListener('resume', function() {
+				var $loadedColumns = $('.panel.column-loaded');
+				
+				$loadedColumns.each(function() {
+					$(this).trigger('refresh');
+				});
+			}, false);
+			
 		};
+		
 		
 	};
 	
@@ -872,7 +882,6 @@ var finfore = function() {
 		publicLogin: publicLogin
 	}
 }();
-
 
 /* Mods for jQuery Mobile
  * Overrides jQ Mobile's Navigation model, disabling it.
