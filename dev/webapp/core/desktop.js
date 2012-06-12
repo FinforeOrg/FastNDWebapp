@@ -278,7 +278,7 @@ finfore.desktop = function() {
 				tabs.select($tabTarget);
 			});
 			
-			$('#tab-list-selector-button').attr('data-tooltip', 'Tab List').removeAttr('title').addClass('tooltip-top');
+			//$('#tab-list-selector-button').attr('data-tooltip', 'Tab List').removeAttr('title').addClass('tooltip-top');
 
 			tabs.scroll.init();
 		};

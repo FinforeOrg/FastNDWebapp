@@ -16,73 +16,55 @@ html, body {
 	-webkit-font-smoothing: antialiased !important;
 }
 
+/* Desktop Layout */
+
+#desktop {
+	position: fixed !important;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	
+	z-index: 0 !important;
+}
+
+.desktop-inner .main-actions,
+.desktop-inner .tab-list,
+#desktop-content {
+	display: block;
+	height: 100%;
+	padding-bottom: 50px;
+	
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+	
+.main-actions,
+.tab-list {
+	float: left;
+	height: 100%;
+	width: 100px;
+}
+
+#desktop-content {
+	position: absolute;
+	width: 100%;
+	padding-left: 300px;
+	padding-right: 5px;
+	padding-top: 5px;
+	background: #333;	
+}
+
+#desktop .ui-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+/* ================================ OLD STYLES ================================== */
+
 /* ===== Utilities ===== */
 
-/* Tooltip */
-@media (min-width: 1025px) {
-	[data-tooltip] {
-		position: relative;
-	}
-	[data-tooltip]:before {
-		display: none;
-		position:absolute;
-		width: 120px;
-		padding: 6px;	
-		left: 40px;
-		top: 2px;
-		z-index: 10;
-		
-		content: attr(data-tooltip);
-			
-		background: #f9d835; /* default background for browsers without gradient support */
-		/* css3 */
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
-		
-		/* NOTE: webkit gradient implementation is not as per spec */
-		background:-webkit-gradient(linear, left top, left bottom, from(#f9d835), to(#f3961c));
-		background:-moz-linear-gradient(top, #f9d835, #f3961c);
-		background:-o-linear-gradient(top, #f9d835, #f3961c);	
-		
-		-moz-box-shadow: 0 1px 1px #000;
-		-webkit-box-shadow: 0 1px 1px #000;
-		box-shadow: 0 1px 1px #000; 
-		
-		text-indent: 0;
-		text-align: center;
-		color:#000;
-		font-size: 12px;
-		text-shadow: 0 1px 1px #fff;	
-	}
-	[data-tooltip]:after {
-		content: "";
-		display: none; /* reduce the damage in FF3.0 */
-		position: absolute;
-		top: 10px; /* value = - border-top-width - border-bottom-width */
-		left: 35px; /* controls horizontal position */
-		width: 0;
-		height: 0;
-		border-width: 5px 5px 5px 0;
-		border-style: solid;
-		border-color: transparent #f9d835;
-	}
-	[data-tooltip]:hover::before, [data-tooltip]:hover::after {
-		display: block;
-	}
-	[data-tooltip].tooltip-top:before {
-		top: -36px;
-		
-		-moz-box-shadow: 0 -1px 1px #000;
-		-webkit-box-shadow: 0 -1px 1px #000;
-		box-shadow: 0 -1px 1px #000; 
-	}
-	[data-tooltip].tooltip-top:after {
-		top: -10px;
-		border-width: 5px; /* vary these values to change the angle of the vertex */
-		border-color: #f3961c transparent transparent transparent;
-	}
-}
 /* Extra Icons */
 .ui-icon-edit {
 	background-image: url(../images/icons/editSmall.png);
@@ -295,60 +277,25 @@ html, body {
 .desktop-title #welcome-message strong {
 	color: #5D9FE2;
 }
-/* Desktop Header Signin Buttons */
+
+/* Signin Buttons */
 #signin-actions {
 	display: block;
-	position: absolute;
 	overflow: visible;
-	left: 170px;
-	top: 13px;
-	margin: 0;
 	z-index: 2;
 }
 
- /* Desktop VBox */
-#desktop {
-	position: fixed !important;
-	height: 100%;
-	overflow: hidden;
-	
-	display: block !important;
-	z-index: 0 !important;
-}
-#desktop > [data-role="header"] {
-	position: absolute;
-	overflow: hidden;
-	top: 0;
-	height: 98px;
-	z-index: 2;
-}
-#desktop > .ui-footer {
-	display: block;
-	position: absolute;
-	bottom: 0;
-	height: 38px;
-	width: 100%;
-	z-index: 1001;
-}
-#desktop-content {
-	position: absolute;
-	top: 0;
-	overflow: hidden;
-	width: 100%;
-	height: 100%;
-	padding: 100px 0px 40px 0px;
-	
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
+ 
+
+/* iPad Fix */
 @media only screen and (-webkit-min-device-pixel-ratio:0) {
     .tab {
 		-webkit-box-sizing: border-box;
 		padding-bottom: 8px;
 	}
 }
-/* Tab Bar */
+
+/* Tab Bar 
 #tabs-container {
 	float: left;
 	position: absolute;
@@ -428,7 +375,9 @@ html, body {
 	-webkit-border-radius: 5px 5px 0px 0px;
 	border-radius: 5px 5px 0px 0px;
 }
-/* Tab Close Button */
+
+
+/* Tab Close Button 
 #tab-bar li .tab-close-button {
 	display: none;
 	position: absolute;
@@ -448,7 +397,8 @@ html, body {
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 	opacity: 1;
 }
-/* Tab Scrollers */
+
+/* Tab Scrollers 
 #tab-scroll-left {
 	clear: left;	
 }
@@ -466,7 +416,7 @@ html, body {
 	padding: 0.5em 0;
 }
 
-/* Tab List Selector */
+/* Tab List Selector 
 #desktop > .ui-header > .ui-select {
 	position: absolute;
 	right: 0;
@@ -507,7 +457,9 @@ html, body {
 .ui-selectmenu-hidden {
 	display: none !important;
 }
-/* Tabs */
+*/
+
+/* Tab Content */
 .tab {
 	position: relative;
 	left: 0;
@@ -518,26 +470,30 @@ html, body {
 	overflow-x: auto;
 	background-color: #F0F0F0;
 }
+
 .active-tab {
 	display: block;
 }
+
+/* iScroll Container */
 .tab-scroller {	
 	position: relative;	
 	height: 100%;
 	white-space: nowrap;
 }
+
 /* Panels */
-.panel {	
+.panel {
 	position: relative;	
+	z-index: 999;		
 	
 	display: inline-block;
 	table-layout: fixed;
 	height: 100%;
-	width: 320px !important;
+	width: 300px;
 	padding-top: 45px;
 	overflow: hidden;
 	border-right: 1px solid #333;
-	background-color: #F0F0F0;	
 	
 	white-space: normal;
 	vertical-align:top;
@@ -546,6 +502,7 @@ html, body {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
 }
+
 .panel > [data-role="header"] {
 	position: absolute;
 	top: 0;
@@ -553,94 +510,31 @@ html, body {
 	width: inherit;
 	overflow: hidden;
 }
+
 .panel > [data-role="content"], .panel-content-wrap .ui-content {	
 	height: 100%;
 	padding: 0;	
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
 .panel .panel-back-button {
 	display: none;
 }
+
 .panel .ui-controlgroup {
 	margin: 0;
 }
+
 .panel a {
 	color: #375DDB;	
 }
+
 .tab .panel:last-of-type {
 	border: 0;
 }
-/* Panel Controlgroup */
-.panel .ui-header .ui-controlgroup {
-	position: absolute;
-	top: 5px;
-	right: 5px;	
-	opacity: 0;
-	
-	-moz-transition: all 0.2s ease-out;
-	-o-transition: all 0.2s ease-out;
-	-webkit-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-	
-	-webkit-transform: translateX(30px);
-	-moz-transform: translateX(30px);
-	-o-transform: translateX(30px);
-	transform: translateX(30px);	
-}
 
-/* Show controlgroup only on large screen */
-@media all and (min-width: 1024px) {
-	.panel:hover .ui-header .ui-controlgroup {		
-		opacity: 1;
-		
-		-webkit-transform: translateX(0px);
-		-moz-transform: translateX(0px);
-		-o-transform: translateX(0px);
-		transform: translateX(0px);	
-	}
-}
-/* Panel Slider Controls */
-.panel-slider-controls {
-	position: absolute;	
-	width: inherit;
-	margin: 0;
-	bottom: 0;	
-	visibility: hidden;
-	z-index: 9999;
-}
-/* Show slider controls only on large screens */
-@media all and (min-width: 1024px) {
-	.panel:hover .panel-slider-controls {
-		visibility: visible;
-	}
-}
-.panel-slider-controls .ui-btn:last-child {
-	float: right;	
-	
-	border-width: 1px 0 0 1px;
-	-moz-border-radius: 5px 0 0 0;
-	-webkit-border-radius: 5px 0 0 0;
-	border-radius: 5px 0 0 0;
-}
-.panel-slider-controls .ui-btn {
-	float: left;
-	margin: 0;
-	padding: 5px;
-	
-	border-width: 1px 1px 0 0;
-	-moz-border-radius: 0 5px 0 0;
-	-webkit-border-radius: 0 5px 0 0;
-	border-radius: 0 5px 0 0;
-}
- /* Panel Sortable Helper */
-.panel.ui-sortable-helper {
-	-moz-box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-	box-sizing: content-box;
-	
-	border: 5px solid hsla(210, 57%, 74%, 0.55);	
-}
+
 
 /* Custom Webkit Scrollbars */
 ::-webkit-scrollbar {
@@ -884,10 +778,6 @@ html, body {
 }
 
 /* ===== TABLET LAYOUT ===== */
-.tablet-tab-selector {
-	display: none;
-}
-
 .panel-content-wrap {
 	background-color: #F0F0F0;
 }
@@ -941,7 +831,7 @@ html, body {
 /*@media (max-width: 1024px) {*/
 /* ===== Public User ===== */
 
-	/* General */
+	/* General 
 	#tabs-container, #desktop > .ui-header > .ui-select {
 		display: none;
 	}
@@ -949,8 +839,9 @@ html, body {
 	.desktop-title #welcome-message {
 		display: none;
 	}	
+	*/
 	
-	/* Public Account Selectors */
+	/* Public Account Selectors 
 	#public-account-selectors {
 		float: none;
 		overflow: hidden;
@@ -987,38 +878,27 @@ html, body {
 	#public-account-selectors > .ui-btn:last-child {
 		margin-top: 5px;
 	}
+	*/
 	
-	/* Blank State */
+	/* Blank State 
 	#blank-state {
 		top: 180px;
 		right: auto;
 		left: -5px;
 	}
-	
-	/* Content */
-	#desktop-content {		
-		padding: 0 0 40px 220px;
-		background: #333;
-	}
+	*/
 	
 	/* Panels */
-	.panel {
-		position: relative;
-		z-index: 999;		
-		width: 380px;
-		background: none;
-	}
-	.panel > .ui-header {
-		background: none;
-		border: 0;
-	}
+	
 	
 	/* Tablet Tabs */
 	.tablet-tab-selector {
+		/*
 		position: absolute;
 		top: 180px;
 		left: 0;
 		z-index: 1000;
+		*/
 		
 		display: block;
 		width: 210px;
@@ -1030,7 +910,6 @@ html, body {
 	/* Tab Content */
 	.tab {
 		height: 98%;
-		margin: 1%;
 		
 		border: 1px solid #2a2a2a;
 		background-image: url(../images/panelHeaderTile.png);
@@ -1110,7 +989,7 @@ html, body {
 	}	
 	
 	
-/* ===== Registered User ===== */
+	/* ===== Registered User ===== */
 	.registered-user .desktop-title {
 		width: 40px;
 	}
@@ -1184,6 +1063,114 @@ html, body {
 		left: 0;
 		height: 840px;
 	}
+}
+
+/* Larger Screens */
+@media (min-width: 1025px) {
+	
+	/* Tooltip */
+	[data-tooltip] {
+		position: relative;
+	}
+	
+	[data-tooltip]:before {
+		display: none;
+		position:absolute;
+		width: 100px;
+		padding: 6px;	
+		left: 40px;
+		top: 2px;
+		z-index: 10;
+		
+		content: attr(data-tooltip);
+		
+		background: #1582aa;
+		opacity: 0.8;
+		
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		
+		text-indent: 0;
+		text-align: center;
+		color: #fff;
+		font-size: 12px;	
+	}
+	
+	[data-tooltip]:after {
+		content: "";
+		display: none;
+		position: absolute;
+		top: 10px;
+		left: 35px;
+		width: 0;
+		height: 0;
+		border-width: 5px 5px 5px 0;
+		border-style: solid;
+		border-color: transparent #1582aa;
+		opacity: 0.8;
+	}
+	
+	[data-tooltip]:hover::before, [data-tooltip]:hover::after {
+		display: block;
+	}
+	
+	/* Panel Controlgroup */
+	.panel .ui-header .ui-controlgroup {
+		position: absolute;
+		top: 5px;
+		right: 5px;	
+		opacity: 0;
+		
+		-moz-transition: all 0.2s ease-out;
+		-o-transition: all 0.2s ease-out;
+		-webkit-transition: all 0.2s ease-out;
+		transition: all 0.2s ease-out;
+		
+		-webkit-transform: translateX(30px);
+		-moz-transform: translateX(30px);
+		-o-transform: translateX(30px);
+		transform: translateX(30px);	
+	}
+
+	/* Panel Slider Controls */
+	.panel-slider-controls {
+		position: absolute;	
+		width: inherit;
+		margin: 0;
+		bottom: 0;	
+		z-index: 9999;
+	}
+
+	.panel-slider-controls .ui-btn:last-child {
+		float: right;	
+		
+		border-width: 1px 0 0 1px;
+		-moz-border-radius: 5px 0 0 0;
+		-webkit-border-radius: 5px 0 0 0;
+		border-radius: 5px 0 0 0;
+	}
+
+	.panel-slider-controls .ui-btn {
+		float: left;
+		margin: 0;
+		padding: 5px;
+		
+		border-width: 1px 1px 0 0;
+		-moz-border-radius: 0 5px 0 0;
+		-webkit-border-radius: 0 5px 0 0;
+		border-radius: 0 5px 0 0;
+	}
+
+	/* Panel Sortable Helper */
+	.panel.ui-sortable-helper {
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+		
+		border: 5px solid hsla(210, 57%, 74%, 0.55);	
+	}
+	
 }
 
 /* ===== JQUERY MOBILE FIXES ===== */
@@ -1267,7 +1254,7 @@ html, body {
 	z-index: 999999 !important;
 }
 .ui-page, .ui-dialog {
-	min-height: 100% !important;
+	/*min-height: 100% !important;*/
 }
 
 /* Blurry text */

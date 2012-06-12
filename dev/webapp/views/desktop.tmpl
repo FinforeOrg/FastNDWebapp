@@ -1,9 +1,6 @@
 <div id="desktop" data-role="page">
-	{{if blankState}}
-	<div id="blank-state-overlay"></div>
-	{{/if}}
 	
-	<div data-role="header">
+	<div class="main-actions">
 		{{if !user || user.is_public}}
 			<div id="signin-actions" data-role="controlgroup" data-type="horizontal">
 				<a id="login-button" data-rel="dialog" data-transition="slidedown" data-role="button" data-theme="b">Login</a>
@@ -36,17 +33,20 @@
 		
 	</div>
 	
-	<div class="tablet-tab-selector" id="tablet-tabs">
-		<div class="tablet-selector-wrapper">
-			<div class="tablet-tab-list">
-				{{if user && !user.is_public && 1 === 2}}
-					<a data-icon="plus" data-role="button" class="add-company-button" data-theme="a">Add a new company</a>
-				{{/if}}
+	<div class="tab-list">
+		<div class="tablet-tab-selector" id="tablet-tabs">
+			<div class="tablet-selector-wrapper">
+				<div class="tablet-tab-list">
+					{{if user && !user.is_public && 1 === 2}}
+						<a data-icon="plus" data-role="button" class="add-company-button" data-theme="a">Add a new company</a>
+					{{/if}}
+				</div>
 			</div>
 		</div>
 	</div>
 	
 	<div id="desktop-content" data-role="content"></div>
+	
 	<div data-role="footer">
 		<div class="scrolling-ticker"></div>		
 	</div>
