@@ -16,7 +16,8 @@ finfore.desktop = function() {
 		
 	// TABLET variables	
 		// if the screen width is lower than 1024, we consider it a tablet
-	var tablet = (document.documentElement.clientWidth <= 1024),
+	//var tablet = (document.documentElement.clientWidth <= 1024),
+	var tablet = true,
 		// determine if a fixed height class has been set for the pannel content wrapper
 		fixedHeight = false;
 		

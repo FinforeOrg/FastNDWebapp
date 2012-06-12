@@ -8,9 +8,6 @@
 			<div id="signin-actions" data-role="controlgroup" data-type="horizontal">
 				<a id="login-button" data-rel="dialog" data-transition="slidedown" data-role="button" data-theme="b">Login</a>
 				<a id="signup-button" data-rel="dialog" data-transition="slidedown" data-role="button" data-theme="a">Register</a>
-				{{if !tablet}}
-					<a id="find-company-button" data-role="button" data-theme="a">Lookup a Company</a>
-				{{/if}}
 			</div>
 		{{/if}}
 		
@@ -22,90 +19,32 @@
 		</div>
 		
 		{{if (user && !user.is_public)}}
-			<div id="header-buttons">				
-				{{if tablet}}
-					<a ontouchstart="" class="add-company-button">Profile</a>
-				{{/if}}
-				
+			<div id="header-buttons">
+				<a ontouchstart="" class="add-company-button" data-tooltip="Add Company">Add Company</a>
 				<a ontouchstart="" id="profile-button" data-tooltip="User Profile">Profile</a>
 				<a ontouchstart="" id="manage-button" data-tooltip="Manage Columns" class="disabled">Manage Columns</a>
 				<a ontouchstart="" class="help-button" data-tooltip="Get Help">Help</a>
-				<a ontouchstart="" class="logout-button" data-tooltip="Log out of Finfore">Logout</a>
+				<a ontouchstart="" class="logout-button" data-tooltip="Log out of FastND">Logout</a>
 			</div>
 		{{else}}
 			<div id="public-account-selectors">
-				{{if tablet}}
-					<a id="find-company-button" data-role="button" data-icon="search">Lookup a Company</a>
-				{{/if}}
+				<a id="find-company-button" data-role="button" data-icon="search">Lookup a Company</a>
 				
-				{{if !tablet}}
-					<p>Try out some of our public accounts by selecting your areas of focus</p>
-					<form>
-						<div data-role="fieldcontain">
-							<label for="profession">${focus.professional.title}</label>
-							<select name="user[profession]" id="profession">
-								{{each focus.professional.profiles}}
-									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
-								{{/each}}
-							</select>
-						</div>
-						<div data-role="fieldcontain">
-							<label for="industry">${focus.industrial.title}</label>
-							<select name="user[industry]" id="industry">
-								{{each focus.industrial.profiles}}
-									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.industrial}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
-								{{/each}}
-							</select>
-						</div>
-						<div data-role="fieldcontain">
-							<label for="geographic">${focus.geographic.title}</label>
-							<select name="user[geographic]" id="geographic">
-								${isSelected = false}
-								{{each focus.geographic.profiles}}
-									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'USA & Canada')}} selected="selected" {{/if}}>${$value.title}</option>
-								{{/each}}
-							</select>
-						</div>
-					</form>
-					<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Try account</button>
-				{{else}}
-					<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Use a Public Account</button>
-				{{/if}}
+				<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Use a Public Account</button>
 			</div>
-		{{/if}}
-		
-		
-		{{if !tablet}}
-		<div id="tabs-container">
-			<a data-role="button" data-icon="arrow-l" data-iconpos="notext" title="Scroll left" id="tab-scroll-left">Scroll left</a>
-			<div id="tab-bar">
-				<ul></ul>
-			</div>
-			<a data-role="button" data-icon="arrow-r" data-iconpos="notext" title="Scroll right" id="tab-scroll-right">Scroll right</a>
-			{{if user && !user.is_public}}
-				<a id="add-tab-button" data-icon="plus" data-iconpos="notext" data-tooltip="Add a new company" data-role="button" class="tooltip-top add-company-button">Add a new company</a>
-			{{/if}}
-		</div>
-		
-		<select name="tab-list-selector" id="tab-list-selector" data-iconpos="notext" data-native-menu="false" data-theme="a"></select>
 		{{/if}}
 		
 	</div>
 	
-	{{if tablet}}
-		<div class="tablet-tab-selector" id="tablet-tabs">
-			<div class="tablet-selector-wrapper">
-				<div class="tablet-tab-list">
-					{{if user && !user.is_public && 1 === 2}}
-						<a data-icon="plus" data-role="button" class="add-company-button" data-theme="a">Add a new company</a>
-					{{/if}}
-				</div>
+	<div class="tablet-tab-selector" id="tablet-tabs">
+		<div class="tablet-selector-wrapper">
+			<div class="tablet-tab-list">
+				{{if user && !user.is_public && 1 === 2}}
+					<a data-icon="plus" data-role="button" class="add-company-button" data-theme="a">Add a new company</a>
+				{{/if}}
 			</div>
 		</div>
-	{{/if}}
+	</div>
 	
 	<div id="desktop-content" data-role="content"></div>
 	<div data-role="footer">
