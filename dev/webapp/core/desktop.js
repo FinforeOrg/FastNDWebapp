@@ -664,7 +664,7 @@ finfore.desktop = function() {
 	/* Public account selector */
 	var initPublicAccountSelector = function() {		
 		nodes.$publicSelectors = $('#public-account-selectors');
-		nodes.$publicAccountSelectorBtn = $('button', nodes.$publicSelectors);	
+		nodes.$publicAccountSelectorBtn = $('#public-account-selector-btn', nodes.$publicSelectors);	
 		
 		if(tablet) {
 		

@@ -1,5 +1,5 @@
 /*
- * Finfore.net 
+ * FastND
  * Base CSS
  *
  */
@@ -112,7 +112,7 @@ html, body {
 	width: 530px;
 	padding: 10px;
 	
-	background-color: #353f4a;
+	background-color: #232930;
 	border-radius: 3px;
 	
 	color: #fff;
@@ -128,6 +128,7 @@ html, body {
 #blank-state p {
 	margin: 0;
 
+	color: #DCE7F7;
 	font-size: 1em;
 }
 
@@ -350,6 +351,7 @@ html, body {
 	margin: 1em 0px;
 	line-height: 2.5em;
 }
+
 #login-page h1 strong {
 	display: inline-block;	
 	width: 140px;
@@ -359,17 +361,210 @@ html, body {
 	text-indent: -9999px;
 }
 
-/* Landscape */
-@media all and (min-device-width : 768px) {
+/* == Registered User == */
 
-/*
+/* Main Actions */
+.registered-user .main-actions {
+	left: 0;
+	width: 60px;
+	height: 100%;
+}
+
+/* Tab List */
+.registered-user .tab-list {
+	left: 70px;
+	top: 0;
+}
+
+/* Desktop Content */
+.registered-user #desktop-content {
+	padding: 5px 0 40px 280px;
+}
+
+.registered-user .desktop-title {
+	width: 40px;
+}
+
+.registered-user .desktop-title h1 {
+	width: 40px !important;
+}
+
+/* User Buttons */
+/* Desktop Header Buttons */
+#header-buttons {
+	width: 32px;
+	margin: 40px auto;
+}
+
+#header-buttons a {
+	overflow: visible;
+	display: block;
+	width: 32px;
+	height: 32px;
+	margin-bottom: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 10;
+	
+	text-indent: -9999px;
+	text-decoration: none;
+	opacity: 0.6;
+	cursor: pointer;
+	
+	-moz-transition: opacity 0.3s ease-out;
+	-o-transition: opacity 0.3s ease-out;
+	-webkit-transition: opacity 0.3s ease-out;
+	-ms-transition: opacity 0.3s ease-out;
+	transition: opacity 0.3s ease-out;
+}
+
+#header-buttons a:hover, #header-buttons a:focus {
+	opacity: 1;
+}
+
+#header-buttons a:active {
+	position: relative;
+	top: 3px;
+	opacity: 1;
+}
+
+#header-buttons .add-company-button {
+	background-image: url(../images/icons/addBigIcon.png);
+}
+
+#header-buttons a#profile-button {
+	background-image: url(../images/icons/userBigIcon.png);
+}
+
+#header-buttons a#manage-button {
+	background-image: url(../images/icons/columnsBigIcon.png);
+}
+
+#header-buttons a.help-button {
+	background-image: url(../images/icons/helpBigIcon.png);
+}
+
+#header-buttons a.logout-button {
+	background-image: url(../images/icons/logoutBigIcon.png);
+}
+
+#header-buttons .disabled {
+	pointer-events: none;
+	opacity: 0.2;
+}
+
+/* == end Registered User == */
+
+/* Landscape and Large screens */
+@media all and (min-width : 768px) {
+
+	/* Tooltip */
+	[data-tooltip] {
+		position: relative;
+	}
+	
+	[data-tooltip]:before {
+		display: none;
+		position:absolute;
+		width: 100px;
+		padding: 6px;	
+		left: 40px;
+		top: 2px;
+		z-index: 10;
+		
+		content: attr(data-tooltip);
+		
+		background: #1582aa;
+		opacity: 0.8;
+		
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		
+		text-indent: 0;
+		text-align: center;
+		color: #fff;
+		font-size: 12px;
+		text-shadow: none;
+	}
+	
+	[data-tooltip]:after {
+		content: "";
+		display: none;
+		position: absolute;
+		top: 10px;
+		left: 35px;
+		width: 0;
+		height: 0;
+		border-width: 5px 5px 5px 0;
+		border-style: solid;
+		border-color: transparent #1582aa;
+		opacity: 0.8;
+	}
+	
+	[data-tooltip]:hover::before, [data-tooltip]:hover::after {
+		display: block;
+	}
+
+	/* Main Actions */
 	.main-actions {
 		left: 0;
-		width: 150px;
+		width: 170px;
 		height: 100%;
-		padding-bottom: 50px;
+		padding: 0 0 50px 5px;
 	}
-*/
+	
+	.desktop-title,
+	#signin-actions,
+	#public-account-selectors {
+		display: block;
+	}
+	
+	.main-actions .ui-btn-inner {
+		text-overflow: clip;
+	}
+	
+	#signin-actions {
+		padding: 0;
+		width: auto;
+	}
+	
+	#signin-actions a {
+		width: 80px;
+	}
+	
+	#public-account-selectors > div {
+		display: block;
+		width: 160px;
+		margin-top: 10px;
+		border-radius: 3px;
+	}
+
+	#public-account-selectors .ui-btn-inner {
+		padding-left: 35px;
+	}
+	
+	/* Tab List */
+	.tab-list {
+		left: 180px;
+		top: 0;
+	}
+	
+	/* Desktop Content */
+	#desktop-content {
+		padding: 5px 0 10px 390px;
+	}
+	
+	/* Blank State */
+	#blank-state {
+		top: 200px;
+		left: 5px;
+		width: 140px;
+	}
+	
+	#blank-state p {
+		margin-top: 10px;
+	}
 
 }
 
@@ -509,4 +704,116 @@ html, body {
 		-webkit-box-sizing: border-box;
 		padding-bottom: 8px;
 	}
+}
+
+
+/* ===== IE BROWSER UPGRADE NOTICE ===== */
+#brower-upgrade-notice-overlay {
+	position: absolute;
+	z-index: 9998;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	background-color: #333;
+}
+#brower-upgrade-notice .proceed-anyway {
+	display: block;
+	position: relative;
+	clear: both;	
+}
+#brower-upgrade-notice .proceed-anyway:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 8px;
+	left: -10px;
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid #333;
+}
+#brower-upgrade-notice {
+	position: absolute;
+	z-index: 9999;
+	left: 50%;
+	top: 50%;
+	width: 560px;	
+	padding: 20px;
+	margin-left: -280px;
+	margin-top: -150px;
+	
+	font-size: 13px;
+	border: 1px solid #FCFCFC;
+	background-color: #efefef;
+}
+#brower-upgrade-notice h2 {
+	margin-top: 0;
+}
+#brower-upgrade-notice a {
+	position: relative;
+	font-weight: bold;
+	color: #0E79CA;
+	
+	zoom: 1;
+}
+#brower-upgrade-notice a:hover {
+	background-color: #F7F7F7;
+	color: #000;
+	text-decoration: none;
+}
+#brower-upgrade-notice ul {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+#brower-upgrade-notice li {
+	float: left;
+	list-style-type: none;
+}
+#brower-upgrade-notice li a {
+	display: block;
+	width: 75px;
+	padding-top: 70px;
+	background-image: url(../images/browserLogos.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	
+	text-align: center;
+}
+#brower-upgrade-notice li .firefox-browser {
+	background-position: -75px 0px;
+}
+#brower-upgrade-notice li .opera-browser {
+	background-position: -141px 0px;
+}
+#brower-upgrade-notice li .safari-browser {
+	background-position: -210px 0px;
+}
+
+#brower-upgrade-notice .other-browser {
+	float: left;
+	padding-bottom: 10px;
+}
+
+#brower-upgrade-notice .upgrade-ie {
+	float: right;
+	width: 160px;
+	margin-top: -15px;
+	text-align: right;
+}
+
+#brower-upgrade-notice .ie-browser {
+	display: block;
+	float: right;
+	width: 75px;
+	padding-top: 70px;
+	background-image: url(../images/browserLogos.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	
+	text-align: center;
+	background-position: -280px 0px;
 }
