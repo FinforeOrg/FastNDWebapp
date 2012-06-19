@@ -47,11 +47,13 @@
 	<div data-role="footer">
 		<div class="scrolling-ticker"></div>		
 	</div>
-</div>
-
-<div id="blank-state">
-	<h1>Welcome to <strong>FastND</strong></h1>
-	<p>You can try out some of our public accounts, by using the <strong>Use a Public Account</strong> button, or if you like our service, please register for an account. </p>
+	
+	{{if !user || user.is_public}}
+		<div id="blank-state">
+			<h1>Welcome to <strong>FastND</strong></h1>
+			<p>You can try out some of our public accounts, by using the <strong>Use a Public Account</strong> button, or if you like our service, please register for an account. </p>
+		</div>
+	{{/if}}
 </div>
 
 {{if !user || user.is_public}}

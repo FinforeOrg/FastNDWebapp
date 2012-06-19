@@ -18,11 +18,11 @@ html, body {
 
 /* Layout */
 #desktop {
+	display: block !important;
 	position: fixed !important;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: #333;
 	
 	z-index: 0 !important;
 }
@@ -108,6 +108,7 @@ html, body {
 	position: absolute;
 	left: 210px;
 	top: 70px;
+	z-index: 2;
 	width: 530px;
 	padding: 10px;
 	
@@ -302,6 +303,61 @@ html, body {
 	background-image: url(../images/icons/pricesUpdateIcon.png);
 }
 
+/* == Dialogs == */
+.small-dialog {
+	margin-top: 0;
+	background: hsla(0, 0%, 10%, 0.6) !important;
+	z-index: 9999;
+}
+
+.small-dialog [data-role="header"] {
+	width: 500px;
+	margin: 0 auto;
+	
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+.small-dialog [data-role="content"] {
+	width: 470px;
+	margin: 0 auto;
+}
+
+/* SIGN-UP DIALOG */
+#signup-page {
+	height: 975px;
+}
+#signup-page1 {
+	height: 540px;
+}
+
+/* Add Company Dialog */
+#add-company-page {
+	padding-bottom: 10px;
+}
+
+#add-company-page li:last-of-type {
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+/* Login Dialog */
+#login-page h1 {
+	margin: 1em 0px;
+	line-height: 2.5em;
+}
+#login-page h1 strong {
+	display: inline-block;	
+	width: 140px;
+	height: 40px;
+	padding-left: 5px;
+	background: url(../images/finforeLogo.png) no-repeat right center;
+	text-indent: -9999px;
+}
 
 /* Landscape */
 @media all and (min-device-width : 768px) {
@@ -351,6 +407,101 @@ html, body {
 }
 
 /* == FIXES == */
+
+
+/* ===== JQUERY MOBILE FIXES ===== */
+
+#desktop .ui-footer .ui-btn-icon-notext, #desktop .ui-header .ui-btn-icon-notext {
+	top: 0 !important;
+}
+
+[data-role="page"], [data-role="header"] {
+	width: 100%;
+}
+
+/* Disable fade transition */
+@-webkit-keyframes fadein {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fadein {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fadeout {
+	from { opacity: 1; }
+    to { opacity: 1; }
+}
+.fade.out {
+	opacity: 1;
+}
+
+/* Fixes webkit %percentage height issues */
+.panel embed {
+	display: table-row;
+}
+.panel .ui-content ul {
+	display: block;
+	width: 100%;
+	
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.panel .ui-content ul li {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.load-more-container {
+	display: table;
+	width: 100%;
+}
+
+/* Show scrollbars while loading */
+.ui-loading .ui-mobile-viewport {
+	overflow: auto !important;
+}
+
+/* Fix jQuery Mobile Title Crop */
+.ui-header .ui-title, .ui-footer .ui-title {
+	margin: 10px 0;
+}
+
+/* Fix jQuery Mobile multiple selectmenu pop and title margin*/
+.ui-selectmenu.pop {
+	left: 50% !important;
+	margin-left: -175px !important;
+	margin-top: -50px;
+}
+.ui-selectmenu .ui-header {
+	margin: 0;
+	width: auto;
+}
+
+/* jQuery Mobile fix */
+.ui-loader {
+	top: 50% !important;
+	z-index: 999999 !important;
+}
+.ui-page, .ui-dialog {
+	/*min-height: 100% !important;*/
+}
+
+/* Blurry text */
+.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner, .ui-btn-text {
+	font-size: 12px !important;
+}
+
+/* Flickering Safari Issue */
+[data-role="page"] {
+    -webkit-backface-visibility: hidden;
+}
 
 /* iPad Fix */
 @media only screen and (-webkit-min-device-pixel-ratio:0) {
