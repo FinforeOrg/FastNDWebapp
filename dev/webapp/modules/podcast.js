@@ -191,7 +191,10 @@ finfore.modules.podcast = function() {
 					$content.listview();
 				}
 				
-				if(!finfore.smallScreen && !finfore.tablet && !finforeNative) {
+				if(finfore.smallScreen || finforeNative || touchSupport) {
+					// native media
+				} else {
+					// mediaelement.js
 					var $media = $('video, audio', $markup);
 					$media.mediaelementplayer({
 						audioWidth: 275,

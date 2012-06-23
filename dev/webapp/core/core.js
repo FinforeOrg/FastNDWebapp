@@ -11,6 +11,13 @@ if(smallScreen) {
 	var smallScreen = false;
 };
 
+// Detect Touch
+//var touchSupport = !!('ontouchstart' in window);
+var touchSupport = false;
+if(touchSupport) {
+	$('html').addClass('touch');
+}
+
 var finfore = function() {
 	var url = {
 		// login
@@ -710,14 +717,10 @@ var finfore = function() {
 					// wait for the panels to be created
 					setTimeout(function() {
 						
-						if(finfore.tablet) {
-							// Tablet binds the desktop.tabs.select event
-							// to the expand event.
-							// So we can just trigger expand.
-							$tab.trigger('expand');
-						} else {
-							finfore.desktop.tabs.select($tab);
-						};
+						// Tablet binds the desktop.tabs.select event
+						// to the expand event.
+						// So we can just trigger expand.
+						$tab.trigger('expand');
 						
 					}, 100);
 					
@@ -727,9 +730,9 @@ var finfore = function() {
 		},
 		// Remove Company
 		remove: function() {
-			var $tab = $(this).parent('li');
-			var companyId = $('a', $tab).attr('href').substr(1);
-			var companyName = $('a', $tab).text();
+			var $tab = $(this).parents('div:first');
+			var companyId = $tab.attr('data-company-id');
+			var companyName = $(this).parents('h3:first').text();
 			
 			var form = '<h2>Are you sure you sure you want to remove <em>' + companyName + '</em>?</h2>';
 			$.prompt(form, {
@@ -875,7 +878,6 @@ var finfore = function() {
 		//populate
 		populate: populate,
 		
-		tablet: false,
 		smallScreen: smallScreen,
 		$body: $('body'),
 		
