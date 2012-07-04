@@ -295,7 +295,7 @@ html, body {
 	vertical-align:top;
 		
 	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
+	-webkit-box-sizing: border-box-box;
 	box-sizing: border-box;	
 }
 
@@ -735,6 +735,10 @@ html, body {
 	display: none;
 }
 
+.public-account-select-box {
+	padding-top: 10px;
+}
+
 .public-account-select-box form label,
 .public-account-select-box form .ui-select,
 .public-account-select-box form .ui-select > div,
@@ -772,11 +776,11 @@ html, body {
 	
 	/* Enlarge main-actions */
 	.main-actions {
-		height: 400px;
+		height: 320px;
 	}
 	
 	.tab-list {
-		padding-top: 400px;
+		padding-top: 320px;
 	}
 
 }
