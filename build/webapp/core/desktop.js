@@ -505,8 +505,10 @@ finfore.desktop = function() {
 	/* Public account selector */
 	var initPublicAccountSelector = function() {		
 		nodes.$publicSelectors = $('#public-account-selectors');
-		nodes.$publicAccountSelectorBtn = $('#public-account-selector-btn', nodes.$publicSelectors);	
+		nodes.$publicAccountSelectorPageBtn = $('#public-account-selector-btn', nodes.$publicSelectors);	
+		nodes.$publicAccountSelectorForm = $('#public-account-box-form', nodes.$publicSelectors);	
 		
+		/* Tablet */
 		nodes.$publicPage = $('#public-account-selector');
 		nodes.$publicPage.page();
 		
@@ -526,12 +528,32 @@ finfore.desktop = function() {
 			return false;
 		});
 		
-		nodes.$publicAccountSelectorBtn.click(function() {
+		nodes.$publicAccountSelectorPageBtn.click(function() {
 			$.mobile.changePage(nodes.$publicPage, {
 				transition: 'slidedown'
 			});
 			return false;
 		});
+		
+		/* Desktop */
+		
+		nodes.$professionSelectorInline = $('#profession', nodes.$publicSelectors);
+		nodes.$geoSelectorInline = $('#geographic', nodes.$publicSelectors);
+		nodes.$industrySelectorInline = $('#industry', nodes.$publicSelectors);	
+			
+		var selectPublicAccount = function() {			
+			var ids = nodes.$industrySelectorInline.val() + ',' + nodes.$geoSelectorInline.val() + ',' + nodes.$professionSelectorInline.val();
+			
+			finfore.publicLogin({
+				ids: ids
+			}, function(response) {
+				window.location.reload();
+			});
+			
+			return false;
+		};
+		
+		nodes.$publicAccountSelectorForm.submit(selectPublicAccount);
 		
 	};	
 		
