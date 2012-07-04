@@ -242,6 +242,7 @@ finfore.desktop = function() {
 			$mainPage: $('.main-page'),
 			$stocksPage: $('.stocks-page'),
 			$companiesPage: $('.companies-page'),
+			$menuPage: $('.menu-page'),
 			
 			$mainColumns: $('.main-columns'),
 			$companiesColumns: $('.companies-columns'),
@@ -260,6 +261,12 @@ finfore.desktop = function() {
 			$companiesPageContent: $('[data-role=content]', nodes.$companiesPage)
 		});
 		
+		// init menu
+		nodes.$menuPage.page();
+		// DEVELOPMENT - REMOVE
+		finfore.$body.addClass('show-menu');
+		
+		// reder markup
 		finfore.$body.trigger('create');
 		
 		$.mobile.changePage(nodes.$mainPage);

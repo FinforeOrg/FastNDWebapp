@@ -126,6 +126,7 @@ a.panel-back-button {
 .desktop-title {
 	overflow: hidden;
 	width: auto !important;
+	height: 45px;
 	padding: 5px 10px;
 }
 .desktop-title h1 {
@@ -326,6 +327,41 @@ a.panel-back-button {
 	text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
+}
+
+/* Offcanvas Menu */
+.ui-mobile .menu-page {
+	position: absolute;
+	top: 0;
+	left: -220px;
+	width: 220px;
+	display: block !important;
+}
+
+.ui-mobile .menu-page [data-role="header"] {
+	height: 55px;
+}
+
+.ui-mobile .menu-page,
+.show-menu .main-page {
+	-webkit-transition: all 0.3s ease-out; 
+	-moz-transition: all 0.3s ease-out; 
+	-o-transition: all 0.3s ease-out; 
+	transition: all 0.3s ease-out;
+}
+
+.show-menu .main-page,
+.show-menu .main-columns,
+.show-menu .companies-columns,
+.show-menu .stocks-columns,
+.show-menu .companies-page,
+.show-menu .stocks-page,
+.show-menu .menu-page {
+	-webkit-transform: translateX(220px);
+	-moz-transform: translateX(220px);
+	-ms-transform: translateX(220px);
+	-o-transform: translateX(220px);
+	transform: translateX(220px);
 }
 
 

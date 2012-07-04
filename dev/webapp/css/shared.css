@@ -12,8 +12,9 @@
 	float: left;
 	margin: 9px 0px;
 	width: 150px;
-	height: 40px;
+	height: 35px;
 	background: url(../images/finforeLogo.png) no-repeat left center;
+	background-size: contain;
 	
 	text-indent: -9999px;
 }

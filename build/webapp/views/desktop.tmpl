@@ -27,11 +27,10 @@
 				<button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button>
 			
 				<div class="public-account-select-box">
-					<p>Try out some of our public accounts by selecting your areas of interest:</p>
 					<form id="public-account-box-form">
 						<div data-role="fieldcontain">
-							<label for="profession">${focus.professional.title}</label>
 							<select name="user[profession]" id="profession" data-theme="a">
+								<option disabled>${focus.professional.title}</option>
 								{{each focus.professional.profiles}}
 									${currentFocusId = $value._id}
 									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
@@ -39,8 +38,8 @@
 							</select>
 						</div>
 						<div data-role="fieldcontain">
-							<label for="industry">${focus.industrial.title}</label>
 							<select name="user[industry]" id="industry" data-theme="a">
+								<option disabled>${focus.industrial.title}</option>
 								{{each focus.industrial.profiles}}
 									${currentFocusId = $value._id}
 									<option value="${$value._id}" {{each selectedFocus.industrial}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
@@ -48,8 +47,8 @@
 							</select>
 						</div>
 						<div data-role="fieldcontain">
-							<label for="geographic">${focus.geographic.title}</label>
 							<select name="user[geographic]" id="geographic" data-theme="a">
+								<option disabled>${focus.geographic.title}</option>
 								${isSelected = false}
 								{{each focus.geographic.profiles}}
 									${currentFocusId = $value._id}
@@ -57,7 +56,7 @@
 								{{/each}}
 							</select>
 						</div>
-						<button data-theme="b" type="submit">Try account</button>
+						<button data-theme="b" type="submit">Try a Public account</button>
 					</form>
 				</div>
 			

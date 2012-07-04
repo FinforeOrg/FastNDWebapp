@@ -776,11 +776,11 @@ html, body {
 	
 	/* Enlarge main-actions */
 	.main-actions {
-		height: 320px;
+		height: 300px;
 	}
 	
 	.tab-list {
-		padding-top: 320px;
+		padding-top: 300px;
 	}
 
 }
