@@ -12,8 +12,7 @@ if(smallScreen) {
 };
 
 // Detect Touch
-//var touchSupport = !!('ontouchstart' in window);
-var touchSupport = false;
+var touchSupport = !!('ontouchstart' in window);
 if(touchSupport) {
 	$('html').addClass('touch');
 }
@@ -56,7 +55,7 @@ var finfore = function() {
 	var largeScreen = (document.documentElement.clientWidth > 1024);
 	
 	// determine if blank state will be displayed
-	var blankState = (Storage.getItem('blankState')) ? false : true;	
+	var blankState = (Storage.getItem('blankState')) ? false : true;
 	
 	/* Data Store */
 	var data = {

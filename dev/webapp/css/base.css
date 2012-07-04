@@ -27,8 +27,8 @@ html, body {
 	z-index: 0 !important;
 }
 
-.desktop-inner .main-actions,
-.desktop-inner .tab-list,
+.main-actions,
+.tab-list,
 #desktop-content {
 	display: block;
 	
@@ -43,9 +43,9 @@ html, body {
 	height: 60px;
 	
 	background-color: #222;
-	box-shadow: inset 0 -1px 5px #111;
+	box-shadow: inset 0 1px 5px #111;
 	
-	z-index: 2;
+	z-index: 3;
 }
 
 .tab-list {
@@ -54,7 +54,7 @@ html, body {
 	top: 60px;
 	height: 100%;
 	width: 200px;
-	padding: 0 0 50px 5px;
+	padding: 0 0 30px 0;
 	
 	z-index: 2;
 }
@@ -64,7 +64,7 @@ html, body {
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	padding: 150px 0 50px 210px;
+	padding: 70px 0 50px 210px;
 	background: #333;
 }
 
@@ -104,32 +104,60 @@ html, body {
 	width: 360px;
 }
 
+/* blank state */
 #blank-state {
+	display: block;
 	position: absolute;
-	left: 210px;
-	top: 70px;
-	z-index: 2;
-	width: 530px;
-	padding: 10px;
+	left: 10px;
+	top: 65px;
 	
-	background-color: #232930;
-	border-radius: 3px;
+	width: 410px;
+	height: 250px;	
+	border-width: 3px;
+	z-index: 1002;	
 	
-	color: #fff;
-	text-shadow: none;
+	box-shadow: 0 3px 10px #000;
+}
+
+#blank-state:after {
+	content:"";
+	position:absolute;
+	top: -15px;
+	left: 20px;
+	
+	border-width: 0 15px 15px 15px;
+	border-style: solid;
+	border-color: #b3b3b3 transparent;
+    display: block; 
+    width: 0;
+	z-index: 1003;
 }
 
 #blank-state h1 {
-	margin: 0;
-	
-	font-size: 1.2em;
+	line-height: 40px;
+	text-align: center;
+}
+#blank-state h1 strong {
+	background: url(../images/finforeLogo.png) no-repeat scroll left center transparent;
+    display: inline-block;	
+    height: 40px;
+    margin: 5px;
+    text-indent: -9999px;
+    width: 150px;
+}
+#blank-state form {
+	overflow: hidden;
+}
+#blank-state form .ui-checkbox {
+	float: left;
+}
+#blank-state form #blank-state-close-btn {
+	float: right;
 }
 
-#blank-state p {
-	margin: 0;
-
-	color: #DCE7F7;
-	font-size: 1em;
+#blank-state form .ui-checkbox,
+#blank-state form #blank-state-close-btn {
+	margin: .2em 0 .5em;
 }
 
 /* ===== Tablet Layout ===== */
@@ -201,17 +229,16 @@ html, body {
 
 .tablet-tab-list {
 	position: relative;
-	padding-bottom: 120px;
+	padding-bottom: 30px;
 }
 
 .tablet-tab-selector {
 	overflow-y: auto;
-	padding-left: 3px;
+	padding: 0 3px;
 	height: 100% !important;
 	
-	/* Move scrollbar to left */
-	direction: rtl;
-	text-align: left;
+	background-color: #111;
+	box-shadow: inset 0 1px 5px #000;
 }
 
 /* Tabs and Columns */
@@ -427,7 +454,6 @@ html, body {
 .registered-user .main-actions {
 	left: 0;
 	width: 60px;
-	height: 100%;
 	z-index: 10;
 }
 
@@ -570,8 +596,8 @@ html, body {
 	/* Main Actions */
 	.main-actions {
 		left: 0;
-		width: 170px;
-		height: 100%;
+		width: 200px;
+		height: 190px;
 		padding: 0 0 50px 5px;
 	}
 	
@@ -591,12 +617,12 @@ html, body {
 	}
 	
 	#signin-actions a {
-		width: 80px;
+		width: 90px;
 	}
 	
 	#public-account-selectors > div {
 		display: block;
-		width: 160px;
+		width: 180px;
 		margin-top: 10px;
 		border-radius: 3px;
 	}
@@ -607,24 +633,35 @@ html, body {
 	
 	/* Tab List */
 	.tab-list {
-		left: 180px;
+		left: 0;
 		top: 0;
+		
+		padding-top: 190px;
 	}
 	
 	/* Desktop Content */
 	#desktop-content {
-		padding: 5px 0 40px 390px;
+		padding: 5px 0 40px 210px;
 	}
 	
 	/* Blank State */
 	#blank-state {
-		top: 200px;
-		left: 5px;
-		width: 140px;
+		top: 5px;
+		left: 200px;
 	}
 	
-	#blank-state p {
-		margin-top: 10px;
+	#blank-state:after {
+		content:"";
+		position:absolute;
+		top: 5px;
+		left: -15px;
+		
+		border-width: 15px 15px 15px 0;
+		border-style: solid;
+		border-color: transparent #b3b3b3;
+		display: block; 
+		width: 0;
+		z-index: 1003;
 	}
 	
 	/* Panel Controlgroup */

@@ -44,10 +44,24 @@
 		<div class="scrolling-ticker"></div>		
 	</div>
 	
-	{{if !user || user.is_public}}
-		<div id="blank-state">
-			<h1>Welcome to <strong>FastND</strong></h1>
-			<p>You can try out some of our public accounts, by using the <strong>Use a Public Account</strong> button, or if you like our service, please register for an account. </p>
+	{{if blankState}}
+		<div id="blank-state" class="ui-body-c ui-corner-all">
+			<div class="ui-bar-a">
+				<h1>Welcome to <strong>FastND</strong></h1>
+			</div>
+			<div class="ui-content">
+				<p>Please try out some of our public profiles, by selecting different focus areas from these selectors. </p>
+				<p>If you like our service, please register for an account, using the button on the top left, after closing this message. </p>
+				<form>
+					<label>
+						<input type="checkbox" name="show-blank-state" id="show-blank-state">Don't show this message again</label>
+						<a data-role="button" data-icon="delete" data-inline="true" data-theme="a" id="blank-state-close-btn" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-btn-up-a ui-btn-inline ui-btn-corner-all">
+							<span class="ui-btn-inner ui-btn-corner-all">
+								<span class="ui-btn-text">Close popup</span>
+							</span>
+						</a>
+				</form>
+			</div>
 		</div>
 	{{/if}}
 </div>
