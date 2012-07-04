@@ -102,6 +102,9 @@ html, body {
 
 #public-account-selectors {
 	width: 360px;
+	
+	color: #fff;
+	text-shadow: none;
 }
 
 /* blank state */
@@ -542,7 +545,7 @@ html, body {
 
 /* == end Registered User == */
 
-/* Landscape and Large screens */
+/* Landscape Tablets */
 @media all and (min-width : 770px) {
 
 	/* Tooltip */
@@ -727,6 +730,56 @@ html, body {
 
 }
 
+/* Public Account select box */
+#public-account-selectors .public-account-select-box {
+	display: none;
+}
+
+.public-account-select-box form label,
+.public-account-select-box form .ui-select,
+.public-account-select-box form .ui-select > div,
+.public-account-select-box form > div {
+	display: block;
+	width: 100%;
+	
+	font-size: 12px;
+}
+
+.public-account-select-box > p {
+	margin: 20px 0 5px 0;
+	
+	font-size: 11px;
+}
+
+.public-account-select-box .ui-field-contain {
+	margin: 0 0 5px 0;
+	
+	color: #c9c9c9;
+}
+
+/* Desktop Screens */
+@media all and (min-width: 1025px) {
+
+	/* Hide Use a Public Account button */
+	#public-account-selectors > div:first-child {
+		display: none;
+	}
+	
+	/* Show public account select box */
+	#public-account-selectors .public-account-select-box {
+		display: block;
+	}
+	
+	/* Enlarge main-actions */
+	.main-actions {
+		height: 400px;
+	}
+	
+	.tab-list {
+		padding-top: 400px;
+	}
+
+}
 
 /* Custom Webkit Scrollbars */
 ::-webkit-scrollbar {

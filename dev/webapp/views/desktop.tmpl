@@ -25,7 +25,44 @@
 			<div id="public-account-selectors" data-role="controlgroup" data-type="horizontal">
 				<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Use a Public Account</button>
 				<button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button>
+			
+				<div class="public-account-select-box">
+					<p>Try out some of our public accounts by selecting your areas of interest:</p>
+					<form id="public-account-box-form">
+						<div data-role="fieldcontain">
+							<label for="profession">${focus.professional.title}</label>
+							<select name="user[profession]" id="profession" data-theme="a">
+								{{each focus.professional.profiles}}
+									${currentFocusId = $value._id}
+									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div data-role="fieldcontain">
+							<label for="industry">${focus.industrial.title}</label>
+							<select name="user[industry]" id="industry" data-theme="a">
+								{{each focus.industrial.profiles}}
+									${currentFocusId = $value._id}
+									<option value="${$value._id}" {{each selectedFocus.industrial}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div data-role="fieldcontain">
+							<label for="geographic">${focus.geographic.title}</label>
+							<select name="user[geographic]" id="geographic" data-theme="a">
+								${isSelected = false}
+								{{each focus.geographic.profiles}}
+									${currentFocusId = $value._id}
+									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'USA & Canada')}} selected="selected" {{/if}}>${$value.title}</option>
+								{{/each}}
+							</select>
+						</div>
+						<button data-theme="b" type="submit">Try account</button>
+					</form>
+				</div>
+			
 			</div>
+			
 		{{/if}}
 		
 	</div>
