@@ -34,6 +34,29 @@ finfore.desktop = function() {
 		scroll: {}
 	};
 	
+	/* Blank State Notice Functionality */
+	var initBlankState = function() {
+		var $blankStateOverlay = $('#blank-state-overlay');		
+		var $blankStatePage = $('#blank-state')
+		
+		$('.ui-header', nodes.$page).css('z-index', 'auto');
+		$('[data-role=button]', $blankStatePage).button();
+		
+		$('form input[type=checkbox]', $blankStatePage).change(function() {
+			if($(this).is(':checked')) {
+				Storage.setItem('blankState', false);
+			} else {
+				Storage.setItem('blankState', true);
+			};
+		});
+		
+		$('#blank-state-close-btn', $blankStatePage).click(function() {
+			$blankStatePage.remove();
+			$blankStateOverlay.remove();			
+			$('.ui-header', nodes.$page).css('z-index', '2');
+		});
+	};
+	
 	/*
 	 * Add Tab
 	 */
@@ -53,10 +76,10 @@ finfore.desktop = function() {
 			nodes.$tabletTabs.append($tabSelector);
 			$tabSelector.collapsible();
 			
-			var $deleteCompany = $('<span class="ui-icon ui-icon-shadow ui-icon-delete tab-close-button"></span>');
-			
-			$tabSelector.append($deleteCompany);
-			
+			if(!finfore.data.user.is_public) {
+				var $deleteCompany = $('<span class="ui-icon ui-icon-shadow ui-icon-delete tab-close-button"></span>');
+				$tabSelector.append($deleteCompany);
+			}
 			
 			// refresh the tab selector iScroll when expading or collapsing the company tab selector
 			if(touchSupport) {
