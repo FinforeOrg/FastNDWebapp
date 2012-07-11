@@ -14,6 +14,13 @@ Dependencies:
 * jquery.impromptu
 * jquery.toastmessage
 
+## Dependencies for building
+
+* Install Ruby (includes Rake)
+* Install Ruby DevKit (http://rubyinstaller.org/downloads/ - https://github.com/oneclick/rubyinstaller/wiki/development-kit)
+* Install net-sftp gem (install with `gem install net-sftp`)
+
+
 ## Running the app
 
 You'll need a web server to be able to run FastND, because of PHP dependencies, and dynamic loading of components.

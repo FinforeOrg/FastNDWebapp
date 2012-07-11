@@ -1,5 +1,7 @@
+<!--
 <div class="main-page {{if user && user.is_public}}public-user{{/if}}" data-role="page">
 	<div data-role="header" class="desktop-title">
+		<a data-role="button" data-icon="delete" data-theme="a" data-iconpos="notext" class="mobile-menu-button">Menu</a>
 		<h1>FastND</h1>
 		{{if user && user.is_public}}
 			<a data-role="button" class="signin-button ui-btn-right" data-theme="a">Sign In</a> 
@@ -17,10 +19,6 @@
 	<div data-role="content"></div>
 </div>
 
-<div class="main-columns columns-container" data-backpage="main-page"></div>
-<div class="companies-columns columns-container" data-backpage="companies-page"></div>
-<div class="stocks-columns columns-container" data-backpage="stocks-page"></div>
-
 <div data-role="navbar" class="mobile-navbar">
 	<ul>
 		<li><a class="main-icon main-button ui-btn-active" data-icon="custom" data-theme="a">Main</a></li>
@@ -35,6 +33,11 @@
 		
 	</ul>
 </div>
+-->
+
+<div class="main-columns columns-container" data-backpage="main-page"></div>
+<div class="companies-columns columns-container" data-backpage="companies-page"></div>
+<div class="stocks-columns columns-container" data-backpage="stocks-page"></div>
 
 <div class="companies-page ui-page" data-role="page">
 	<div data-role="header" class="desktop-title">
@@ -77,7 +80,6 @@
 {{if user && !user.is_public}}
 	<div id="mobile-updates" data-role="page">
 		<div data-role="header" class="desktop-title">
-			<h1>FastND</h1>
 			{{if user && user.is_public}}
 				<a data-role="button" class="signin-button ui-btn-right" data-theme="a">Sign In</a> 
 			{{/if}}
@@ -140,18 +142,27 @@
 {{/if}}
 
 <div data-role="page" data-theme="a" class="menu-page">
-	<div data-role="header"></div>
+	<div data-role="header" class="desktop-title">
+		<h1>FastND</h1>
+		
+		{{if user && user.is_public}}
+			<a data-role="button" class="signin-button ui-btn-right" data-theme="a">Sign In</a> 
+		{{/if}}
+		
+		{{if user && !user.is_public}}
+			<div class="header-buttons">
+				<a ontouchstart="" class="logout-button">Logout</a>
+			</div>
+		{{/if}}
+	</div>
 	<div data-role="content">
 		
-		<ul data-role="listview">
-			<li><a href="#">Shane Leonard</a></li>
-			<li data-role="list-divider"></li>
-			<li><a href="#">Main</a></li>
-			<li><a href="#">Portfolio</a></li>
-			<li><a href="#">Companies</a></li>
-			<li><a href="#">Lookup Company</a></li>
-			<li data-role="list-divider"></li>
-			<li><a href="#">Refresh Columns</a></li>
+		<ul data-role="listview" class="mobile-menu split-selector" data-split-theme="a">
+			{{if user && !user.is_public}}
+				<li><a>Shane Leonard</a><a class="mobile-column-select profile-button"></a></li>
+				<li><a>Alerts</a><a class="alerts-button mobile-column-select"></a></li>
+			{{/if}}
+			<li><a>Lookup Company</a><a class="mobile-column-select add-tab-button"></a></li>
 		</ul>
 		
 	</div>
