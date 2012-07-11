@@ -257,6 +257,7 @@ finfore.desktop = function() {
 			//$companiesBtn: $('.companies-button', nodes.$navBar),
 			
 			$alertsBtn: $('.alerts-button', nodes.$menuPage),
+			$profileBtn: $('.profile-button', nodes.$menuPage),
 			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
 			
 			$stocksPageContent: $('[data-role=content]', nodes.$stocksPage),
@@ -390,9 +391,7 @@ finfore.desktop = function() {
 				nodes.$companiesBtn.addClass('ui-btn-active');
 			});
 			
-			nodes.$alertsBtn.bind('click', function() {
-				$.mobile.changePage(ticker.$page);
-			});
+			
 			*/
 			
 			
@@ -408,6 +407,15 @@ finfore.desktop = function() {
 				};
 			});
 				*/
+			
+			nodes.$alertsBtn.bind('click', function() {
+				$.mobile.changePage(ticker.$page);
+			});
+			
+			nodes.$profileBtn.bind('click', function() {
+				finfore.profile.init();
+				return false;
+			});
 			
 			finfore.$body.delegate('.mobile-menu-button', 'click', function(event, ui) {
 				finfore.$body.toggleClass('show-menu');
