@@ -13,46 +13,34 @@ finfore.desktop = function() {
 		}
 	};	
 	
+	// private utility method for main and portfolio dividers
+	function capitaliseFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	
 	var tabs = {};
 	/*
 	 * Add Tab
 	 */
 	tabs.add = function(options) {
 		var isCompany = (options.id !== 'main' && options.id !== 'portfolio'),
-			isPortfolio = (options.id == 'portfolio'),
-			$tab,
-			tabMarkup,
-			$tabCategory = nodes.$mainPageContent;
+			tabMarkup;
 		
 		if(isCompany) {
 			// companies
-			tabMarkup = '<div data-role="collapsible" data-collapsed="true" data-theme="a" id="' + options.id + '" class="collapsible-company"><h3>' + options.title + '</h3><ul data-role="listview" data-split-icon="arrow-r" data-split-theme="c" class="split-selector"></ul></div>';
-			
-			$tabCategory = nodes.$companiesPageContent;
+			tabMarkup = '<li class="company-item"><div data-role="collapsible" data-collapsed="true" data-theme="b" id="' + options.id + '" class="collapsible-company"><h3>' + options.title + '</h3><ul data-role="listview" data-split-icon="arrow-r" data-split-theme="c" class="split-selector"></ul></div></li>';
 		} else {
-			// stocks
-			tabMarkup = '<ul data-role="listview" id="' + options.id + '" data-split-icon="arrow-r" data-split-theme="c" class="split-selector"></ul>';
-			
-			if(isPortfolio) {
-				$tabCategory = nodes.$stocksPageContent;
-			};
+			// main/portfolio
+			tabMarkup = '<li data-role="list-divider" id="' + options.id + '">' + capitaliseFirstLetter(options.id) + '</li>';
 		};
 		
-		/* Append column selector
-		 * jQM required the nodes to be in the DOM when enhancing them
-		 */
-		$tab = $(tabMarkup);
-		$tab.appendTo($tabCategory);
+		nodes.$mobileMenu.append(tabMarkup);
 		
 		// Enhance controls
-		if(isCompany) {
-			$tab.collapsible();
-			$('ul', $tab).listview();
-		} else {
-			$tab.listview();
-		}
+		nodes.$menuPage.trigger('create');
+		nodes.$mobileMenu.listview();
 		
-		return $tab;
+		return $(tabMarkup);
 	};
 	
 	tabs.select = function($tab, $panel) {
@@ -128,10 +116,15 @@ finfore.desktop = function() {
 		});
 		
 		// apend column selector
-		$tab.append($mobilePanelSelector);
 		
 		// refresh listview
-		$tab.listview('refresh');
+		if(data.options.company) {
+			$tab.append($mobilePanelSelector);
+			$tab.listview('refresh');
+		} else {
+			$tab.after($mobilePanelSelector);
+			nodes.$mobileMenu.listview('refresh');
+		}
 		
 		/* Append Company panels in different containers for each category (main/stocks/companies).
 		 * We do this to be able to swipe between columns only from a certain category.
@@ -255,6 +248,8 @@ finfore.desktop = function() {
 			$stocksBtn: $('.stocks-button', nodes.$navBar),
 			$companiesBtn: $('.companies-button', nodes.$navBar),
 			$alertsBtn: $('.alerts-button', nodes.$navBar),
+			
+			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
 			
 			$stocksPageContent: $('[data-role=content]', nodes.$stocksPage),
 			$mainPageContent: $('[data-role=content]', nodes.$mainPage),

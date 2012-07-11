@@ -195,6 +195,15 @@ a.panel-back-button {
 }
 
 /* Collapsible Companies */
+.company-item {
+	padding: 0 !important;
+	border: 0;
+}
+
+.company-item .ui-collapsible {
+	margin: 0;
+}
+
 .companies-page .ui-content {
 	padding: 0;
 }
