@@ -11,7 +11,9 @@ finfore.desktop = function() {
 		tabs: {
 			tabIndex: 0
 		}
-	};	
+	};
+	
+	var switchedToFirstColumn = false;
 	
 	// private utility method for main and portfolio dividers
 	function capitaliseFirstLetter(string) {
@@ -28,7 +30,7 @@ finfore.desktop = function() {
 		
 		if(isCompany) {
 			// companies
-			tabMarkup = '<li class="company-item"><div data-role="collapsible" data-collapsed="true" data-theme="b" id="' + options.id + '" class="collapsible-company"><h3>' + options.title + '</h3><ul data-role="listview" data-split-icon="arrow-r" data-split-theme="c" class="split-selector"></ul></div></li>';
+			tabMarkup = '<li class="company-item"><div data-role="collapsible" data-collapsed="true" data-theme="b" id="' + options.id + '" class="collapsible-company"><h3>' + options.title + '</h3><ul data-role="listview" data-split-icon="arrow-r" data-split-theme="a" class="split-selector"></ul></div></li>';
 		} else {
 			// main/portfolio
 			tabMarkup = '<li data-role="list-divider" id="' + options.id + '">' + capitaliseFirstLetter(options.id) + '</li>';
@@ -139,6 +141,12 @@ finfore.desktop = function() {
 		
 		$panel.appendTo($columnContainer);
 		finfore.modules[data.type].init($panel, data.options);
+		
+		// switch to first column
+		if(!switchedToFirstColumn) {
+			$.mobile.changePage($panel);
+			switchedToFirstColumn = true;
+		}
 	};
 	
 	/* 
@@ -230,7 +238,7 @@ finfore.desktop = function() {
 		
 		// main nodes
 		$.extend(nodes, {
-			$navBar: $('.mobile-navbar'),
+			//$navBar: $('.mobile-navbar'),
 			
 			$mainPage: $('.main-page'),
 			$stocksPage: $('.stocks-page'),
@@ -244,11 +252,11 @@ finfore.desktop = function() {
 		
 		// get sub-nodes, to be able to use contexts
 		$.extend(nodes, {
-			$mainBtn: $('.main-button', nodes.$navBar),
-			$stocksBtn: $('.stocks-button', nodes.$navBar),
-			$companiesBtn: $('.companies-button', nodes.$navBar),
-			$alertsBtn: $('.alerts-button', nodes.$navBar),
+			//$mainBtn: $('.main-button', nodes.$navBar),
+			//$stocksBtn: $('.stocks-button', nodes.$navBar),
+			//$companiesBtn: $('.companies-button', nodes.$navBar),
 			
+			$alertsBtn: $('.alerts-button', nodes.$menuPage),
 			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
 			
 			$stocksPageContent: $('[data-role=content]', nodes.$stocksPage),
@@ -258,13 +266,9 @@ finfore.desktop = function() {
 		
 		// init menu
 		nodes.$menuPage.page();
-		// DEVELOPMENT - REMOVE
-		finfore.$body.addClass('show-menu');
 		
 		// reder markup
 		finfore.$body.trigger('create');
-		
-		$.mobile.changePage(nodes.$mainPage);
 		
 		// If the user is logged-in
 		if(finfore.data.user) {
@@ -341,10 +345,12 @@ finfore.desktop = function() {
 				$('.signin-button').click(finfore.login.init);
 				
 				// Company Lookup in navbar
+				/*
 				$('.lookup-button').click(function() {
 					finfore.addcompany.init();
 					return false;
 				});
+				*/
 				
 			} else {
 				// Updates Page
@@ -360,10 +366,12 @@ finfore.desktop = function() {
 					return false;
 				});
 				
-				// header add-company
-				finfore.$body.delegate('.add-tab-button', 'click', finfore.addcompany.init);
 			};
+
+			// company lookup
+			finfore.$body.delegate('.add-tab-button', 'click', finfore.addcompany.init);
 			
+			/*
 			nodes.$mainBtn.bind('click', function() {
 				$.mobile.changePage(nodes.$mainPage);
 			});
@@ -375,7 +383,6 @@ finfore.desktop = function() {
 			nodes.$companiesBtn.bind('click', function() {
 				$.mobile.changePage(nodes.$companiesPage);
 			});
-			
 			// when the companies page is shown, activate the navbar button
 			// used when adding companies
 			nodes.$companiesPage.bind('pageshow', function() {
@@ -386,22 +393,41 @@ finfore.desktop = function() {
 			nodes.$alertsBtn.bind('click', function() {
 				$.mobile.changePage(ticker.$page);
 			});
+			*/
+			
 			
 			/* navbar hide/show
 			 * Hide the navbar when opening dialogs
 			 * and show it when opening pages.
+			 
 			 */
+				/*
 			finfore.$body.delegate('[data-role=page]', 'pageshow', function(event, ui) {
 				if( nodes.$navBar.is(':hidden') ) {
 					nodes.$navBar.show();
 				};
 			});
+				*/
 			
-			finfore.$body.delegate('[data-role=dialog]', 'pageshow', function(event, ui) {
+			finfore.$body.delegate('.mobile-menu-button', 'click', function(event, ui) {
+				finfore.$body.toggleClass('show-menu');
+			});
+			
+			finfore.$body.delegate('[data-role]', 'pagebeforeshow', function(event, ui) {
+				
+				finfore.$body.removeClass('show-menu');
+				
+				/*
 				if( nodes.$navBar.is(':visible') ) {
 					nodes.$navBar.hide();
 				};
+				*/
 			});
+
+			
+			// TODO SWITCH TO FIRST COLUMN WHEN LOADED
+			//$.mobile.changePage(finfore.$body.find('.column:first'));
+			//$.mobile.changePage(nodes.$mainPage);
 		
 		};
 		
