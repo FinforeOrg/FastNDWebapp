@@ -6,6 +6,33 @@ Built with:
 * jQuery Mobile
 
 
+## Build Dependencies
+
+* Ruby (includes Rake)
+* Ruby DevKit (http://rubyinstaller.org/downloads/ - https://github.com/oneclick/rubyinstaller/wiki/development-kit)
+* net-sftp gem (install with `gem install net-sftp`)
+* Java JRE (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+
+## Running the app
+
+You'll need a web server to be able to run FastND, because of the dynamic loading of components.
+
+You can run the development version, by pointing your web server to the /dev folder.
+The production version of the app is located in /build.
+
+## Build Tools
+
+The production version of the app serves contains the minified and concatenated `js` and `css` files. To be able to build the app, you'll need to meet the requirments in the *Build Dependencies* section above.
+
+Build (in /dev/):
+`rake build`
+
+To deply to stage.fastnd.com:
+`rake deploy`
+
+## Technical details
+
 Dependencies:
 
 * jQuery UI Sortable - Sorting the columns on the desktop UI
@@ -14,44 +41,19 @@ Dependencies:
 * jquery.impromptu
 * jquery.toastmessage
 
-## Dependencies for building
+### CSS
 
-* Install Ruby (includes Rake)
-* Install Ruby DevKit (http://rubyinstaller.org/downloads/ - https://github.com/oneclick/rubyinstaller/wiki/development-kit)
-* Install net-sftp gem (install with `gem install net-sftp`)
-
-
-## Running the app
-
-You'll need a web server to be able to run FastND, because of PHP dependencies, and dynamic loading of components.
-
-You can run the development version, by pointing your web server to the /dev folder.
-The production version of the app is located in /build.
-
-## Build Tools
-
-The production version of the app serves contains the minified and concatenated js and css files. To be able to build the app, you'll need to have ruby and rake installed.
-
-Build (in /dev/):
-`rake build`
-
-To deply to live-test.finfore.net:
-`rake deploy`
-
-### Deploy checklist
-
-1. Rename title
-
-
-## CSS
 base.css - Desktop + Tablet
 small-screen.css - Mobile
-shared.css - Shared accross interfaces
+shared.css - Shared accross UIs
 
-## Templates
-Temaplates use jQuery.tmpl, have the .tmpl extension and are parsed by JavascriptMVC using $.View.
+### Templates
 
-## FastND Web Service API
+Templates use jQuery.tmpl, have the .tmpl extension and are parsed by JavascriptMVC using $.View.
+
+### FastND Web Service API
+
+(refer to Rails API docs)
 
 
 ## 3rd Party APIs
