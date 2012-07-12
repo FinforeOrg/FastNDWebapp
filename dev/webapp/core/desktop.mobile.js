@@ -381,6 +381,11 @@ finfore.desktop = function() {
 			nodes.$menuPage.delegate('.mobile-column-select', 'click', function(event, ui) {
 				finfore.$body.removeClass('show-menu');
 			});
+			
+			/* Hide menu when clicking on the visible content area */
+			finfore.$body.delegate('.mobile-content-overlay', 'click', function(event, ui) {
+				finfore.$body.removeClass('show-menu');
+			});
 		
 		};
 		
