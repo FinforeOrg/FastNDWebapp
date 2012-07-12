@@ -241,11 +241,6 @@ finfore.desktop = function() {
 		
 		// main nodes
 		$.extend(nodes, {
-			//$navBar: $('.mobile-navbar'),
-			
-			$mainPage: $('.main-page'),
-			$stocksPage: $('.stocks-page'),
-			$companiesPage: $('.companies-page'),
 			$menuPage: $('.menu-page'),
 			
 			$mainColumns: $('.main-columns'),
@@ -257,11 +252,7 @@ finfore.desktop = function() {
 		$.extend(nodes, {
 			$alertsBtn: $('.alerts-button', nodes.$menuPage),
 			$profileBtn: $('.profile-button', nodes.$menuPage),
-			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
-			
-			$stocksPageContent: $('[data-role=content]', nodes.$stocksPage),
-			$mainPageContent: $('[data-role=content]', nodes.$mainPage),
-			$companiesPageContent: $('[data-role=content]', nodes.$companiesPage)
+			$mobileMenu: $('.mobile-menu', nodes.$menuPage)
 		});
 		
 		// init menu
@@ -295,7 +286,7 @@ finfore.desktop = function() {
 			
 			finfore.populate();
 			
-			/* Back and Home buttons */
+			/* Back and Home buttons 
 			$(document).delegate('.panel-back-button', 'click', function() {
 				var $container = $(this).closest('.columns-container'),
 					$backPage = $( '.' + $container.attr('data-backpage') );
@@ -307,6 +298,7 @@ finfore.desktop = function() {
 				
 				return false;
 			});
+			*/
 			
 			// Panel Next/Previous events
 			$(document).delegate('.panel', 'swipeleft', function() {
