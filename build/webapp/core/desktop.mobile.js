@@ -286,20 +286,6 @@ finfore.desktop = function() {
 			
 			finfore.populate();
 			
-			/* Back and Home buttons 
-			$(document).delegate('.panel-back-button', 'click', function() {
-				var $container = $(this).closest('.columns-container'),
-					$backPage = $( '.' + $container.attr('data-backpage') );
-				
-				$.mobile.changePage($backPage, {
-					reverse: true,
-					transition: 'slide'
-				});
-				
-				return false;
-			});
-			*/
-			
 			// Panel Next/Previous events
 			$(document).delegate('.panel', 'swipeleft', function() {
 				panels.next($(this));
