@@ -193,9 +193,9 @@ finfore.modules.prices = function() {
 							};
 						};
 						
-						var price = n.l,
-						chg = n.c,
-						pct_chg = n.cp;
+						var price = n.l || 0,
+						chg = n.c || 0,
+						pct_chg = n.cp || 0;
 
 						if(company) {
 							
