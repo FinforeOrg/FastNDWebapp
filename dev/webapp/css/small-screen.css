@@ -5,17 +5,41 @@
  */
 
  /* Main */
-html, body {
+html,
+body {
 	margin: 0;
 	padding: 0;
-	font-family: sans-serif;	
-	
-	background: #EEE;
+	background: #eee;
 	
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: none;
 	text-size-adjust: 100%;
+	
+	font-family: sans-serif;	
 }
+
+/*
+body.ui-mobile-viewport {
+	background: #eee;
+	background-image: -webkit-linear-gradient(left, #222 271px, #eee 271px);
+	background-image: -moz-linear-gradient(left, #222 271px, #eee 271px);
+	background-image: -ms-linear-gradient(left, #222 271px, #eee 271px);
+	background-image: -o-linear-gradient(left, #222 271px, #eee 271px);
+	background-image: linear-gradient(left, #222 271px, #eee 271px);
+	
+	background-position: -271px 0;
+	
+	-webkit-transition: background-position 0.3s ease-out; 
+	-moz-transition: background-position 0.3s ease-out; 
+	-o-transition: background-position 0.3s ease-out;
+	transition: background-position 0.3s ease-out;
+}
+
+/* faux columns for menu background 
+body.ui-mobile-viewport.show-menu {
+	background-position: 0;
+}
+*/
  
 /* Hide panel controlgroups */ 
 .small-screen .postMessage textarea.ui-input-text {
@@ -159,7 +183,9 @@ a.panel-back-button {
 
 /* Header Buttons */
 .header-buttons {
-	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
 	height: 44px;
 }
 .header-buttons a {
@@ -357,38 +383,58 @@ a.panel-back-button {
 
 /* Offcanvas Menu */
 .ui-mobile .menu-page {
-	position: absolute;
+	position: relative;
 	top: 0;
-	left: -220px;
-	width: 220px;
+	left: -270px;
+	width: 270px;
 	display: block !important;
+	min-height: 100%;
+	
+	overflow: hidden;
 }
 
-.main-page,
-.main-columns,
-.companies-columns,
-.stocks-columns,
-.companies-page,
-.stocks-page,
-.menu-page {
+.ui-mobile .menu-page:after {
+	content: '.';
+	display: block;
+	width: 10px;
+	height: 100%;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	z-index: 10;
+	
+	box-shadow: 0 -20px 10px 2px #111;
+}
+
+div[data-role="page"],
+div[data-role="dialog"] {
 	-webkit-transition: all 0.3s ease-out; 
 	-moz-transition: all 0.3s ease-out; 
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
 }
 
-.show-menu .main-page,
-.show-menu .main-columns,
-.show-menu .companies-columns,
-.show-menu .stocks-columns,
-.show-menu .companies-page,
-.show-menu .stocks-page,
-.show-menu .menu-page {
-	-webkit-transform: translateX(220px);
-	-moz-transform: translateX(220px);
-	-ms-transform: translateX(220px);
-	-o-transform: translateX(220px);
-	transform: translateX(220px);
+.show-menu [data-role="page"] {
+	-webkit-transform: translateX(270px);
+	-moz-transform: translateX(270px);
+	-ms-transform: translateX(270px);
+	-o-transform: translateX(270px);
+	transform: translateX(270px);
+}
+
+/* Faux column for columns to show full-height dark background behind menu, using pseudo-elements */
+.panel:before {
+	content: '.';
+	display: block;
+	height: 100%;
+	width: 270px;
+	position: absolute;
+	left: -270px;
+	top: 0;
+	z-index: 1;
+	background-color: #222;
+	
+	color: #222;
 }
 
 

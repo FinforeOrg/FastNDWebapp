@@ -146,6 +146,12 @@ a.panel-back-button {
 	border-radius: 0.2em !important;
 }
 
+.ui-icon-menu {
+	background-image: url(../images/icons/menuIcon.png);
+	background-position: center center;
+}
+
+
 /* Small Screen Columns */
 .small-screen .ui-header {
 	z-index: 3;
@@ -353,8 +359,8 @@ a.panel-back-button {
 .ui-mobile .menu-page {
 	position: absolute;
 	top: 0;
-	left: -220px;
-	width: 220px;
+	left: -270px;
+	width: 270px;
 	display: block !important;
 }
 
@@ -378,11 +384,11 @@ a.panel-back-button {
 .show-menu .companies-page,
 .show-menu .stocks-page,
 .show-menu .menu-page {
-	-webkit-transform: translateX(220px);
-	-moz-transform: translateX(220px);
-	-ms-transform: translateX(220px);
-	-o-transform: translateX(220px);
-	transform: translateX(220px);
+	-webkit-transform: translateX(270px);
+	-moz-transform: translateX(270px);
+	-ms-transform: translateX(270px);
+	-o-transform: translateX(270px);
+	transform: translateX(270px);
 }
 
 

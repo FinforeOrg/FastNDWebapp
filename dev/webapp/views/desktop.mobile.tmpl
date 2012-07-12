@@ -79,19 +79,9 @@
 
 {{if user && !user.is_public}}
 	<div id="mobile-updates" data-role="page">
-		<div data-role="header" class="desktop-title">
-			{{if user && user.is_public}}
-				<a data-role="button" class="signin-button ui-btn-right" data-theme="a">Sign In</a> 
-			{{/if}}
-			
-			{{if user && !user.is_public}}
-				<div class="header-buttons">
-					{{if user && !user.is_public}}
-						<a ontouchstart="" class="add-tab-button">Lookup Company</a>
-					{{/if}}
-					<a ontouchstart="" class="logout-button">Logout</a>
-				</div>
-			{{/if}}
+		<div data-role="header">	
+			<a data-role="button" data-inline="true" data-icon="menu" data-theme="a" data-iconpos="notext" class="mobile-menu-button">Menu</a>
+			<h1>Alerts</h1>
 		</div>
 		<div data-role="content">
 			<div class="mobile-update-list"></div>
