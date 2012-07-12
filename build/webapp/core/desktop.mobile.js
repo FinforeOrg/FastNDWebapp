@@ -26,6 +26,7 @@ finfore.desktop = function() {
 	 */
 	tabs.add = function(options) {
 		var isCompany = (options.id !== 'main' && options.id !== 'portfolio'),
+			$tab,
 			tabMarkup;
 		
 		if(isCompany) {
@@ -36,7 +37,9 @@ finfore.desktop = function() {
 			tabMarkup = '<li data-role="list-divider" id="' + options.id + '">' + capitaliseFirstLetter(options.id) + '</li>';
 		};
 		
-		nodes.$mobileMenu.append(tabMarkup);
+		$tab = $(tabMarkup);
+		
+		nodes.$mobileMenu.append($tab);
 		
 		// Enhance controls
 		nodes.$menuPage.trigger('create');
@@ -252,10 +255,6 @@ finfore.desktop = function() {
 		
 		// get sub-nodes, to be able to use contexts
 		$.extend(nodes, {
-			//$mainBtn: $('.main-button', nodes.$navBar),
-			//$stocksBtn: $('.stocks-button', nodes.$navBar),
-			//$companiesBtn: $('.companies-button', nodes.$navBar),
-			
 			$alertsBtn: $('.alerts-button', nodes.$menuPage),
 			$profileBtn: $('.profile-button', nodes.$menuPage),
 			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
@@ -345,14 +344,6 @@ finfore.desktop = function() {
 				// Sign-in button
 				$('.signin-button').click(finfore.login.init);
 				
-				// Company Lookup in navbar
-				/*
-				$('.lookup-button').click(function() {
-					finfore.addcompany.init();
-					return false;
-				});
-				*/
-				
 			} else {
 				// Updates Page
 				ticker.$page = $('#mobile-updates');
@@ -372,42 +363,6 @@ finfore.desktop = function() {
 			// company lookup
 			finfore.$body.delegate('.add-tab-button', 'click', finfore.addcompany.init);
 			
-			/*
-			nodes.$mainBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$mainPage);
-			});
-			
-			nodes.$stocksBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$stocksPage);
-			});
-			
-			nodes.$companiesBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$companiesPage);
-			});
-			// when the companies page is shown, activate the navbar button
-			// used when adding companies
-			nodes.$companiesPage.bind('pageshow', function() {
-				$('.ui-btn-active', nodes.$navBar).removeClass('ui-btn-active');
-				nodes.$companiesBtn.addClass('ui-btn-active');
-			});
-			
-			
-			*/
-			
-			
-			/* navbar hide/show
-			 * Hide the navbar when opening dialogs
-			 * and show it when opening pages.
-			 
-			 */
-				/*
-			finfore.$body.delegate('[data-role=page]', 'pageshow', function(event, ui) {
-				if( nodes.$navBar.is(':hidden') ) {
-					nodes.$navBar.show();
-				};
-			});
-				*/
-			
 			nodes.$alertsBtn.bind('click', function() {
 				$.mobile.changePage(ticker.$page);
 			});
@@ -417,25 +372,23 @@ finfore.desktop = function() {
 				return false;
 			});
 			
+			// press the menu button
 			finfore.$body.delegate('.mobile-menu-button', 'click', function(event, ui) {
 				finfore.$body.toggleClass('show-menu');
 			});
 			
+			// when changeing page
 			finfore.$body.delegate('[data-role]', 'pagebeforeshow', function(event, ui) {
-				
+				// remove show-menu class
 				finfore.$body.removeClass('show-menu');
-				
-				/*
-				if( nodes.$navBar.is(':visible') ) {
-					nodes.$navBar.hide();
-				};
-				*/
 			});
-
 			
-			// TODO SWITCH TO FIRST COLUMN WHEN LOADED
-			//$.mobile.changePage(finfore.$body.find('.column:first'));
-			//$.mobile.changePage(nodes.$mainPage);
+			/* Hide menu when pressing any .mobile-column-select button from menu-page.
+			 * We need this because pageshow/pagebeforeshow doesn't trigger if a page is already visible/changedTo.
+			 */
+			nodes.$menuPage.delegate('.mobile-column-select', 'click', function(event, ui) {
+				finfore.$body.removeClass('show-menu');
+			});
 		
 		};
 		

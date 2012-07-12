@@ -241,11 +241,6 @@ finfore.desktop = function() {
 		
 		// main nodes
 		$.extend(nodes, {
-			//$navBar: $('.mobile-navbar'),
-			
-			$mainPage: $('.main-page'),
-			$stocksPage: $('.stocks-page'),
-			$companiesPage: $('.companies-page'),
 			$menuPage: $('.menu-page'),
 			
 			$mainColumns: $('.main-columns'),
@@ -257,11 +252,7 @@ finfore.desktop = function() {
 		$.extend(nodes, {
 			$alertsBtn: $('.alerts-button', nodes.$menuPage),
 			$profileBtn: $('.profile-button', nodes.$menuPage),
-			$mobileMenu: $('.mobile-menu', nodes.$menuPage),
-			
-			$stocksPageContent: $('[data-role=content]', nodes.$stocksPage),
-			$mainPageContent: $('[data-role=content]', nodes.$mainPage),
-			$companiesPageContent: $('[data-role=content]', nodes.$companiesPage)
+			$mobileMenu: $('.mobile-menu', nodes.$menuPage)
 		});
 		
 		// init menu
@@ -295,7 +286,7 @@ finfore.desktop = function() {
 			
 			finfore.populate();
 			
-			/* Back and Home buttons */
+			/* Back and Home buttons 
 			$(document).delegate('.panel-back-button', 'click', function() {
 				var $container = $(this).closest('.columns-container'),
 					$backPage = $( '.' + $container.attr('data-backpage') );
@@ -307,6 +298,7 @@ finfore.desktop = function() {
 				
 				return false;
 			});
+			*/
 			
 			// Panel Next/Previous events
 			$(document).delegate('.panel', 'swipeleft', function() {
@@ -344,14 +336,6 @@ finfore.desktop = function() {
 				// Sign-in button
 				$('.signin-button').click(finfore.login.init);
 				
-				// Company Lookup in navbar
-				/*
-				$('.lookup-button').click(function() {
-					finfore.addcompany.init();
-					return false;
-				});
-				*/
-				
 			} else {
 				// Updates Page
 				ticker.$page = $('#mobile-updates');
@@ -370,42 +354,6 @@ finfore.desktop = function() {
 
 			// company lookup
 			finfore.$body.delegate('.add-tab-button', 'click', finfore.addcompany.init);
-			
-			/*
-			nodes.$mainBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$mainPage);
-			});
-			
-			nodes.$stocksBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$stocksPage);
-			});
-			
-			nodes.$companiesBtn.bind('click', function() {
-				$.mobile.changePage(nodes.$companiesPage);
-			});
-			// when the companies page is shown, activate the navbar button
-			// used when adding companies
-			nodes.$companiesPage.bind('pageshow', function() {
-				$('.ui-btn-active', nodes.$navBar).removeClass('ui-btn-active');
-				nodes.$companiesBtn.addClass('ui-btn-active');
-			});
-			
-			
-			*/
-			
-			
-			/* navbar hide/show
-			 * Hide the navbar when opening dialogs
-			 * and show it when opening pages.
-			 
-			 */
-				/*
-			finfore.$body.delegate('[data-role=page]', 'pageshow', function(event, ui) {
-				if( nodes.$navBar.is(':hidden') ) {
-					nodes.$navBar.show();
-				};
-			});
-				*/
 			
 			nodes.$alertsBtn.bind('click', function() {
 				$.mobile.changePage(ticker.$page);
