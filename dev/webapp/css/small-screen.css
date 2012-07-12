@@ -180,7 +180,7 @@ a.panel-back-button {
 	position: absolute;
 	left: 50%;
 	margin-left: -12px;
-	bottom: 90px;
+	bottom: 10px;
 	display: block;
 	content: '';
 	width: 24px;
