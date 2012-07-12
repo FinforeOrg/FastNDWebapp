@@ -146,6 +146,12 @@ a.panel-back-button {
 	border-radius: 0.2em !important;
 }
 
+.ui-icon-menu {
+	background-image: url(../images/icons/menuIcon.png);
+	background-position: center center;
+}
+
+
 /* Small Screen Columns */
 .small-screen .ui-header {
 	z-index: 3;
