@@ -175,6 +175,21 @@ a.panel-back-button {
 	background-position: center center;
 }
 
+/* Loading Column */
+.panel-loading:after {
+	position: absolute;
+	left: 50%;
+	margin-left: -12px;
+	bottom: 90px;
+	display: block;
+	content: '';
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/ajaxLoader.gif);
+	background-repeat: no-repeat;
+	background-position: center bottom 10px;
+}
+
 
 /* Small Screen Columns */
 .small-screen .ui-header {
@@ -373,7 +388,7 @@ a.panel-back-button {
 /* Portfolio Column Selectors */
 .trunc-title {
 	display: inline-block;
-	width: 120px;
+	width: 100px;
 	white-space: nowrap;
     overflow: hidden;
 	text-overflow: ellipsis;
@@ -408,6 +423,10 @@ a.panel-back-button {
 	-ms-box-shadow: 0 -20px 10px 2px #111;
 	-o-box-shadow: 0 -20px 10px 2px #111;
 	box-shadow: 0 -20px 10px 2px #111;
+}
+
+.menu-page .ui-li-has-alt .ui-btn-inner a.ui-link-inherit {
+	padding-right: 80px;
 }
 
 div[data-role="page"],

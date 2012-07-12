@@ -280,22 +280,6 @@
 .panel-loading li:last-of-type {
 	display: none;
 }
-.panel-loading:before {
-	position: absolute;
-	left: 50%;
-	margin-left: -12px;
-	bottom: 10px;
-	display: block;
-	content: '';
-	width: 24px;
-	height: 24px;
-	background-image: url(../images/ajaxLoader.gif);
-	background-repeat: no-repeat;
-	background-position: center bottom 10px;
-}
-.small-screen .panel-loading:before {
-	bottom: 90px !important;
-}
 
 /* Panels */
 .panel .ui-content .ui-listview {
