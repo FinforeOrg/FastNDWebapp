@@ -74,7 +74,7 @@
 		
 		<ul data-role="listview" class="mobile-menu split-selector" data-split-theme="a">
 			{{if user && !user.is_public}}
-				<li><a>Shane Leonard</a><a class="mobile-column-select profile-button"></a></li>
+				<li><a>${user.full_name}</a><a class="mobile-column-select profile-button"></a></li>
 				<li><a>Alerts</a><a class="alerts-button mobile-column-select"></a></li>
 			{{/if}}
 			<li><a>Lookup Company</a><a class="mobile-column-select add-tab-button"></a></li>
