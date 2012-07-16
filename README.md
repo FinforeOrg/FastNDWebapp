@@ -64,6 +64,11 @@ http://www.bing.com/developers/s/APIBasics.html
 
 # TODO
 
+* Replace jQuery UI Sortable with 
+	http://farhadi.ir/projects/html5sortable/
+	sau
+	http://mikeplate.github.com/jquery-drag-drop-plugin/ (merge si cu touch)
+	
 * Convert tmpl template to ej, better performance
 * Better, native, notifications https://github.com/kbjr/Notifications
 * Manegement, use collapsile sets for each colums

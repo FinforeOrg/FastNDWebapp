@@ -17,29 +17,6 @@ body {
 	
 	font-family: sans-serif;	
 }
-
-/*
-body.ui-mobile-viewport {
-	background: #eee;
-	background-image: -webkit-linear-gradient(left, #222 271px, #eee 271px);
-	background-image: -moz-linear-gradient(left, #222 271px, #eee 271px);
-	background-image: -ms-linear-gradient(left, #222 271px, #eee 271px);
-	background-image: -o-linear-gradient(left, #222 271px, #eee 271px);
-	background-image: linear-gradient(left, #222 271px, #eee 271px);
-	
-	background-position: -271px 0;
-	
-	-webkit-transition: background-position 0.3s ease-out; 
-	-moz-transition: background-position 0.3s ease-out; 
-	-o-transition: background-position 0.3s ease-out;
-	transition: background-position 0.3s ease-out;
-}
-
-/* faux columns for menu background 
-body.ui-mobile-viewport.show-menu {
-	background-position: 0;
-}
-*/
  
 /* Hide panel controlgroups */ 
 .small-screen .postMessage textarea.ui-input-text {
@@ -151,13 +128,98 @@ a.panel-back-button {
 	font-size: 12px;
 }
 .desktop-title {
+	position: relative;
 	overflow: hidden;
 	width: auto !important;
 }
 .desktop-title h1 {
 	float: none;
 	height: 25px;
-	margin: 8px 15px !important;
+	margin: 8px 0 8px 50px !important;
+	background-size: auto 25px;
+	background-position: -25px;
+}
+
+.refresh-logo {
+	position: absolute;
+	top: 3px;
+	left: 15px;
+	width: 30px;
+	height: 30px;
+	background: url(../images/finforeLogo.png) no-repeat left center;
+	background-size: cover;
+}
+
+@-webkit-keyframes rotateLogo {
+	0% {
+		-webkit-transform: rotate(0);
+		-moz-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes rotateLogo {
+	0% {
+		-webkit-transform: rotate(0);
+		-moz-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@-o-keyframes rotateLogo {
+	0% {
+		-webkit-transform: rotate(0);
+		-moz-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes rotateLogo {
+	0% {
+		-webkit-transform: rotate(0);
+		-moz-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+.refresh-logo-rotate {
+	-webkit-animation: rotateLogo 1s infinite linear;
+	-moz-animation: rotateLogo 1s infinite linear;
+	-o-animation: rotateLogo 1s infinite linear;
+	animation: rotateLogo 1s infinite linear;
 }
 
 .mobile-menu-button {

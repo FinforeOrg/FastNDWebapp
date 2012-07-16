@@ -21,6 +21,23 @@ finfore.desktop = function() {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 	
+	// refresh loaded columns
+	var refreshLoadedColumns = function() {
+		var $loadedColumns = $('.column-loaded', finfore.$body),
+			$refreshIcon = $('.refresh-logo', $(this));
+		
+		// rotate logo
+		$refreshIcon.addClass('refresh-logo-rotate');
+		
+		// trigger refresh on loaded columns
+		$loadedColumns.trigger('refresh');
+		
+		// stop logo rotation in 2s
+		setTimeout(function() {
+			$refreshIcon.removeClass('refresh-logo-rotate');
+		}, 2000);
+	};
+	
 	var tabs = {};
 	/*
 	 * Add Tab
@@ -382,6 +399,9 @@ finfore.desktop = function() {
 			finfore.$body.delegate('.mobile-content-overlay', 'click', function(event, ui) {
 				finfore.$body.removeClass('show-menu');
 			});
+			
+			// refresh columns button
+			$('.refresh-columns-button', nodes.$menuPage).bind('click', refreshLoadedColumns);
 		
 		};
 		

@@ -13,7 +13,7 @@ finfore.addcompany = function() {
 		var companyIndex = parseInt($(this).attr('data-index')),
 			companyId = allCompanies[companyIndex]._id,
 			companyExists = false,
-			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$companiesPage : finfore.desktop.nodes.$page,
+			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$firstColumn : finfore.desktop.nodes.$page,
 			tabSelector;
 		
 		// check if company already exists
@@ -36,7 +36,7 @@ finfore.addcompany = function() {
 			transition: 'slidedown',
 			reverse: true
 		});
-		
+	
 		// if company isn't added already
 		if(!companyExists) {
 		
@@ -68,6 +68,18 @@ finfore.addcompany = function() {
 					}
 				});
 				
+			}
+			
+			if(finfore.smallScreen) {
+				// show menu to see new available company and columns
+				finfore.$body.addClass('show-menu');
+				var $newCompany = finfore.desktop.nodes.$menuPage.find('[data-role="collapsible"]:last');
+				
+				if($newCompany.length) {
+					finfore.$body.animate({
+						scrollTop: finfore.desktop.nodes.$menuPage.find('[data-role=collapsible]:last').offset().top
+					}, 2000);
+				}
 			}
 			
 		};

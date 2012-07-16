@@ -10,7 +10,8 @@ finfore.desktop = function() {
 		$page: [],
 		tabs: {
 			tabIndex: 0
-		}
+		},
+		$firstColumn: []
 	};
 	
 	var switchedToFirstColumn = false;
@@ -127,7 +128,16 @@ finfore.desktop = function() {
 			$tab.append($mobilePanelSelector);
 			$tab.listview('refresh');
 		} else {
-			$tab.after($mobilePanelSelector);
+			// append after last added column selector
+			// to maintain order from API
+			var $lastColumnSelector = $tab.nextUntil('li[data-role=list-divider]').last();
+			
+			if($lastColumnSelector.length) {
+				$lastColumnSelector.after($mobilePanelSelector);
+			} else {
+				$tab.after($mobilePanelSelector);
+			}
+			
 			nodes.$mobileMenu.listview('refresh');
 		}
 		
@@ -147,6 +157,7 @@ finfore.desktop = function() {
 		
 		// switch to first column
 		if(!switchedToFirstColumn) {
+			nodes.$firstColumn = $panel;
 			$.mobile.changePage($panel);
 			switchedToFirstColumn = true;
 		}
@@ -263,7 +274,6 @@ finfore.desktop = function() {
 		
 		// If the user is logged-in
 		if(finfore.data.user) {
-			//nodes.$tabBar = $('#mobile-tabs');
 				
 			// Add Main tab
 			var $mainTabBtn = tabs.add({
