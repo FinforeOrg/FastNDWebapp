@@ -404,9 +404,12 @@ finfore.desktop = function() {
 			$('.refresh-columns-button', nodes.$menuPage).bind('click', refreshLoadedColumns);
 		
 			$('.public-account-btn', nodes.$menuPage).click(function() {
-				// TODO bypass this, init public-account-page is not rendered
-				finfore.login.init();
+				// silent init login
+				finfore.login.init({
+					silentInit: true
+				});
 				
+				// mobe to public account selector page
 				$.mobile.changePage(finfore.login.nodes.$publicPage, {
 					transition: 'slide'
 				});
