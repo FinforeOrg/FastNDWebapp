@@ -79,7 +79,7 @@ html, body {
 
 /* Main Actions */
 .desktop-title {
-	width: 140px;
+	width: 200px;
 	height: 40px;
 }
 
@@ -90,14 +90,16 @@ html, body {
 .desktop-title,
 #signin-actions,
 #public-account-selectors {
-	display: table-cell;
-	table-layout: fixed;
-	vertical-align: middle;
+	float: left;
+}
+
+#signin-actions,
+#public-account-selectors {
+	margin-top: 10px;
 }
 
 #signin-actions {
 	width: 170px;
-	padding-left: 50px;
 }
 
 #public-account-selectors {
@@ -629,6 +631,7 @@ html, body {
 	#signin-actions,
 	#public-account-selectors {
 		display: block;
+		margin: 0;
 	}
 	
 	.main-actions .ui-btn-inner {
@@ -637,6 +640,7 @@ html, body {
 	
 	#signin-actions {
 		padding: 0;
+		margin: 15px 0 0 0 !important;
 		width: auto;
 	}
 	

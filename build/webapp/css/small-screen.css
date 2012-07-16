@@ -76,50 +76,6 @@ a.panel-back-button {
 	font-size: 12px;
 }
 
-/* Mobile Navbar
-[data-role=page] [data-role=content] {
-	padding-bottom: 90px !important;
-}
-.mobile-navbar {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: 9999;
-	background-color: #333;
-	
-	display: block;
-	width: 100%;
-}
-.mobile-navbar .ui-btn .ui-btn-inner { 
-	padding-top: 40px !important; 
-}
-.mobile-navbar .ui-btn .ui-icon {
-	width: 32px!important;
-	height: 32px!important;
-	margin-left: -15px !important;
-	box-shadow: none!important;
-	-moz-box-shadow: none!important;
-	-webkit-box-shadow: none!important;
-	-webkit-border-radius: 0 !important;
-	border-radius: 0 !important;
-}
-.main-icon .ui-icon {
-	background: url(../images/icons/mainBigIcon.png) no-repeat;
-}
-.stocks-icon .ui-icon {
-	background: url(../images/icons/stocksBigIcon.png) no-repeat;
-}
-.companies-icon .ui-icon {
-	background: url(../images/icons/companiesBigIcon.png) no-repeat;
-}
-.alerts-icon .ui-icon {
-	background: url(../images/icons/alertsBigIcon.png) no-repeat;
-}
-.lookup-icon .ui-icon {
-	background: url(../images/icons/lookupBigIcon.png) no-repeat;
-}
-*/
-
 /* Small Screen Layout */
 .panel .ui-content {
 	padding: 0;
