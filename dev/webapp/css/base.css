@@ -935,7 +935,8 @@ html, body {
 }
 
 /* Flickering Safari Issue */
-[data-role="page"] {
+[data-role="page"],
+.main-actions {
     -webkit-backface-visibility: hidden;
 }
 
