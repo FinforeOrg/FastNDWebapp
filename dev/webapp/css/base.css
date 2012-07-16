@@ -468,15 +468,22 @@ html, body {
 /* == Registered User == */
 
 /* Main Actions */
+.registered-user h1 {
+	margin: 10px;
+	height: 40px;
+	background-size: auto;
+}
+
 .registered-user .main-actions {
 	left: 0;
 	width: 60px;
+	height: 100%;
 	z-index: 10;
 }
 
 /* Tab List */
 .registered-user .tab-list {
-	left: 70px;
+	left: 60px;
 	top: 0;
 }
 
@@ -654,6 +661,10 @@ html, body {
 		top: 0;
 		
 		padding-top: 190px;
+	}
+	
+	.registered-user .tab-list {
+		padding-top: 0;
 	}
 	
 	/* Desktop Content */
