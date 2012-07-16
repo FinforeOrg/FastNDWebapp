@@ -119,7 +119,7 @@ finfore.login = function() {
 					});
 				});
 				
-				$('.public-account-btn').click(function() {
+				$('.public-account-btn', $loginContainer).click(function() {
 					$.mobile.changePage(nodes.$publicPage, {
 						transition: 'slide'
 					});
@@ -163,6 +163,7 @@ finfore.login = function() {
 	};
 
 	return {
-		init: init
+		init: init,
+		nodes: nodes
 	}
 }();

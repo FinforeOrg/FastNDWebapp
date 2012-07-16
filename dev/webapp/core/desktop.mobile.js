@@ -403,6 +403,16 @@ finfore.desktop = function() {
 			// refresh columns button
 			$('.refresh-columns-button', nodes.$menuPage).bind('click', refreshLoadedColumns);
 		
+			$('.public-account-btn', nodes.$menuPage).click(function() {
+				// TODO bypass this, init public-account-page is not rendered
+				finfore.login.init();
+				
+				$.mobile.changePage(finfore.login.nodes.$publicPage, {
+					transition: 'slide'
+				});
+				return false;
+			});
+		
 		};
 		
 	};
