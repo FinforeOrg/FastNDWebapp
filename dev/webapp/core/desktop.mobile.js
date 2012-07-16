@@ -10,7 +10,8 @@ finfore.desktop = function() {
 		$page: [],
 		tabs: {
 			tabIndex: 0
-		}
+		},
+		$firstColumn: []
 	};
 	
 	var switchedToFirstColumn = false;
@@ -147,6 +148,7 @@ finfore.desktop = function() {
 		
 		// switch to first column
 		if(!switchedToFirstColumn) {
+			nodes.$firstColumn = $panel;
 			$.mobile.changePage($panel);
 			switchedToFirstColumn = true;
 		}
