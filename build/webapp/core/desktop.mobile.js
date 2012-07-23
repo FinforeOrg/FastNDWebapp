@@ -147,7 +147,7 @@ finfore.desktop = function() {
 		} else {
 			// append after last added column selector
 			// to maintain order from API
-			var $lastColumnSelector = $tab.nextUntil('li[data-role=list-divider]').last();
+			var $lastColumnSelector = $tab.nextUntil('li[data-role=list-divider]').not('.company-item').last();
 			
 			if($lastColumnSelector.length) {
 				$lastColumnSelector.after($mobilePanelSelector);
