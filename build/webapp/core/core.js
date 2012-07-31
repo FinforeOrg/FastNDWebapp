@@ -334,9 +334,9 @@ var finfore = function() {
 	// Array sort in acending Order, comparing the position attr in objects
 	// Used to sort columns and companies
 	var sortPosition = function(obj1, obj2) {	  
-	  if (obj1.position > obj2.position) return 1;
-	  if (obj1.position < obj2.position) return -1;
-	  return 0;
+		if (obj1.position > obj2.position) return 1;
+		if (obj1.position < obj2.position) return -1;
+		return 0;
 	};
 		
 	/* Populate Default tabs and create Company tabs */

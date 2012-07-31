@@ -79,25 +79,27 @@ html, body {
 
 /* Main Actions */
 .desktop-title {
-	width: 140px;
+	width: 200px;
 	height: 40px;
 }
 
 .desktop-title h1 {
-	margin: 9px 5px;
+	margin: 9px 30px;
 }
 
 .desktop-title,
 #signin-actions,
 #public-account-selectors {
-	display: table-cell;
-	table-layout: fixed;
-	vertical-align: middle;
+	float: left;
+}
+
+#signin-actions,
+#public-account-selectors {
+	margin-top: 10px;
 }
 
 #signin-actions {
 	width: 170px;
-	padding-left: 50px;
 }
 
 #public-account-selectors {
@@ -326,6 +328,20 @@ html, body {
 	color: #375DDB;	
 }
 
+.panel-loading:before {
+	position: absolute;
+	left: 50%;
+	margin-left: -12px;
+	bottom: 10px;
+	display: block;
+	content: '';
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/ajaxLoader.gif);
+	background-repeat: no-repeat;
+	background-position: center bottom 10px;
+}
+
 .tab .panel:last-of-type {
 	border: 0;
 }
@@ -454,15 +470,22 @@ html, body {
 /* == Registered User == */
 
 /* Main Actions */
+.registered-user h1 {
+	margin: 10px;
+	height: 40px;
+	background-size: auto;
+}
+
 .registered-user .main-actions {
 	left: 0;
 	width: 60px;
+	height: 100%;
 	z-index: 10;
 }
 
 /* Tab List */
 .registered-user .tab-list {
-	left: 70px;
+	left: 60px;
 	top: 0;
 }
 
@@ -483,7 +506,7 @@ html, body {
 /* Desktop Header Buttons */
 #header-buttons {
 	width: 32px;
-	margin: 40px auto;
+	margin: 80px auto 0 auto;
 }
 
 #header-buttons a {
@@ -608,6 +631,7 @@ html, body {
 	#signin-actions,
 	#public-account-selectors {
 		display: block;
+		margin: 0;
 	}
 	
 	.main-actions .ui-btn-inner {
@@ -616,6 +640,7 @@ html, body {
 	
 	#signin-actions {
 		padding: 0;
+		margin: 15px 0 0 0 !important;
 		width: auto;
 	}
 	
@@ -640,6 +665,10 @@ html, body {
 		top: 0;
 		
 		padding-top: 190px;
+	}
+	
+	.registered-user .tab-list {
+		padding-top: 0;
 	}
 	
 	/* Desktop Content */
@@ -910,7 +939,8 @@ html, body {
 }
 
 /* Flickering Safari Issue */
-[data-role="page"] {
+[data-role="page"],
+.main-actions {
     -webkit-backface-visibility: hidden;
 }
 

@@ -834,8 +834,8 @@ finfore.desktop = function() {
 		// User is not logged-in or Public Account
 		if(!finfore.data.user || finfore.data.user.is_public) {
 			// bind login button
-			$('#login-button').click(function() {	
-				finfore.login.init();					
+			$('#login-button').click(function() {
+				finfore.login.init();
 				return false;
 			});
 			
