@@ -59,6 +59,7 @@ Repository: https://github.com/FinforeOrg/fastndwebapp-production
 
 * The Inter and Production repositories only contain the packaged `/build` app, and not the `/dev` development, unpackaged, code. This allows these repositories to be directly deployed with the rest of the Rail API, on the same server.
 * After updating the code in the Inter and Production respositories, please contact the API developer for deployment to the actual servers.
+* **Make sure to change the `finforeBaseUrl` variable in `/webapp/config.js`, in each version, to point to the proper address for the API, based on the version: http://inter.fastnd.com or http://fastnd.com.**
 
 
 
