@@ -31,6 +31,37 @@ Build (in /dev/):
 To deply to stage.fastnd.com:
 `rake deploy`
 
+## Versions (stage, inter and production)
+
+Each of these versions represents a level of stability, and are located in separate repositories in GitHub, and in separate locations on the test and production servers.
+
+### Stage
+
+*Stage* is the development version of FastND. This version contains the latest, unstable, source code.
+
+`rake deploy` with automaticly deploy the latest `/build` version to http://stage.fastnd.com.
+
+Repository: https://github.com/FinforeOrg/FastNDWebapp
+
+### Inter
+
+*Inter* is the testing version of the app. After developing a number of new features and/or bug fixes, and testing them on stage, we deploy the latest `/build` code to http://inter.fastnd.com.
+
+Repository: https://github.com/FinforeOrg/fastndwebapp-inter
+
+### Production
+
+*Production* is the stable version of the app, and is deployed to http://fastnd.com. After deploying to *Inter*, testing and bug-fixing, we deploy the latest build version to http://fastnd.com.
+
+Repository: https://github.com/FinforeOrg/fastndwebapp-production
+
+*Notes:* 
+
+* The Inter and Production repositories only contain the packaged `/build` app, and not the `/dev` development, unpackaged, code. This allows these repositories to be directly deployed with the rest of the Rail API, on the same server.
+* After updating the code in the Inter and Production respositories, please contact the API developer for deployment to the actual servers.
+
+
+
 ## Technical details
 
 Dependencies:
@@ -43,9 +74,9 @@ Dependencies:
 
 ### CSS
 
-base.css - Desktop + Tablet
-small-screen.css - Mobile
-shared.css - Shared accross UIs
+* `base.css` - Desktop + Tablet
+* `small-screen.css` - Mobile
+* `shared.css` - Shared accross UIs
 
 ### Templates
 
@@ -64,105 +95,14 @@ http://www.bing.com/developers/s/APIBasics.html
 
 # TODO
 
+(When there are no other planned sprints)
+
 * Replace jQuery UI Sortable with 
 	http://farhadi.ir/projects/html5sortable/
-	sau
+	or
 	http://mikeplate.github.com/jquery-drag-drop-plugin/ (merge si cu touch)
 	
 * Convert tmpl template to ej, better performance
 * Better, native, notifications https://github.com/kbjr/Notifications
-* Manegement, use collapsile sets for each colums
+* Manegement, use collapsile sets for each one of the columns. This will allow mobile management.
 * Implement new, canvas-based marquee, for much better performance.
-
-
-	<span id="sp_marqueeCanvas"> <!--this should always be the same as the "name" setting below, but with "sp_" at the start-->
-	<script>
-	//Settings you can change
-	var text = "I love my <canvas>"; //The text to scroll
-	var link = "test"; //an optional hyperlink - if it's empty the link will be inactive.
-
-	var name = "marqueeCanvas"; //Name of the canvas, needs to be unique for each canvas on a single page.
-	var width = 500; //width of the canvas
-	var height = 50; //height of the canvas
-	var dir = 1; //1 is left, -1 is right :)
-	var speed = 10; //higher is faster
-
-	var fontsize = "18pt"; //font size as per CSS rules
-	var fontfamily = "Comic Sans MS, serif"; //font family as per CSS rules
-	var fontweight = "bold"; //font weight as per CSS rules
-	var fontcolor = "#F00F00"; //Font colour as per CSS rules
-	var style = ""; /*optional - inline CSS for any further styles to apply to the canvas.
-	* For example: most useful for setting a border or background colour, as both are transparent by default:
-	* var style = "border: solid thick #000; background: #009";
-	*/
-
-	var nocanvas = "Uh oh, this browser doesn't support &lt;canvas&gt;"; /*HTML for when canvas isn't supported.
-	*You should provide an alternative here for people that can't see the canvas version, such as:
-	*a static image
-	*an animated GIF
-	*an alternative animation (using Flash, Java or some other plug-in reliant technology)
-	*the <marquee> tag, even? (please don't do this one)
-	*/
-	 
-	//End of settings
-
-
-	//Marquee code, don't edit if you don't know what you're doing
-	//First create the canvas and apply its settings as above
-	var spanvas = document.getElementById('sp_'+name);
-	var canvasparent;
-
-	if (link != "") //there's a hyperlink set - we need an anchor tag on the canvas
-		{
-			var newanchor = document.createElement('a');
-			newanchor.setAttribute('href',link);
-			canvasparent = newanchor; //the canvas needs to be added to the anchor tag
-			spanvas.appendChild(newanchor);
-		}
-	else //no hyperlink - the canvas needs adding to the span element
-		{
-			canvasparent = spanvas;
-		}
-
-	var newcanvas = document.createElement('canvas');
-	newcanvas.setAttribute('id',name);
-	newcanvas.setAttribute('width',width);
-	newcanvas.setAttribute('height',height);
-	newcanvas.setAttribute('style',style);
-	newcanvas.innerHTML = nocanvas;
-	canvasparent.appendChild(newcanvas);
-
-	//Now get ready to draw text
-	var font = fontweight+" "+fontsize+" "+fontfamily; //font style as per CSS rules
-	var marquee = document.getElementById(name)
-	var context = marquee.getContext("2d");
-	var x = width;
-	var textlength;
-
-	//Now draw and animate the text
-	setInterval(draw, 1000 / (speed * 10)); //repeatedly calls the draw function, below:
-
-	function draw()
-		{
-			marquee.width = marquee.width; //simplest way to clear a canvas frame
-			context.fillStyle = fontcolor;
-			context.font = font;
-			context.textBaseline = "middle";
-			context.fillText(text, x, height / 2); //draw the text in the specified style
-			
-			x -= dir; //move in the specified direction by 1.
-			
-			textlength = context.measureText(text); //this gives a pixel length of the text string
-			
-			if (x < 0 - textlength.width) //Text has scrolled off the left hand side; restart it.
-			{
-				x = width;
-			}
-			
-			else if (x > width) //Text has scrolled off the right hand side; restart it.
-			{
-				x = 0 - textlength.width;
-			}
-		}
-	</script>
-	</span>​
