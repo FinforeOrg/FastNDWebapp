@@ -206,6 +206,23 @@ var WebService = {
 		
 		
 		
+	},
+	
+	getCompanies: function(param) {
+	
+		if(!param) param = {};
+	
+		$.ajax({
+			url: finforeBaseUrl + '/feed_infos.json',
+			type: 'GET',
+			data: {
+				category: 'all_companies'
+			},
+			success: function(companies) {
+				if(param.success) param.success(companies);
+			}
+		});
+	
 	}
 	
 	/*

@@ -11,7 +11,7 @@ finfore.addcompany = function() {
 	
 	var saveCompany = function() {
 		var companyIndex = parseInt($(this).attr('data-index')),
-			companyId = allCompanies[companyIndex]._id,
+			companyId = finfore.addcompany.allCompanies[companyIndex]._id,
 			companyExists = false,
 			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$firstColumn : finfore.desktop.nodes.$page,
 			tabSelector;
@@ -19,7 +19,7 @@ finfore.addcompany = function() {
 		// check if company already exists
 		$.each(finfore.data.companies, function(i, n) {
 			if(n.feed_info_id == companyId) {
-				var $tab = $('#' + n._id, $callbackPage);
+				var $tab = $('#' + n._id);
 				
 				tabSelector = $tab;
 				if(!finfore.smallScreen) tabSelector = $.data($tab[0], 'selector');
@@ -31,11 +31,14 @@ finfore.addcompany = function() {
 			}
 		});
 		
-		// close add company dialog
-		$.mobile.changePage($callbackPage, {
-			transition: 'slidedown',
-			reverse: true
-		});
+		// if not small-screen
+		if(!finfore.smallScreen) {
+			// close add company dialog
+			$.mobile.changePage($callbackPage, {
+				transition: 'slidedown',
+				reverse: true
+			});
+		}
 	
 		// if company isn't added already
 		if(!companyExists) {
@@ -43,8 +46,8 @@ finfore.addcompany = function() {
 			if(finfore.data.user.is_public) {
 				
 				finfore.companies.add([{
-					feed_info: allCompanies[companyIndex],
-					_id: allCompanies[companyIndex]._id
+					feed_info: finfore.addcompany.allCompanies[companyIndex],
+					_id: finfore.addcompany.allCompanies[companyIndex]._id
 				}], true);
 			
 			} else {
@@ -101,23 +104,21 @@ finfore.addcompany = function() {
 	};
 	
 	var init = function() {
+		
 		Loader.show();
+		
 		$page = $('#add-company-page');
 		
 		if(!$page.length) {
-			$.ajax({
-				url: finforeBaseUrl + '/feed_infos.json',
-				type: 'GET',			
-				data: {
-					category: 'all_companies'
-				},
+		
+			WebService.getCompanies({
 				success: function(companies) {
 					if(!$page.length) {
 						
 						// Sort companies alphabeticaly
 						companies.sort(abSorting);
 						
-						allCompanies = companies;
+						finfore.addcompany.allCompanies = companies;
 						
 						var template = $.View('//webapp/views/addcompany.tmpl', {
 							companies: companies
@@ -137,6 +138,7 @@ finfore.addcompany = function() {
 					Loader.hide();
 				}
 			});
+			
 		} else {
 			$.mobile.changePage($page, {
 				transition: 'slidedown'
@@ -148,6 +150,9 @@ finfore.addcompany = function() {
 	};
 
 	return {
-		init: init
+		init: init,
+		allCompanies: allCompanies,
+		abSorting: abSorting,
+		saveCompany: saveCompany
 	}
 }();
