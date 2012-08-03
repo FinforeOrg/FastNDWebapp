@@ -357,20 +357,11 @@ html, body {
 	-o-transition: all 0.2s ease-out;
 	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
-	
-	/*-webkit-transform: translateX(30px);
-	-moz-transform: translateX(30px);
-	-o-transform: translateX(30px);
-	transform: translateX(30px);	*/
 }
 
 .panel:hover .ui-header .ui-controlgroup {		
 	opacity: 1;
 	right: 40px;
-	/*-webkit-transform: translateX(0px);
-	-moz-transform: translateX(0px);
-	-o-transform: translateX(0px);
-	transform: translateX(0px);*/	
 }
 
 /* News Ticker */
