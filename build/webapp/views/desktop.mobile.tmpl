@@ -78,6 +78,8 @@
 	</div>
 	<div data-role="content">
 		
+		<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
+		
 		<ul data-role="listview" class="mobile-menu split-selector" data-split-theme="a">
 			{{if user && !user.is_public}}
 				<li><a>${user.full_name}</a><a class="mobile-column-select profile-button"></a></li>
@@ -86,7 +88,6 @@
 			{{if user && user.is_public}}
 				<li><a>Try a Public Account</a><a class="mobile-column-select public-account-btn"></a></li>
 			{{/if}}
-			<li><a>Lookup Company</a><a class="mobile-column-select add-tab-button"></a></li>
 		</ul>
 		
 	</div>

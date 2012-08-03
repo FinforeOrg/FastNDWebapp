@@ -463,6 +463,16 @@ div[data-role="dialog"] {
 	transform: translateX(270px);
 }
 
+/* Inline Companies search filter */
+.mobile-addcompany {
+	margin-bottom: 15px !important;
+	border-bottom: 5px solid #000;
+}
+
+.hide-mobile-companies {
+	display: none;
+}
+
 /* Content overlay, to hide menu on click */
 .mobile-content-overlay {
 	display: none;
