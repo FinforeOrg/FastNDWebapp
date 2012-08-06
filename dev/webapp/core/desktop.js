@@ -719,7 +719,10 @@ finfore.desktop = function() {
 		$(template).appendTo(finfore.$body);		
 		
 		// get #desktop page, and changePage
-		nodes.$page = $('#desktop');		
+		nodes.$page = $('#desktop');
+
+		nodes.$mobileAddCompany = $('.mobile-addcompany');
+
 		$.mobile.changePage(nodes.$page, {
 			changeHash: false
 		});		
@@ -879,6 +882,116 @@ finfore.desktop = function() {
 				}
 			}); 
 		};
+
+		WebService.getCompanies({
+			success: function (companies) {
+				// Sort companies alphabeticaly
+				companies.sort(finfore.addcompany.abSorting);
+				
+
+				finfore.addcompany.allCompanies = companies;
+
+				var template = $.View('//webapp/views/addcompanymobile.tmpl', {
+					companies: companies
+				});
+
+				nodes.$mobileAddCompany.html(template);
+
+				$('li', nodes.$mobileAddCompany).on('click', finfore.addcompany.saveCompany);
+				
+				nodes.$mobileAddCompany.listview('refresh');
+				
+				var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
+				
+				// unbind jquery mobile fitlers
+				$filterInput.unbind('keyup change');
+				
+				var list = nodes.$mobileAddCompany,
+					listview = list.data( "listview" ),
+					filterThread;
+
+				// rewrite jquery mobile filters
+				$filterInput.bind('keyup change', function() {
+					
+					var val = this.value.toLowerCase(),
+						listItems = null,
+						lastval = $filterInput.jqmData( "lastval" ) + "",
+						childItems = false,
+						itemtext = "",
+						item;
+					
+					/* In case there was a previously set filter, stop it.
+					 * This makes only the latest version of the val to count,
+					 * and prevents performance issues when typing multiple letters
+					 * at an interval smaller than 1s.
+					 */
+					if(filterThread) clearTimeout(filterThread);
+					
+					// delay filter execution by 1s, from the last keyup, to not block the ui
+					filterThread = setTimeout(function() {
+							
+						// Change val as lastval for next execution
+						$filterInput.jqmData( "lastval" , val );
+						if ( val.length < lastval.length || val.indexOf(lastval) !== 0 ) {
+
+							// Removed chars or pasted something totally different, check all items
+							listItems = list.children();
+						} else {
+
+							// Only chars added, not removed, only use visible subset
+							listItems = list.children( ":not(.ui-screen-hidden)" );
+						}
+
+						if ( val.length > 2 ) {
+						
+							list.removeClass( "hide-mobile-companies");
+
+							// This handles hiding regular rows without the text we search for
+							// and any list dividers without regular rows shown under it
+
+							for ( var i = listItems.length - 1; i >= 0; i-- ) {
+								item = $( listItems[ i ] );
+								itemtext = item.jqmData( "filtertext" ) || item.text();
+
+								if ( listview.options.filterCallback( itemtext, val ) ) {
+
+									//mark to be hidden
+									item.toggleClass( "ui-filter-hidequeue" , true );
+								} else {
+
+									// There's a shown item in the bucket
+									childItems = true;
+								}
+							}
+
+							// Show items, not marked to be hidden
+							listItems
+								.filter( ":not(.ui-filter-hidequeue)" )
+								.toggleClass( "ui-screen-hidden", false );
+
+							// Hide items, marked to be hidden
+							listItems
+								.filter( ".ui-filter-hidequeue" )
+								.toggleClass( "ui-screen-hidden", true )
+								.toggleClass( "ui-filter-hidequeue", false );
+
+						} else {
+
+							//filtervalue is empty, hide list
+							list.addClass( "hide-mobile-companies");
+							
+							//filtervalue is empty => show all
+							listItems.toggleClass( "ui-screen-hidden", false );
+						}
+					
+					}, 1000);
+					
+				});
+
+				// trigger keyup, in case text was entered before the items were loaded
+				$filterInput.trigger('keyup');
+			}
+		});
 
 		
 	};
