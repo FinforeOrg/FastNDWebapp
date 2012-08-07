@@ -887,7 +887,6 @@ finfore.desktop = function() {
 			success: function (companies) {
 				// Sort companies alphabeticaly
 				companies.sort(finfore.addcompany.abSorting);
-				
 
 				finfore.addcompany.allCompanies = companies;
 
@@ -895,11 +894,16 @@ finfore.desktop = function() {
 					companies: companies
 				});
 
+
 				nodes.$mobileAddCompany.html(template);
 
+
+
 				$('li', nodes.$mobileAddCompany).on('click', finfore.addcompany.saveCompany);
+
 				
 				nodes.$mobileAddCompany.listview('refresh');
+
 				
 				var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
 				
@@ -908,7 +912,14 @@ finfore.desktop = function() {
 				
 				var list = nodes.$mobileAddCompany,
 					listview = list.data( "listview" ),
-					filterThread;
+					filterThread,
+					$bodyHeight = $('body').height();
+					
+				list.css({
+					'max-height': $bodyHeight + 'px',
+					'overflow-y': 'scroll'
+				});
+
 
 				// rewrite jquery mobile filters
 				$filterInput.bind('keyup change', function() {
@@ -976,12 +987,18 @@ finfore.desktop = function() {
 								.toggleClass( "ui-filter-hidequeue", false );
 
 						} else {
+							//change theme color for list items
+							
+							list.find('.ui-body-c').removeClass('ui-body-c').addClass('ui-body-a');
+
+
 
 							//filtervalue is empty, hide list
 							list.addClass( "hide-mobile-companies");
 							
 							//filtervalue is empty => show all
 							listItems.toggleClass( "ui-screen-hidden", false );
+
 						}
 					
 					}, 1000);

@@ -10,6 +10,7 @@ finfore.addcompany = function() {
 		allCompanies;
 	
 	var saveCompany = function() {
+		
 		var companyIndex = parseInt($(this).attr('data-index')),
 			companyId = finfore.addcompany.allCompanies[companyIndex]._id,
 			companyExists = false,

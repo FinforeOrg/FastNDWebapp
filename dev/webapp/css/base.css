@@ -116,22 +116,61 @@ html, body {
 	width: 90px;
 }
 
+/* Search companies */
+
 #public-account-selectors {
-	width: 360px;
-	
+	/*width: 360px;*/
+	width: 195px;
+
 	color: #fff;
 	text-shadow: none;
+
+}
+
+#public-account-selectors form.ui-listview-filter {
+	width: 195px;
+	margin: 0;
+	background: none;
+}
+
+#public-account-selectors form.ui-listview-filter .ui-input-search {
+	
+	margin-bottom: 12px;
+}
+
+#public-account-selectors form.ui-listview-filter input {
+	height: 20px;
+	font-size: 13px;
+}
+
+#public-account-selectors .companies-list {
+	
+	width: 195px;
+	position: absolute;
+	z-index: 20000;
+}
+
+.hide-mobile-companies {
+	display: none;
 }
 
 #public-account-selectors > div {
 	display: block;
 	width: 180px;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	border-radius: 3px;
 }
 
+#public-account-selectors .ui-input-clear {
+	margin: -14px 3px 0 0;
+	border-radius: 1em;
+	-moz-box-shadow: 0px 1px 0 rgba(255,255,255,.3);
+	-webkit-box-shadow: 0px 1px 0 rgba(255, 255, 255, .3);
+	box-shadow: 0px 1px 0 rgba(255, 255, 255, .3);
+}
+
 #public-account-selectors .ui-btn-inner {
-	padding-left: 35px;
+	padding-left: 0;
 }
 
 
@@ -697,7 +736,7 @@ html, body {
 }
 
 .public-account-select-box {
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 }
 
 .public-account-select-box form label,
