@@ -15,7 +15,7 @@
 		
 		{{if (user && !user.is_public)}}
 			<div id="header-buttons">
-				<a ontouchstart="" class="add-company-button" data-tooltip="Add Company">Add Company</a>
+				<!-- <a ontouchstart="" class="add-company-button" data-tooltip="Add Company">Add Company</a> -->
 				<a ontouchstart="" id="profile-button" data-tooltip="User Profile">Profile</a>
 				<a ontouchstart="" id="manage-button" data-tooltip="Manage Columns" class="disabled">Manage Columns</a>
 				<a ontouchstart="" class="help-button" data-tooltip="Get Help">Help</a>
@@ -68,7 +68,11 @@
 	</div>
 	
 	<div class="tab-list">
+
 		<div class="tablet-tab-selector" id="tablet-tabs">
+			{{if (user && !user.is_public)}}
+			<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
+			{{/if}}
 			<div class="tablet-selector-wrapper">
 				<div class="tablet-tab-list"></div>
 			</div>

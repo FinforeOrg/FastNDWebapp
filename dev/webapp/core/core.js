@@ -581,9 +581,10 @@ var finfore = function() {
 	var companies = {
 		// Add Company
 		add: function(companiesList, switchTab) {
+
 			// update data
 			finfore.data.companies = finfore.data.companies.concat(companiesList);			
-			
+
 			// create companies
 			$.each(companiesList, function() {
 				
@@ -719,6 +720,7 @@ var finfore = function() {
 						// Tablet binds the desktop.tabs.select event
 						// to the expand event.
 						// So we can just trigger expand.
+						
 						$tab.trigger('expand');
 						
 					}, 100);

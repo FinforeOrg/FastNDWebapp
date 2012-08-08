@@ -897,8 +897,6 @@ finfore.desktop = function() {
 
 				nodes.$mobileAddCompany.html(template);
 
-
-
 				$('li', nodes.$mobileAddCompany).on('click', finfore.addcompany.saveCompany);
 
 				
@@ -913,11 +911,11 @@ finfore.desktop = function() {
 				var list = nodes.$mobileAddCompany,
 					listview = list.data( "listview" ),
 					filterThread,
-					$bodyHeight = $('body').height();
+					$bodyHeight = parseInt($('body').height()) - 190;
 					
 				list.css({
 					'max-height': $bodyHeight + 'px',
-					'overflow-y': 'scroll'
+					'overflow-y': 'auto'
 				});
 
 
