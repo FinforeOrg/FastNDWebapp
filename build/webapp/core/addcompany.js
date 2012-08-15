@@ -10,19 +10,23 @@ finfore.addcompany = function() {
 		allCompanies;
 	
 	var saveCompany = function() {
+
 		var companyIndex = parseInt($(this).attr('data-index')),
 			companyId = finfore.addcompany.allCompanies[companyIndex]._id,
 			companyExists = false,
 			$callbackPage = (finfore.smallScreen) ? finfore.desktop.nodes.$firstColumn : finfore.desktop.nodes.$page,
 			tabSelector;
 		
+
 		// check if company already exists
-		$.each(finfore.data.companies, function(i, n) {
-			if(n.feed_info_id == companyId) {
+		$.each(finfore.data.companies, function(i, n) {		
+			
+			if(n.feed_info_id == companyId ) {
 				var $tab = $('#' + n._id);
 				
 				tabSelector = $tab;
 				if(!finfore.smallScreen) tabSelector = $.data($tab[0], 'selector');
+				
 				finfore.desktop.tabs.select(tabSelector);
 				
 				companyExists = true;
@@ -34,20 +38,24 @@ finfore.addcompany = function() {
 		// if not small-screen
 		if(!finfore.smallScreen) {
 			// close add company dialog
+
 			$.mobile.changePage($callbackPage, {
 				transition: 'slidedown',
 				reverse: true
 			});
+			
 		}
 	
 		// if company isn't added already
-		if(!companyExists) {
 		
+		if(!companyExists) {
+			
 			if(finfore.data.user.is_public) {
-				
+			
 				finfore.companies.add([{
 					feed_info: finfore.addcompany.allCompanies[companyIndex],
-					_id: finfore.addcompany.allCompanies[companyIndex]._id
+					_id: finfore.addcompany.allCompanies[companyIndex]._id,
+					feed_info_id: finfore.addcompany.allCompanies[companyIndex]._id
 				}], true);
 			
 			} else {
@@ -65,6 +73,7 @@ finfore.addcompany = function() {
 						}
 					},
 					success: function(company) {
+
 						finfore.companies.add([company], true);
 						
 						Loader.hide();
@@ -74,11 +83,13 @@ finfore.addcompany = function() {
 			}
 			
 			if(finfore.smallScreen) {
+				
 				// show menu to see new available company and columns
 				finfore.$body.addClass('show-menu');
 				var $newCompany = finfore.desktop.nodes.$menuPage.find('[data-role="collapsible"]:last');
 				
 				if($newCompany.length) {
+					
 					finfore.$body.animate({
 						scrollTop: finfore.desktop.nodes.$menuPage.find('[data-role=collapsible]:last').offset().top
 					}, 2000);

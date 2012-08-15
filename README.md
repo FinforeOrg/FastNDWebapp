@@ -98,6 +98,11 @@ http://www.bing.com/developers/s/APIBasics.html
 
 (When there are no other planned sprints)
 
+* Remove old Add-Company functionality, as it was replaced with new autocomplete-like functionality in all UIs
+	- Remove old addcompany template
+	- Rename new addcompaniy templates
+	- Clean-up/deprecate unused code from the addcompany.js core module
+
 * Replace jQuery UI Sortable with 
 	http://farhadi.ir/projects/html5sortable/
 	or
