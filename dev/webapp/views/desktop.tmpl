@@ -24,8 +24,8 @@
 		{{else}}
 			<div id="public-account-selectors" data-role="controlgroup" data-type="horizontal">
 				<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Use a Public Account</button>
-				<!-- <button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button>  -->
-				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-theme="a" data-filter-placeholder="Search companies..."></ul>
+				<!-- <button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button> 
+				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-theme="a" data-filter-placeholder="Search companies..."></ul> -->
 			
 				<div class="public-account-select-box">
 					<form id="public-account-box-form">
@@ -71,7 +71,7 @@
 
 		<div class="tablet-tab-selector" id="tablet-tabs">
 			<div class="tablet-selector-wrapper">
-				{{if (user && !user.is_public)}}
+				{{if user}}
 				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
 				{{/if}}
 				<div class="tablet-tab-list"></div>

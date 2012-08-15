@@ -174,7 +174,7 @@ html, body {
 }
 
 #public-account-selectors .ui-btn-inner {
-	padding-left: 0;
+	/*padding-left: 0;*/
 }
 
 
@@ -318,13 +318,13 @@ html, body {
 
 /* Search form when user is logged in */
 
-#tablet-tabs .ui-listview-filter{
-	width: 197px;
-	margin: 0;
+#tablet-tabs .ui-listview-filter {
+	/*width: 197px;*/
+	margin: 0 -5px;
 }
 
 #tablet-tabs .ui-listview-filter .ui-input-search {
-	width: 124px;
+	/*width: 124px;*/
 }
 
 #tablet-tabs .ui-listview-filter input {
@@ -759,10 +759,6 @@ html, body {
 		display: block;
 	}
 	
-	
-
-	
-
 } /* media min-width 770 */
 
 /* Public Account select box */
@@ -811,11 +807,11 @@ html, body {
 	
 	/* Enlarge main-actions */
 	.main-actions {
-		height: 300px;
+		height: 250px;
 	}
 	
 	.tab-list {
-		padding-top: 300px;
+		padding-top: 250px;
 	}
 
 }
