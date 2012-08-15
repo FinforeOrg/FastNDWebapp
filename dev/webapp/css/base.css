@@ -333,9 +333,9 @@ html, body {
 }
 
 #tablet-tabs .companies-list {
-	width: 200px;
-	position: absolute;
-	z-index: 20000;
+	width: 105%;
+	margin: 0 -5px;
+	max-height: auto !important;
 }
 
 #tablet-tabs .companies-list li {

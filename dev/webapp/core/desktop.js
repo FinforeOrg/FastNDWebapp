@@ -883,6 +883,7 @@ finfore.desktop = function() {
 			}); 
 		};
 
+		// facebook-like inline company search autocomplete
 		WebService.getCompanies({
 			success: function (companies) {
 				// Sort companies alphabeticaly
@@ -893,7 +894,6 @@ finfore.desktop = function() {
 				var template = $.View('//webapp/views/addcompanymobile.tmpl', {
 					companies: companies
 				});
-
 
 				nodes.$mobileAddCompany.html(template);
 
@@ -997,6 +997,12 @@ finfore.desktop = function() {
 							//filtervalue is empty => show all
 							listItems.toggleClass( "ui-screen-hidden", false );
 
+						}
+					
+						// refresh iscroll
+						if(touchSupport) {
+							// refresh tab selector iScroll to account for new added tab
+							nodes.tabletTabsScroller.refresh();
 						}
 					
 					}, 1000);
