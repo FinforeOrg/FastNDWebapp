@@ -70,10 +70,10 @@
 	<div class="tab-list">
 
 		<div class="tablet-tab-selector" id="tablet-tabs">
-			{{if (user && !user.is_public)}}
-			<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
-			{{/if}}
 			<div class="tablet-selector-wrapper">
+				{{if (user && !user.is_public)}}
+				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
+				{{/if}}
 				<div class="tablet-tab-list"></div>
 			</div>
 		</div>

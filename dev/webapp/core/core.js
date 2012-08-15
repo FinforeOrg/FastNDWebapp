@@ -17,9 +17,6 @@ if(touchSupport) {
 	$('html').addClass('touch');
 }
 
-/////////////////
-touchSupport = true;
-
 var finfore = function() {
 	var url = {
 		// login
