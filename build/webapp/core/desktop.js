@@ -171,7 +171,7 @@ finfore.desktop = function() {
 			
 			// scroll to tab selector button
 			nodes.$tabletTabsContainer.animate({
-				scrollTop: $tab.position().top
+				scrollTop: $tab.position().top + 250
 			}, 200);
 		}
 

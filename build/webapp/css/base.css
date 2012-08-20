@@ -925,6 +925,8 @@ html, body {
 .ui-loader {
 	top: 50% !important;
 	z-index: 999999 !important;
+	
+	box-shadow: none;
 }
 .ui-page, .ui-dialog {
 	/*min-height: 100% !important;*/
