@@ -484,23 +484,18 @@ html, body {
 .panel .ui-header .ui-controlgroup {
 	position: absolute;
 	top: 5px;
-	right: 5px;	
+	right: -20px;
 	opacity: 0;
 	
 	-moz-transition: all 0.2s ease-out;
 	-o-transition: all 0.2s ease-out;
 	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
-	
-	-webkit-transform: translateX(30px);
-	-moz-transform: translateX(30px);
-	-o-transform: translateX(30px);
-	transform: translateX(30px);	
 }
 
-.panel:hover .ui-header .ui-controlgroup {		
+.panel:hover .ui-header .ui-controlgroup {
+	right: 5px;
 	opacity: 1;
-	right: 40px;
 }
 
 /* Panel Sortable Helper */
@@ -942,7 +937,8 @@ html, body {
 
 /* Flickering Safari Issue */
 [data-role="page"],
-.main-actions {
+.main-actions,
+.tab-list {
     -webkit-backface-visibility: hidden;
 }
 
