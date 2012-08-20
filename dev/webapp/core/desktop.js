@@ -171,7 +171,7 @@ finfore.desktop = function() {
 			
 			// scroll to tab selector button
 			nodes.$tabletTabsContainer.animate({
-				scrollTop: $tab.position().top
+				scrollTop: $tab.position().top + 250
 			}, 200);
 		}
 
@@ -884,9 +884,9 @@ finfore.desktop = function() {
 		};
 
 		// bind vclick event to the form, because iScroll was preventing tap-ing the input
+		var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
+		
 		if(touchSupport) {
-			var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
-			
 			nodes.$mobileAddCompany.siblings('form').bind('vclick', function() {
 				$filterInput.focus();
 			});
