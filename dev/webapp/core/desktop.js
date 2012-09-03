@@ -1016,6 +1016,15 @@ finfore.desktop = function() {
 			}
 		});
 
+		// set overlay class for small-dialog on body
+		$(document).on('pagebeforeshow', '[data-role=dialog]', function() {
+			finfore.$body.addClass('small-dialog-overlay');
+		});
+		
+		// remove overlay class for small-dialog on body
+		$(document).on('pagehide', '[data-role=dialog]', function() {
+			finfore.$body.removeClass('small-dialog-overlay');
+		});
 		
 	};
 

@@ -484,7 +484,7 @@ html, body {
 .panel .ui-header .ui-controlgroup {
 	position: absolute;
 	top: 5px;
-	right: -20px;
+	right: 5px;
 	opacity: 0;
 	
 	-moz-transition: all 0.2s ease-out;
@@ -494,7 +494,6 @@ html, body {
 }
 
 .panel:hover .ui-header .ui-controlgroup {
-	right: 5px;
 	opacity: 1;
 }
 
@@ -551,8 +550,8 @@ html, body {
 	z-index: 9999;
 }
 
-/* Background Overlay, set on body by jqm */
-.ui-overlay-c:after {
+/* Background Overlay on dialog */
+.small-dialog-overlay:after {
 	content: ' ';
 	position: fixed;
 	left: 0;
@@ -560,7 +559,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 	background: hsla(0, 0%, 10%, 0.6);
-	z-index: 1;
+	z-index: 9000;
 }
 
 .small-dialog [data-role="header"] {
