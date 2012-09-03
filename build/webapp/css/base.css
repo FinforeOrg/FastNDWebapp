@@ -484,7 +484,7 @@ html, body {
 .panel .ui-header .ui-controlgroup {
 	position: absolute;
 	top: 5px;
-	right: -20px;
+	right: 5px;
 	opacity: 0;
 	
 	-moz-transition: all 0.2s ease-out;
@@ -494,7 +494,6 @@ html, body {
 }
 
 .panel:hover .ui-header .ui-controlgroup {
-	right: 5px;
 	opacity: 1;
 }
 
@@ -547,8 +546,20 @@ html, body {
 /* == Dialogs == */
 .small-dialog {
 	margin-top: 0;
-	background: hsla(0, 0%, 10%, 0.6) !important;
+	background: none;
 	z-index: 9999;
+}
+
+/* Background Overlay on dialog */
+.small-dialog-overlay:after {
+	content: ' ';
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: hsla(0, 0%, 10%, 0.6);
+	z-index: 1;
 }
 
 .small-dialog [data-role="header"] {
@@ -952,6 +963,12 @@ html, body {
 	}
 }
 
+/* Hack to prevent jQuery Mobile from figuring the real height of the hidden selectmenu.
+ * This is used to prevent jQM from building the list selection in a separate page/dialog, for large lists. 
+ */
+.ui-selectmenu.ui-selectmenu-hidden {
+	height: 0;
+}
 
 /* ===== IE BROWSER UPGRADE NOTICE ===== */
 #brower-upgrade-notice-overlay {
