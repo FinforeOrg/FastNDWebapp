@@ -90,8 +90,11 @@ Templates use jQuery.tmpl, have the .tmpl extension and are parsed by Javascript
 
 ## 3rd Party APIs
 
-### Bing API
+### Old Bing API
 http://www.bing.com/developers/s/APIBasics.html
+
+### NEW Bing API
+http://gavinmhackeling.com/blog/2012/05/using-the-bing-search-api-in-python/
 
 
 # TODO
