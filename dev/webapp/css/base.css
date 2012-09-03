@@ -547,8 +547,14 @@ html, body {
 /* == Dialogs == */
 .small-dialog {
 	margin-top: 0;
-	background: hsla(0, 0%, 10%, 0.6) !important;
+	background: none;
 	z-index: 9999;
+}
+.small-dialog:before {
+	content: '';
+	width: 100%;
+	height: 100%;
+	background: hsla(0, 0%, 10%, 0.6) !important;
 }
 
 .small-dialog [data-role="header"] {
@@ -952,6 +958,12 @@ html, body {
 	}
 }
 
+/* Hack to prevent jQuery Mobile from figuring the real height of the hidden selectmenu.
+ * This is used to prevent jQM from building the list selection in a separate page/dialog, for large lists. 
+ */
+.ui-selectmenu.ui-selectmenu-hidden {
+	height: 0;
+}
 
 /* ===== IE BROWSER UPGRADE NOTICE ===== */
 #brower-upgrade-notice-overlay {

@@ -647,6 +647,7 @@ var finfore = function() {
 					});
 				}, 10);
 				
+				/*
 				setTimeout(function() {
 					// additional news
 					finfore.panels.create({
@@ -658,6 +659,7 @@ var finfore = function() {
 							}
 					});
 				}, 10);
+				*/
 				
 				setTimeout(function() {
 					// calendar

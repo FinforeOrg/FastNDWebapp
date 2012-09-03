@@ -6855,6 +6855,8 @@ $( document ).bind( "pagecreate create", function( e ){
 					screenHeight = $window.height(),
 					screenWidth = $window.width();
 
+				console.log(menuHeight);
+					
 				//add active class to button
 				self.button.addClass( $.mobile.activeBtnClass );
 
