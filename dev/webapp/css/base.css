@@ -550,11 +550,17 @@ html, body {
 	background: none;
 	z-index: 9999;
 }
-.small-dialog:before {
-	content: '';
+
+/* Background Overlay, set on body by jqm */
+.ui-overlay-c:after {
+	content: ' ';
+	position: fixed;
+	left: 0;
+	top: 0;
 	width: 100%;
 	height: 100%;
-	background: hsla(0, 0%, 10%, 0.6) !important;
+	background: hsla(0, 0%, 10%, 0.6);
+	z-index: 1;
 }
 
 .small-dialog [data-role="header"] {
