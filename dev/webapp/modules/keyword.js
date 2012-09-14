@@ -11,6 +11,10 @@ finfore.modules.keyword = function() {
 		var category = 'keyword';
 		if(!finfore.data.panels.main[category]) finfore.data.panels.main[category] = [];
 		
+		var obj = finfore.data.panels.main.keyword;
+		
+		finfore.data.panels.main.keyword[0].feed_account.keyword_column.keyword = decodeURIComponent(obj[0].feed_account.keyword_column.keyword);
+		
 		// get and render Keyword Managemenet template
 		var template = $.View('//webapp/views/module.keyword.management.tmpl', {
 			panels: finfore.data.panels.main.keyword
@@ -53,7 +57,7 @@ finfore.modules.keyword = function() {
 				$input = $details.parents('.mtab-content:first').prevAll('.mtab:first'),
 				data = $.data($input[0], 'data'),
 				feed_account = data.feed_account,
-				text = escape($('.keyword-text', $details).val()),
+				text = encodeURIComponent($('.keyword-text', $details).val()),
 				isAggregate = false;
 				//followers = $('.keyword-followers', $details).val(),
 			
@@ -148,7 +152,7 @@ finfore.modules.keyword = function() {
 			
 			$tweets.removeData();
 			
-			var query = options.feed_account.keyword_column.keyword;			
+			var query = decodeURIComponent(options.feed_account.keyword_column.keyword);			
 			if(!query) {
 				$container.removeClass('panel-loading');
 				return false;
