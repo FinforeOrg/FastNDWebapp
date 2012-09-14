@@ -53,7 +53,7 @@ finfore.modules.keyword = function() {
 				$input = $details.parents('.mtab-content:first').prevAll('.mtab:first'),
 				data = $.data($input[0], 'data'),
 				feed_account = data.feed_account,
-				text = $('.keyword-text', $details).val(),
+				text = escape($('.keyword-text', $details).val()),
 				isAggregate = false;
 				//followers = $('.keyword-followers', $details).val(),
 			
@@ -67,7 +67,9 @@ finfore.modules.keyword = function() {
 					keyword: text,
 					_id: feed_account.keyword_column._id
 				}
-			};			
+			};
+
+			console.log(feedAccountParams);
 			
 			$.ajax({
 				url: finforeBaseUrl + '/feed_accounts/' + feedAccountParams._id + '.json',

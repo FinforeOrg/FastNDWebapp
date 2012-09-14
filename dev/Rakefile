@@ -91,7 +91,7 @@ task :build do
   if win
 	extension = '.bat'
   end
-  
+
   print "1. Copy webapp/ to Build directory .. "
   FileUtils.cp_r 'webapp/', local_dir
   print "[ DONE ] \n"
