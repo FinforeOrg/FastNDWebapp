@@ -30,14 +30,16 @@
 				<div class="public-account-select-box">
 					<form id="public-account-box-form">
 						<div data-role="fieldcontain">
-							<select name="user[profession]" id="profession" data-theme="a">
-								<option disabled>${focus.professional.title}</option>
-								{{each focus.professional.profiles}}
+							<select name="user[geographic]" id="geographic" data-theme="a">
+								<option disabled>${focus.geographic.title}</option>
+								${isSelected = false}
+								{{each focus.geographic.profiles}}
 									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
+									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'United States')}} selected="selected" {{/if}}>${$value.title}</option>
 								{{/each}}
 							</select>
 						</div>
+
 						<div data-role="fieldcontain">
 							<select name="user[industry]" id="industry" data-theme="a">
 								<option disabled>${focus.industrial.title}</option>
@@ -47,16 +49,18 @@
 								{{/each}}
 							</select>
 						</div>
+						
 						<div data-role="fieldcontain">
-							<select name="user[geographic]" id="geographic" data-theme="a">
-								<option disabled>${focus.geographic.title}</option>
-								${isSelected = false}
-								{{each focus.geographic.profiles}}
+							<select name="user[profession]" id="profession" data-theme="a">
+								<option disabled>${focus.professional.title}</option>
+								{{each focus.professional.profiles}}
 									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'USA & Canada')}} selected="selected" {{/if}}>${$value.title}</option>
+									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
 								{{/each}}
 							</select>
 						</div>
+						
+						
 						<button data-theme="b" type="submit">Try a Public Account</button>
 					</form>
 				</div>
