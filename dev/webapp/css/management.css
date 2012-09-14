@@ -9,6 +9,7 @@
 	margin-top: 0;
 	padding: 1%;
 	background: #333 !important;
+	z-index: 2;
 }
 #manage-page > .ui-header, #manage-page > .ui-content, #manage-page > .ui-footer {
 	max-width: 98%;
