@@ -38,7 +38,7 @@ var finfore = function() {
 	// User Details
 	var user = Storage.getItem('user');
 	if(user) {
-		user = JSON.parse(user);
+		user = eval('('+ user + ')');
 		
 		// failsafe
 		if(user.error || !user._id) user = false;
