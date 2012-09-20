@@ -123,7 +123,6 @@ var finfore = function() {
 		 * We store selected focus areas only for public profiles.
 		 */
 		var selectedFocus = Storage.getItem('selectedFocus');
-		
 		/* If the selected focus areas are stored, and the user is public,
 		 * parse and use the stored focuses.
 		 *
@@ -819,12 +818,13 @@ var finfore = function() {
 				
 			} else {
 			
-				/* Get the _id of the 'USA & Canada' focus area,
+				/* Get the _id of the 'United States' focus area,
 				 * so that we can select it first, even if it's not first (alphabetically)
 				 */
 				var geographicId;
 				$.each(finfore.data.focus.geographic.profiles, function() {
-					if(this.title == 'USA & Canada') {
+					
+					if(this.title == 'United States') {
 						geographicId = this._id;
 					}
 				});
