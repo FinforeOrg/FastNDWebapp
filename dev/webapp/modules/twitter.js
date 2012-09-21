@@ -156,7 +156,8 @@ finfore.modules.twitter = function() {
 			};
 		};
 		
-		var refresh = function(loadmore) {
+		var refresh = function(e, loadmore) {
+
 			$container.addClass('panel-loading');
 			
 			if(loadmore === true) {
@@ -299,7 +300,8 @@ finfore.modules.twitter = function() {
 			};
 			
 			$loadMore.click(function() {
-				$container.trigger('refresh', [true]);
+
+				$container.trigger('refresh', true);
 			});
 			
 			// render markup

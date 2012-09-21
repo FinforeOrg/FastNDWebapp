@@ -144,7 +144,7 @@ finfore.modules.keyword = function() {
 			};
 		};
 		
-		var refresh = function(loadmore) {
+		var refresh = function(e, loadmore) {
 			$container.addClass('panel-loading');
 			
 			if(loadmore === true) {
@@ -205,7 +205,7 @@ finfore.modules.keyword = function() {
 			$container.addClass('panel-loading');			
 			
 			$loadMore.click(function() {
-				$container.trigger('refresh', [true]);
+				$container.trigger('refresh', true);
 			});
 			
 			// render markup

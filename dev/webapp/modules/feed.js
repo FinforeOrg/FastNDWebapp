@@ -130,6 +130,8 @@ finfore.modules.feed = function() {
 			sources[0] += (options.limit * 1) - 14;
 		}
 		
+		
+
 		feedReader.get({
 			callbackId: options.callbackId,
 			sources: sources,
@@ -246,6 +248,7 @@ finfore.modules.feed = function() {
 				feedNumber += multiplier;
 			};
 			
+
 			var callbackId;
 			if(options.feed_account) {
 				callbackId = options.feed_account._id;
@@ -315,8 +318,9 @@ finfore.modules.feed = function() {
 			});
 			
 			var $loadMoreEntriesBtn = $('.load-more-entries', $container);				
-			$loadMoreEntriesBtn.click(function(e) {				
-				$container.trigger('refresh', [true]);
+			$loadMoreEntriesBtn.click(function(e) {	
+
+				$container.trigger('refresh', true);
 				
 				e.preventDefault();
 				return false;
