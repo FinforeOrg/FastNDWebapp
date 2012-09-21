@@ -475,7 +475,7 @@ finfore.manage = function() {
 							var sourceIndex = finfore.data.panels.main[params.category][index].feed_account.user_feeds.length - 1;
 							finfore.data.panels.main[params.category][index].feed_account.user_feeds[sourceIndex].title = f.sourceTitle;
 							*/
-								
+							
 							// add management node
 							var template = $.View('//webapp/views/manage.source.tmpl', {
 								feed_account_id: feed_account._id,
@@ -848,7 +848,8 @@ finfore.manage = function() {
 					feed_account_id: feedAccountID,
 					friend_id: sourceAddress
 				},
-				success: function(data) {									
+				success: function(data) {
+
 					var friend = {
 						id: data._id,
 						name: data.screen_name,
@@ -868,6 +869,7 @@ finfore.manage = function() {
 						index: sourceIndex,
 						category: 'twitter'
 					});
+
 					$tab.find('.list-view').append(template);
 					
 					// refresh column
