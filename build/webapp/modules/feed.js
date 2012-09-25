@@ -130,7 +130,7 @@ finfore.modules.feed = function() {
 			sources[0] += (options.limit * 1) - 14;
 		}
 		
-		
+
 
 		feedReader.get({
 			callbackId: options.callbackId,
@@ -156,7 +156,7 @@ finfore.modules.feed = function() {
 					// check date
 					if((options.loadMore === true) || (this.pubDate > options.date)) {
 						if(index === entriesLength) {
-							markup += '<li class="last-in-group" data-icon="false">';
+							markup += '<li class="last-in-group" data-i	="false">';
 						} else {
 							markup += '<li data-icon="false">';
 						};
