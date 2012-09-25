@@ -24,6 +24,7 @@
 }
 .manage-content {	
 	position: relative;
+	z-index: ;
 	padding: 0;
 	overflow: hidden;	
 	
