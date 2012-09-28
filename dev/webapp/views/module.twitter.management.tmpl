@@ -39,8 +39,16 @@
 		<label for="twitter-preset-all" class="preset-tab-selector ui-btn ui-btn-up-a">
 			All Users
 		</label>
-		<div class="preset-tab-content visible-tab preset-sources-all">
-			<div class="list-view" data-count="50"></div>
+		<div id="twitter-list-view" class="preset-tab-content visible-tab preset-sources-all" style="height: 390px;">
+			<div>
+				<div id="pullDown">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">Pull down to refresh...</span>
+				</div>
+				<div class="list-view" data-count="50" style="max-height: auto !important; " id="twitterList"></div>
+				<div id="pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+				</div>
+			</div>
 		</div>
 		
 		<input type="radio" data-native="true" id="twitter-preset-suggested" name="twitter-preset-tabs" class="preset-tab-radio" data-role="none">

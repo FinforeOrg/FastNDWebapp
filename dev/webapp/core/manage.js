@@ -27,13 +27,15 @@ finfore.manage = function() {
 				page: options.count
 			},
 			success: function(feed_infos) {
+				console.log(options);
 				// manually loose convert from text to json, to bypass json errors with special chars
 				feed_infos = eval(feed_infos);
 				
 				finfore.data.feedInfos[options.category] = feed_infos;
-				
+				var sliceFeeds = feed_infos.slice(0,50);
 				var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
-					feeds: feed_infos,
+					//feeds: feed_infos,
+					feeds: sliceFeeds,
 					name: options.category,
 					type: options.type
 				});
@@ -906,9 +908,124 @@ finfore.manage = function() {
 		$managementTabsList = $('#management-tabs > ul');
 		
 		$('a', $managementTabsList).click(function() {
+
 			var $this = $(this),
 				$target = $($this.attr('href'), $managementTabs);
 			
+			var page = 1;
+
+			if ( $this.attr('href') == '#management-tab-twitter' ) {
+				setTimeout(function() {
+
+					var myScroll,
+					pullDownEl, pullDownOffset,
+					pullUpEl, pullUpOffset,
+					generatedCount = 0;
+
+					function pullDownAction () {
+						setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+							var el, li, i;
+							el = document.getElementById('twitterList');
+
+							
+							tabScroller.refresh();
+							
+						}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+					}
+
+					function pullUpAction () {
+						setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+							var el, li, i;
+							el = document.getElementById('twitterList');
+
+							page++;
+
+							// if (page >= 2) {
+							// 	$('label', el).slice(0, 50).remove();
+							// 	$('input', el).slice(0, 50).remove();
+							// }
+
+							var a = (page - 1) * 50;
+							var b = page * 50;
+
+							sliceFeeds = finfore.data.feedInfos['all,twitter'].slice(a,b);
+
+							var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
+								//feeds: feed_infos,
+								feeds: sliceFeeds,
+								name: 'all,twitter',
+								type: 'twitter'
+							});
+							
+							$(el).append(template);
+							
+							$('label', el).draggable({
+								revert: "invalid",
+								helper: "clone",
+								cursor: "move"					
+							});
+
+							tabScroller.refresh();
+							
+						}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+					}
+
+					pullDownEl = document.getElementById('pullDown');
+					pullDownOffset = pullDownEl.offsetHeight;
+					pullUpEl = document.getElementById('pullUp');	
+					pullUpOffset = pullUpEl.offsetHeight;
+
+					var tabScroller = new iScroll('twitter-list-view', {
+						hScroll: false,
+						useTransition: true,
+						lockDirection: true,
+						topOffset: pullDownOffset,
+						onRefresh: function () {
+							if (pullDownEl.className.match('loading')) {
+								pullDownEl.className = '';
+								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
+							} else if (pullUpEl.className.match('loading')) {
+								pullUpEl.className = '';
+								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+							}
+						},
+						onScrollMove: function () {
+							if (this.y > 5 && !pullDownEl.className.match('flip')) {
+								pullDownEl.className = 'flip';
+								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Release to refresh...';
+								this.minScrollY = 0;
+							} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+								pullDownEl.className = '';
+								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
+								this.minScrollY = -pullDownOffset;
+							} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+								pullUpEl.className = 'flip';
+								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+								this.maxScrollY = this.maxScrollY;
+							} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+								pullUpEl.className = '';
+								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+								this.maxScrollY = pullUpOffset;
+							}
+						},
+						onScrollEnd: function () {
+							if (pullDownEl.className.match('flip')) {
+								pullDownEl.className = 'loading';
+								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';				
+								pullDownAction();	// Execute custom function (ajax call?)
+							} else if (pullUpEl.className.match('flip')) {
+								pullUpEl.className = 'loading';
+								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+								pullUpAction();	// Execute custom function (ajax call?)
+							}
+						}
+						// hideScrollbar: true,
+						// momentum: false
+					});
+					
+				}, 10);
+			}
+
 			$('.management-tab-active', $managementTabsList).removeClass('management-tab-active');
 			$this.addClass('management-tab-active');
 			

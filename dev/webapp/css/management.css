@@ -268,8 +268,8 @@
 }
 /* mtab listview */
 .list-view {
-	max-height: 415px;
-	overflow-y: auto !important;
+	/*max-height: 415px;*/
+	/*overflow-y: auto !important;*/
 }
 .list-view input {
 	position: absolute;
@@ -387,7 +387,7 @@
 	height: 380px;
 }
 .preset-tab-content .list-view {
-	max-height: 390px;
+	/*max-height: 390px;*/
 }
 .preset-tabs .preset-tab-selector {
 	position: relative;
