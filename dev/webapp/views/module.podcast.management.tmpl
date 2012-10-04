@@ -41,8 +41,13 @@
 		<label for="podcast-preset-all" class="preset-tab-selector ui-btn ui-btn-up-a">
 			All Podcasts
 		</label>
-		<div class="preset-tab-content visible-tab preset-sources-all">
-			<div class="list-view" data-count="50"></div>
+		<div id="podcastTab" class="preset-tab-content visible-tab preset-sources-all" style="height: 390px;">
+			<div>
+				<div class="list-view" data-count="50" style="max-height: auto !important; " id="podcastFeedList"></div>
+				<div id="podcastpullUp" class="pullToRefresh pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+				</div>
+			</div>
 		</div>
 		
 		<input type="radio" data-native="true" id="podcast-preset-suggested" name="podcast-preset-tabs" class="preset-tab-radio" data-role="none">

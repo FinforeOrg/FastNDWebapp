@@ -27,7 +27,7 @@ finfore.manage = function() {
 				page: options.count
 			},
 			success: function(feed_infos) {
-				console.log(options);
+				
 				// manually loose convert from text to json, to bypass json errors with special chars
 				feed_infos = eval(feed_infos);
 				
@@ -913,8 +913,25 @@ finfore.manage = function() {
 				$target = $($this.attr('href'), $managementTabs);
 			
 			var page = 1;
+			var tabId = null;
+			
+			if ($this.attr('href') == '#management-tab-twitter') {
+				prefix = 'twitter';
+				tabId = 'twitterTab';
+				feedSrc = 'all,twitter';
+			} 
+			else if ($this.attr('href') == '#management-tab-podcast') {
+				prefix = 'podcast';
+				tabId = 'podcastTab';
+				feedSrc = 'all,podcast';
+			}
+			else if ($this.attr('href') == '#management-tab-feed') {
+				prefix = 'feed';
+				tabId = 'feedTab';
+				feedSrc = 'all,rss';
+			}
 
-			if ( $this.attr('href') == '#management-tab-twitter' ) {
+			if ( tabId != null ) {
 				setTimeout(function() {
 
 					var myScroll,
@@ -922,44 +939,29 @@ finfore.manage = function() {
 					pullUpEl, pullUpOffset,
 					generatedCount = 0;
 
-					function pullDownAction () {
-						setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-							var el, li, i;
-							el = document.getElementById('twitterList');
-
-							
-							tabScroller.refresh();
-							
-						}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
-					}
-
 					function pullUpAction () {
 						setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 							var el, li, i;
-							el = document.getElementById('twitterList');
+
+							$el = $('#'+ prefix +'FeedList', $target);
 
 							page++;
-
-							// if (page >= 2) {
-							// 	$('label', el).slice(0, 50).remove();
-							// 	$('input', el).slice(0, 50).remove();
-							// }
 
 							var a = (page - 1) * 50;
 							var b = page * 50;
 
-							sliceFeeds = finfore.data.feedInfos['all,twitter'].slice(a,b);
+							sliceFeeds = finfore.data.feedInfos[feedSrc].slice(a,b);
 
 							var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
 								//feeds: feed_infos,
 								feeds: sliceFeeds,
-								name: 'all,twitter',
-								type: 'twitter'
+								name: feedSrc,
+								type: prefix
 							});
 							
-							$(el).append(template);
+							$el.append(template);
 							
-							$('label', el).draggable({
+							$('label', $el).draggable({
 								revert: "invalid",
 								helper: "clone",
 								cursor: "move"					
@@ -970,57 +972,40 @@ finfore.manage = function() {
 						}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
 					}
 
-					pullDownEl = document.getElementById('pullDown');
-					pullDownOffset = pullDownEl.offsetHeight;
-					pullUpEl = document.getElementById('pullUp');	
+					pullUpEl = document.getElementById(prefix+'pullUp');	
 					pullUpOffset = pullUpEl.offsetHeight;
 
-					var tabScroller = new iScroll('twitter-list-view', {
+					$pullUpEl = $('#'+prefix+'pullUp', $target);
+					
+					var tabScroller = new iScroll(tabId, {
 						hScroll: false,
 						useTransition: true,
 						lockDirection: true,
-						topOffset: pullDownOffset,
 						onRefresh: function () {
-							if (pullDownEl.className.match('loading')) {
-								pullDownEl.className = '';
-								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
-							} else if (pullUpEl.className.match('loading')) {
-								pullUpEl.className = '';
-								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+							if ($pullUpEl.hasClass('loading')) {
+								$pullUpEl.attr('class', '');
+								$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
 							}
+							
 						},
 						onScrollMove: function () {
-							if (this.y > 5 && !pullDownEl.className.match('flip')) {
-								pullDownEl.className = 'flip';
-								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Release to refresh...';
-								this.minScrollY = 0;
-							} else if (this.y < 5 && pullDownEl.className.match('flip')) {
-								pullDownEl.className = '';
-								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
-								this.minScrollY = -pullDownOffset;
-							} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-								pullUpEl.className = 'flip';
-								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+							if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
+								$pullUpEl.addClass('flip');
+								$pullUpEl.find('.pullUpLabel').html('Release to load more...');
 								this.maxScrollY = this.maxScrollY;
-							} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-								pullUpEl.className = '';
-								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+							} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
+								$pullUpEl.removeClass('flip');
+								$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
 								this.maxScrollY = pullUpOffset;
 							}
 						},
 						onScrollEnd: function () {
-							if (pullDownEl.className.match('flip')) {
-								pullDownEl.className = 'loading';
-								pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';				
-								pullDownAction();	// Execute custom function (ajax call?)
-							} else if (pullUpEl.className.match('flip')) {
-								pullUpEl.className = 'loading';
-								pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
-								pullUpAction();	// Execute custom function (ajax call?)
+							if ( $pullUpEl.hasClass('flip') ) {
+								$pullUpEl.removeClass('flip').addClass('loading') ;
+								$pullUpEl.find('.pullUpLabel').html('Loading...');				
+								pullUpAction();	
 							}
 						}
-						// hideScrollbar: true,
-						// momentum: false
 					});
 					
 				}, 10);
