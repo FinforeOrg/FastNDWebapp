@@ -32,10 +32,13 @@ finfore.manage = function() {
 				feed_infos = eval(feed_infos);
 				
 				finfore.data.feedInfos[options.category] = feed_infos;
-				var sliceFeeds = feed_infos.slice(0,50);
+				
+				if (touchSupport){
+					//only load 50
+					feed_infos = feed_infos.slice(0,50);
+				}
 				var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
-					//feeds: feed_infos,
-					feeds: sliceFeeds,
+					feeds: feed_infos,
 					name: options.category,
 					type: options.type
 				});
@@ -914,114 +917,117 @@ finfore.manage = function() {
 			
 			var page = 1;
 			var tabId = null;
-			
-			if ($this.attr('href') == '#management-tab-twitter') {
-				prefix = 'twitter';
-				tabId = 'twitterTab';
-				feedSrc = 'all,twitter';
-			} 
-			else if ($this.attr('href') == '#management-tab-podcast') {
-				prefix = 'podcast';
-				tabId = 'podcastTab';
-				feedSrc = 'all,podcast';
-			}
-			else if ($this.attr('href') == '#management-tab-feed') {
-				prefix = 'feed';
-				tabId = 'feedTab';
-				feedSrc = 'all,rss';
-			}
-			else if ($this.attr('href') == '#management-tab-prices') {
-				prefix = 'prices';
-				tabId = 'pricesTab';
-				feedSrc = 'all,chart';
-			}
+			if (touchSupport){
 
-			if ( tabId != null ) {
-				setTimeout(function() {
+				if ($this.attr('href') == '#management-tab-twitter') {
+					prefix = 'twitter';
+					tabId = 'twitterTab';
+					feedSrc = 'all,twitter';
+				} 
+				else if ($this.attr('href') == '#management-tab-podcast') {
+					prefix = 'podcast';
+					tabId = 'podcastTab';
+					feedSrc = 'all,podcast';
+				}
+				else if ($this.attr('href') == '#management-tab-feed') {
+					prefix = 'feed';
+					tabId = 'feedTab';
+					feedSrc = 'all,rss';
+				}
+				else if ($this.attr('href') == '#management-tab-prices') {
+					prefix = 'prices';
+					tabId = 'pricesTab';
+					feedSrc = 'all,chart';
+				}
 
-					var pullUpEl, pullUpOffset;
-					
-					function pullUpAction () {
+				if ( tabId != null ) {
+					$('#'+ prefix +'FeedList', $target).removeClass('non-touch');
+					setTimeout(function() {
+
+						var pullUpEl, pullUpOffset;
 						
-							var el, li, i;
-
-							var $el = $('#'+ prefix +'FeedList', $target);
-
-							page++;
-
-							var a = (page - 1) * 50;
-							var b = page * 50;
-
-							sliceFeeds = finfore.data.feedInfos[feedSrc].slice(a,b);
-
-							var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
-								//feeds: feed_infos,
-								feeds: sliceFeeds,
-								name: feedSrc,
-								type: prefix
-							});
+						function pullUpAction () {
 							
-							$el.append(template);
-							
-							$('label', $el).draggable({
-								revert: "invalid",
-								helper: "clone",
-								cursor: "move"					
-							});
+								var el, li, i;
 
-							tabScroller.refresh();
+								var $el = $('#'+ prefix +'FeedList', $target);
+
+								page++;
+
+								var a = (page - 1) * 50;
+								var b = page * 50;
+
+								sliceFeeds = finfore.data.feedInfos[feedSrc].slice(a,b);
+
+								var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
+									//feeds: feed_infos,
+									feeds: sliceFeeds,
+									name: feedSrc,
+									type: prefix
+								});
+								
+								$el.append(template);
+								
+								$('label', $el).draggable({
+									revert: "invalid",
+									helper: "clone",
+									cursor: "move"					
+								});
+
+								tabScroller.refresh();
+								
 							
+						}
+
+						pullUpEl = document.getElementById(prefix+'pullUp');	
+						pullUpOffset = pullUpEl.offsetHeight;
+
+						$pullUpEl = $('#'+prefix+'pullUp', $target);
 						
-					}
+						
+						if(!$('#'+tabId).hasClass('has-iscroll')){
+							var tabScroller = new iScroll(tabId, {
+								hScroll: false,
+								useTransition: true,
+								lockDirection: true,
+								onRefresh: function () {
+									if ($pullUpEl.hasClass('loading')) {
+										$pullUpEl.removeClass('loading');
+										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+									}
+									
+								},
+								onScrollMove: function () {
+									
+									
+									if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
 
-					pullUpEl = document.getElementById(prefix+'pullUp');	
-					pullUpOffset = pullUpEl.offsetHeight;
 
-					$pullUpEl = $('#'+prefix+'pullUp', $target);
-					
-					
-					if(!$('#'+tabId).hasClass('has-iscroll')){
-						var tabScroller = new iScroll(tabId, {
-							hScroll: false,
-							useTransition: true,
-							lockDirection: true,
-							onRefresh: function () {
-								if ($pullUpEl.hasClass('loading')) {
-									$pullUpEl.removeClass('loading');
-									$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+										$pullUpEl.addClass('flip');
+										$pullUpEl.find('.pullUpLabel').html('Release to load more...');
+										this.maxScrollY = this.maxScrollY;
+									} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
+										$pullUpEl.removeClass('flip');
+										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+										this.maxScrollY = pullUpOffset;
+									}
+								},
+								onScrollEnd: function () {
+									//console.log(this.y);
+									if ( $pullUpEl.hasClass('flip') ) {
+										$pullUpEl.removeClass('flip').addClass('loading') ;
+										$pullUpEl.find('.pullUpLabel').html('Loading...');				
+										pullUpAction();	
+									}
 								}
-								
-							},
-							onScrollMove: function () {
-								
-								
-								if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
+							});
+						}
 
-
-									$pullUpEl.addClass('flip');
-									$pullUpEl.find('.pullUpLabel').html('Release to load more...');
-									this.maxScrollY = this.maxScrollY;
-								} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
-									$pullUpEl.removeClass('flip');
-									$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
-									this.maxScrollY = pullUpOffset;
-								}
-							},
-							onScrollEnd: function () {
-								//console.log(this.y);
-								if ( $pullUpEl.hasClass('flip') ) {
-									$pullUpEl.removeClass('flip').addClass('loading') ;
-									$pullUpEl.find('.pullUpLabel').html('Loading...');				
-									pullUpAction();	
-								}
-							}
-						});
-					}
-
-					$('#'+tabId).addClass('has-iscroll');
-					
-				}, 10);
-			}
+						$('#'+tabId).addClass('has-iscroll');
+						
+					}, 10);
+				}
+			}//if touchsupport
 
 			$('.management-tab-active', $managementTabsList).removeClass('management-tab-active');
 			$this.addClass('management-tab-active');
@@ -1059,112 +1065,114 @@ finfore.manage = function() {
 				$('.visible-tab', $inputContainer).removeClass('visible-tab');
 				$(this).next().next().addClass('visible-tab');
 
-				
-				//settup variables
-				var inputID = $(this).attr('id').split('-');
-				var page = 1;
-				var tabId = null;
-				var variables = {}
-				
-				if (inputID[0] == 'twitter') {
-					variables.prefix = 'pretwitter';
-					variables.tabId = 'pretwitterTab';
-					variables.feedSrc = 'twitter';
-				} 
-				else if (inputID[0] == 'podcast') {
-					variables.prefix = 'prepodcast';
-					variables.tabId = 'prepodcastTab';
-					variables.feedSrc = 'podcast';
-				}
-				else if (inputID[0] == 'feed') {
-					variables.prefix = 'prefeed';
-					variables.tabId = 'prefeedTab';
-					variables.feedSrc = 'rss';
-				}
-				else if (inputID[0] == 'prices') {
-					variables.prefix = 'preprices';
-					variables.tabId = 'prepricesTab';
-					variables.feedSrc = 'chart';
-				}
-				
-				if ( variables.tabId != null ) {
-					setTimeout(function() {
-						var pullUpEl, pullUpOffset;
-
-						function pullUpAction () {
-							var $el = $('#'+ prefix +'FeedList', $inputContainer);
-
+				if (touchSupport){
+					//settup variables
+					var inputID = $(this).attr('id').split('-');
+					var page = 1;
+					var tabId = null;
+					var variables = {}
+					
+					if (inputID[0] == 'twitter') {
+						variables.prefix = 'pretwitter';
+						variables.tabId = 'pretwitterTab';
+						variables.feedSrc = 'twitter';
+					} 
+					else if (inputID[0] == 'podcast') {
+						variables.prefix = 'prepodcast';
+						variables.tabId = 'prepodcastTab';
+						variables.feedSrc = 'podcast';
+					}
+					else if (inputID[0] == 'feed') {
+						variables.prefix = 'prefeed';
+						variables.tabId = 'prefeedTab';
+						variables.feedSrc = 'rss';
+					}
+					else if (inputID[0] == 'prices') {
+						variables.prefix = 'preprices';
+						variables.tabId = 'prepricesTab';
+						variables.feedSrc = 'chart';
+					}
+					
+					if ( variables.tabId != null ) {
+						$('#'+ variables.prefix +'FeedList', $inputContainer).removeClass('non-touch')
+						setTimeout(function() {
+							var pullUpEl, pullUpOffset;
 							
-							page++;
+							function pullUpAction () {
+								var $el = $('#'+ variables.prefix +'FeedList', $inputContainer);
 
-							var a = (page - 1) * 50;
-							var b = page * 50;
+								
+								page++;
 
-							sliceFeeds = finfore.data.feedInfos[variables.feedSrc].slice(a,b);
+								var a = (page - 1) * 50;
+								var b = page * 50;
 
-							var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
-								//feeds: feed_infos,
-								feeds: sliceFeeds,
-								name: variables.feedSrc,
-								type: variables.prefix
-							});
-							
-							$el.append(template);
-							
-							$('label', $el).draggable({
-								revert: "invalid",
-								helper: "clone",
-								cursor: "move"					
-							});
+								sliceFeeds = finfore.data.feedInfos[variables.feedSrc].slice(a,b);
 
-							tabScroller.refresh();
-						}
+								var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
+									//feeds: feed_infos,
+									feeds: sliceFeeds,
+									name: variables.feedSrc,
+									type: variables.prefix
+								});
+								
+								$el.append(template);
+								
+								$('label', $el).draggable({
+									revert: "invalid",
+									helper: "clone",
+									cursor: "move"					
+								});
 
-						pullUpEl = document.getElementById(variables.prefix+'pullUp');	
-						pullUpOffset = pullUpEl.offsetHeight;
+								tabScroller.refresh();
+							}
 
-						$pullUpEl = $('#'+variables.prefix+'pullUp', $inputContainer);
+							pullUpEl = document.getElementById(variables.prefix+'pullUp');	
+							pullUpOffset = pullUpEl.offsetHeight;
 
-						if(!$('#'+variables.tabId).hasClass('has-iscroll')){
-							
-							var tabScroller = new iScroll(variables.tabId, {
-								hScroll: false,
-								useTransition: true,
-								lockDirection: true,
-								onRefresh: function () {
-									if ($pullUpEl.hasClass('loading')) {
-										$pullUpEl.removeClass('loading');
-										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+							$pullUpEl = $('#'+variables.prefix+'pullUp', $inputContainer);
+
+							if(!$('#'+variables.tabId).hasClass('has-iscroll')){
+								
+								var tabScroller = new iScroll(variables.tabId, {
+									hScroll: false,
+									useTransition: true,
+									lockDirection: true,
+									onRefresh: function () {
+										if ($pullUpEl.hasClass('loading')) {
+											$pullUpEl.removeClass('loading');
+											$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+										}
+										
+									},
+									onScrollMove: function () {
+										// console.log(this.y);
+										// console.log(this.maxScrollY - 5);
+										// console.log($pullUpEl);
+										if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
+											$pullUpEl.addClass('flip');
+											$pullUpEl.find('.pullUpLabel').html('Release to load more...');
+											this.maxScrollY = this.maxScrollY;
+										} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
+											$pullUpEl.removeClass('flip');
+											$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+											this.maxScrollY = pullUpOffset;
+										}
+									},
+									onScrollEnd: function () {
+										if ( $pullUpEl.hasClass('flip') ) {
+											$pullUpEl.removeClass('flip').addClass('loading') ;
+											$pullUpEl.find('.pullUpLabel').html('Loading...');				
+											pullUpAction();	
+										}
 									}
-									
-								},
-								onScrollMove: function () {
-									// console.log(this.y);
-									// console.log(this.maxScrollY - 5);
-									// console.log($pullUpEl);
-									if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
-										$pullUpEl.addClass('flip');
-										$pullUpEl.find('.pullUpLabel').html('Release to load more...');
-										this.maxScrollY = this.maxScrollY;
-									} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
-										$pullUpEl.removeClass('flip');
-										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
-										this.maxScrollY = pullUpOffset;
-									}
-								},
-								onScrollEnd: function () {
-									if ( $pullUpEl.hasClass('flip') ) {
-										$pullUpEl.removeClass('flip').addClass('loading') ;
-										$pullUpEl.find('.pullUpLabel').html('Loading...');				
-										pullUpAction();	
-									}
-								}
-							});
-						}
-						$('#'+variables.tabId).addClass('has-iscroll');
-					},10);		
+								});
+							}
+							$('#'+variables.tabId).addClass('has-iscroll');
+						},10);		
+					}
 				}
-				
+
 
 			});
 			

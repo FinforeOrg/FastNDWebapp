@@ -386,8 +386,9 @@
 	width: 96%;
 	height: 380px;
 }
-.preset-tab-content .list-view {
-	/*max-height: 390px;*/
+.preset-tab-content .list-view.non-touch {
+	max-height: 390px;
+	overflow-y: auto;
 }
 .preset-tabs .preset-tab-selector {
 	position: relative;
