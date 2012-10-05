@@ -54,8 +54,14 @@
 		<label for="podcast-preset-suggested" class="preset-tab-selector ui-btn ui-btn-up-a">
 			Suggested Relevant Podcasts
 		</label>
-		<div class="preset-tab-content preset-sources-suggested">
-			<div class="list-view" data-count="50"></div>
+		<div id="prepodcastTab" class="preset-tab-content preset-sources-suggested" style="height: 390px;">
+			<div>
+				<div class="list-view" data-count="50" style="max-height: auto !important; " id="prepodcastFeedList"></div>	
+				<div id="prepodcastpullUp" class="pullToRefresh pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	

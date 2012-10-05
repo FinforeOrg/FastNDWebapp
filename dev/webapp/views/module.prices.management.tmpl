@@ -39,16 +39,27 @@
 		<label for="prices-preset-all" class="preset-tab-selector ui-btn ui-btn-up-a">
 			All Prices
 		</label>
-		<div class="preset-tab-content visible-tab preset-sources-all">
-			<div class="list-view" data-count="50"></div>
+		<div id="pricesTab" class="preset-tab-content visible-tab preset-sources-all" style="height: 390px;">
+			<div>
+				<div class="list-view" data-count="50" style="max-height: auto !important; " id="pricesFeedList"></div>
+				<div id="pricespullUp" class=" pullUp pullToRefresh">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to load more...</span>
+				</div>
+			</div>
 		</div>
 		
 		<input type="radio" data-native="true" id="prices-preset-suggested" name="prices-preset-tabs" class="preset-tab-radio" data-role="none">
 		<label for="prices-preset-suggested" class="preset-tab-selector ui-btn ui-btn-up-a">
 			Suggested Relevant Prices
 		</label>
-		<div class="preset-tab-content preset-sources-suggested">
-			<div class="list-view" data-count="50"></div>
+		<div id="prepricesTab" class="preset-tab-content preset-sources-suggested" style="height: 390px;">
+			<div>
+				<div class="list-view" data-count="50" style="max-height: auto !important; " id="prepricesFeedList"></div>	
+				<div id="prepricespullUp" class=" pullUp pullToRefresh">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to load more...</span>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	

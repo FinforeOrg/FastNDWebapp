@@ -930,20 +930,22 @@ finfore.manage = function() {
 				tabId = 'feedTab';
 				feedSrc = 'all,rss';
 			}
+			else if ($this.attr('href') == '#management-tab-prices') {
+				prefix = 'prices';
+				tabId = 'pricesTab';
+				feedSrc = 'all,chart';
+			}
 
 			if ( tabId != null ) {
 				setTimeout(function() {
 
-					var myScroll,
-					pullDownEl, pullDownOffset,
-					pullUpEl, pullUpOffset,
-					generatedCount = 0;
-
+					var pullUpEl, pullUpOffset;
+					
 					function pullUpAction () {
-						setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+						
 							var el, li, i;
 
-							$el = $('#'+ prefix +'FeedList', $target);
+							var $el = $('#'+ prefix +'FeedList', $target);
 
 							page++;
 
@@ -969,7 +971,7 @@ finfore.manage = function() {
 
 							tabScroller.refresh();
 							
-						}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+						
 					}
 
 					pullUpEl = document.getElementById(prefix+'pullUp');	
@@ -977,36 +979,46 @@ finfore.manage = function() {
 
 					$pullUpEl = $('#'+prefix+'pullUp', $target);
 					
-					var tabScroller = new iScroll(tabId, {
-						hScroll: false,
-						useTransition: true,
-						lockDirection: true,
-						onRefresh: function () {
-							if ($pullUpEl.hasClass('loading')) {
-								$pullUpEl.attr('class', '');
-								$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+					
+					if(!$('#'+tabId).hasClass('has-iscroll')){
+						var tabScroller = new iScroll(tabId, {
+							hScroll: false,
+							useTransition: true,
+							lockDirection: true,
+							onRefresh: function () {
+								if ($pullUpEl.hasClass('loading')) {
+									$pullUpEl.removeClass('loading');
+									$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+								}
+								
+							},
+							onScrollMove: function () {
+								
+								
+								if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
+
+
+									$pullUpEl.addClass('flip');
+									$pullUpEl.find('.pullUpLabel').html('Release to load more...');
+									this.maxScrollY = this.maxScrollY;
+								} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
+									$pullUpEl.removeClass('flip');
+									$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+									this.maxScrollY = pullUpOffset;
+								}
+							},
+							onScrollEnd: function () {
+								//console.log(this.y);
+								if ( $pullUpEl.hasClass('flip') ) {
+									$pullUpEl.removeClass('flip').addClass('loading') ;
+									$pullUpEl.find('.pullUpLabel').html('Loading...');				
+									pullUpAction();	
+								}
 							}
-							
-						},
-						onScrollMove: function () {
-							if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
-								$pullUpEl.addClass('flip');
-								$pullUpEl.find('.pullUpLabel').html('Release to load more...');
-								this.maxScrollY = this.maxScrollY;
-							} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
-								$pullUpEl.removeClass('flip');
-								$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
-								this.maxScrollY = pullUpOffset;
-							}
-						},
-						onScrollEnd: function () {
-							if ( $pullUpEl.hasClass('flip') ) {
-								$pullUpEl.removeClass('flip').addClass('loading') ;
-								$pullUpEl.find('.pullUpLabel').html('Loading...');				
-								pullUpAction();	
-							}
-						}
-					});
+						});
+					}
+
+					$('#'+tabId).addClass('has-iscroll');
 					
 				}, 10);
 			}
@@ -1040,11 +1052,120 @@ finfore.manage = function() {
 			/* tab functionality
 			 * had to use js because of nasty webkit bug with double sibling selector
 			 */
+			
 			$container.delegate('.mtab, .preset-tab-radio', 'change', function() {
 				var $inputContainer = $(this).parent();				
 				
 				$('.visible-tab', $inputContainer).removeClass('visible-tab');
 				$(this).next().next().addClass('visible-tab');
+
+				
+				//settup variables
+				var inputID = $(this).attr('id').split('-');
+				var page = 1;
+				var tabId = null;
+				var variables = {}
+				
+				if (inputID[0] == 'twitter') {
+					variables.prefix = 'pretwitter';
+					variables.tabId = 'pretwitterTab';
+					variables.feedSrc = 'twitter';
+				} 
+				else if (inputID[0] == 'podcast') {
+					variables.prefix = 'prepodcast';
+					variables.tabId = 'prepodcastTab';
+					variables.feedSrc = 'podcast';
+				}
+				else if (inputID[0] == 'feed') {
+					variables.prefix = 'prefeed';
+					variables.tabId = 'prefeedTab';
+					variables.feedSrc = 'rss';
+				}
+				else if (inputID[0] == 'prices') {
+					variables.prefix = 'preprices';
+					variables.tabId = 'prepricesTab';
+					variables.feedSrc = 'chart';
+				}
+				
+				if ( variables.tabId != null ) {
+					setTimeout(function() {
+						var pullUpEl, pullUpOffset;
+
+						function pullUpAction () {
+							var $el = $('#'+ prefix +'FeedList', $inputContainer);
+
+							
+							page++;
+
+							var a = (page - 1) * 50;
+							var b = page * 50;
+
+							sliceFeeds = finfore.data.feedInfos[variables.feedSrc].slice(a,b);
+
+							var template = $.View('//webapp/views/manage.feed-infos.tmpl', {
+								//feeds: feed_infos,
+								feeds: sliceFeeds,
+								name: variables.feedSrc,
+								type: variables.prefix
+							});
+							
+							$el.append(template);
+							
+							$('label', $el).draggable({
+								revert: "invalid",
+								helper: "clone",
+								cursor: "move"					
+							});
+
+							tabScroller.refresh();
+						}
+
+						pullUpEl = document.getElementById(variables.prefix+'pullUp');	
+						pullUpOffset = pullUpEl.offsetHeight;
+
+						$pullUpEl = $('#'+variables.prefix+'pullUp', $inputContainer);
+
+						if(!$('#'+variables.tabId).hasClass('has-iscroll')){
+							
+							var tabScroller = new iScroll(variables.tabId, {
+								hScroll: false,
+								useTransition: true,
+								lockDirection: true,
+								onRefresh: function () {
+									if ($pullUpEl.hasClass('loading')) {
+										$pullUpEl.removeClass('loading');
+										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+									}
+									
+								},
+								onScrollMove: function () {
+									// console.log(this.y);
+									// console.log(this.maxScrollY - 5);
+									// console.log($pullUpEl);
+									if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
+										$pullUpEl.addClass('flip');
+										$pullUpEl.find('.pullUpLabel').html('Release to load more...');
+										this.maxScrollY = this.maxScrollY;
+									} else if (this.y > (this.maxScrollY + 5) && $pullUpEl.hasClass('flip')) {
+										$pullUpEl.removeClass('flip');
+										$pullUpEl.find('.pullUpLabel').html('Pull up to load more...');
+										this.maxScrollY = pullUpOffset;
+									}
+								},
+								onScrollEnd: function () {
+									if ( $pullUpEl.hasClass('flip') ) {
+										$pullUpEl.removeClass('flip').addClass('loading') ;
+										$pullUpEl.find('.pullUpLabel').html('Loading...');				
+										pullUpAction();	
+									}
+								}
+							});
+						}
+						$('#'+variables.tabId).addClass('has-iscroll');
+					},10);		
+				}
+				
+
 			});
 			
 			// make preset sources draggable

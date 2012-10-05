@@ -581,7 +581,7 @@
 }
 
 #pullDown .pullDownIcon, #pullUp .pullUpIcon,
-.pullToRefresh .pullIcon  {
+.pullToRefresh .pullUpIcon  {
 	display:block; float:left;
 	width:24px; height:24px;
 	background:url(../images/icons/arrow-down.png) 0 0 no-repeat;
