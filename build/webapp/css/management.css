@@ -268,8 +268,8 @@
 }
 /* mtab listview */
 .list-view {
-	max-height: 415px;
-	overflow-y: auto !important;
+	/*max-height: 415px;*/
+	/*overflow-y: auto !important;*/
 }
 .list-view input {
 	position: absolute;
@@ -386,8 +386,9 @@
 	width: 96%;
 	height: 380px;
 }
-.preset-tab-content .list-view {
+.preset-tab-content .list-view.non-touch {
 	max-height: 390px;
+	overflow-y: auto;
 }
 .preset-tabs .preset-tab-selector {
 	position: relative;
@@ -566,4 +567,43 @@
 	font-size: 11px;
 	
 	border-radius: 5px;
+}
+
+.touch-support .pullToRefresh{
+	display: block;
+}
+
+#pullDown, #pullUp,
+.pullToRefresh {
+	/*background:#fff;*/
+	height:24px;
+	line-height:24px;
+	padding:5px 10px;
+	/*border-bottom:1px solid #ccc;*/
+	font-weight:bold;
+	font-size:14px;
+	color:#888;
+	display: none;
+}
+
+#pullDown .pullDownIcon, #pullUp .pullUpIcon,
+.pullToRefresh .pullUpIcon  {
+	display:block; float:left;
+	width:24px; height:24px;
+	background:url(../images/icons/arrow-down.png) 0 0 no-repeat;
+	-webkit-background-size:24px 24px; background-size:24px 24px;
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:250ms;	
+	margin: 0 10px;
+}
+
+
+#pullUp .pullUpIcon,
+.pullUp .pullUpIcon {
+	-webkit-transform:rotate(-180deg) translateZ(0);
+}
+
+#pullUp.flip .pullUpIcon,
+.pullUp.flip .pullUpIcon {
+	-webkit-transform:rotate(0deg) translateZ(0);
 }

@@ -942,6 +942,7 @@ finfore.manage = function() {
 
 				if ( tabId != null ) {
 					$('#'+ prefix +'FeedList', $target).removeClass('non-touch');
+					$('#'+tabId).addClass('touch-support');
 					setTimeout(function() {
 
 						var pullUpEl, pullUpOffset;

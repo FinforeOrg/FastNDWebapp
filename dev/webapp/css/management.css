@@ -569,6 +569,10 @@
 	border-radius: 5px;
 }
 
+.touch-support .pullToRefresh{
+	display: block;
+}
+
 #pullDown, #pullUp,
 .pullToRefresh {
 	/*background:#fff;*/
@@ -579,6 +583,7 @@
 	font-weight:bold;
 	font-size:14px;
 	color:#888;
+	display: none;
 }
 
 #pullDown .pullDownIcon, #pullUp .pullUpIcon,
