@@ -226,7 +226,9 @@ finfore.manage = function() {
 				index: index,
 				category: params.category
 			});			
-			params.$node.append(template);
+			
+			params.$node.find('a.add-column').before(template);
+			//params.$node.append(template);
 			params.$node.trigger('create');
 			
 			// select new panel
