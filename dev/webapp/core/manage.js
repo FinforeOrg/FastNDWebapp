@@ -226,8 +226,12 @@ finfore.manage = function() {
 				index: index,
 				category: params.category
 			});			
-			
-			params.$node.find('a.add-column').before(template);
+			if (params.category == 'portfolio'){
+				params.$node.find('a.add-portfolio').before(template);
+			} else {
+				params.$node.find('a.add-column').before(template);
+			}
+
 			//params.$node.append(template);
 			params.$node.trigger('create');
 			
@@ -359,8 +363,8 @@ finfore.manage = function() {
 					
 					// update manage titles
 					$('.mtab-title > span', params.$node.next().next()).text(newTitle);					
-					params.$node.next().text(newTitle);					
-					
+					params.$node.next().find('span.label').text(newTitle);					
+
 				}
 			}
 			

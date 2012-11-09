@@ -8,7 +8,11 @@
 		{{each portfolios}}
 			<input type="radio" data-native="true" class="mtab" id="portfolio-account-${$index}" name="portfolio-panels" {{if $index == 0}}checked="checked"{{/if}} data-index="${$index}" data-role="none">
 			<label for="portfolio-account-${$index}" class="mtab-selector">
-				${$value.feed_account.name}
+				<span class="label">${$value.feed_account.name}</span>
+				<div class="controls-wrap">
+					<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-portfolio">Edit Portfolio</a>
+					<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-portfolio">Delete Portfolio</a>
+				</div>
 			</label>
 			
 			<div id="portfolio-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
@@ -34,15 +38,4 @@
 		
 	</div>
 	
-</div>
-
-<div data-role="footer">
-	<div class="panel-controls">
-		
-		
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-portfolio">Edit Portfolio</a>
-			<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-portfolio">Delete Portfolio</a>
-		</div>
-	</div>
 </div>

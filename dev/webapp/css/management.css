@@ -266,6 +266,13 @@
 	width: 95%;
 	font-size: 12px;	
 }
+.mtabs-container .controls-wrap {
+	position:absolute; 
+	z-index:2; 
+	top:15%; 
+	right:5%;
+}
+
 /* mtab listview */
 .list-view {
 	/*max-height: 415px;*/

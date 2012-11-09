@@ -25,9 +25,9 @@ finfore.modules.prices = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -39,12 +39,13 @@ finfore.modules.prices = function() {
 			});			
 		});
 		
-		$('.remove-column', $container).click(function() {			
+		$($container).on('click', '.remove-column' ,function() {	
+			
 			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
-		});
+		});	
 		
 		// sources events		
 		$panelContainer.delegate('.add-custom-source', 'click', function() {

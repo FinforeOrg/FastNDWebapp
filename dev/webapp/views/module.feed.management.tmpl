@@ -9,8 +9,13 @@
 		{{each panels}}			
 			<input type="radio" data-role="none" class="mtab" id="feed-panel-${$index}" name="feed-panels" {{if $index == 0}}checked="checked"{{/if}} data-index="${$index}">
 			<label for="feed-panel-${$index}" class="mtab-selector">
-				${$value.feed_account.name}
+				<span class="label">${$value.feed_account.name}</span>
+				<div class="controls-wrap">
+					<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
+					<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+				</div>
 			</label>
+
 			
 			<div id="feed-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
 				<div class="mtab-title ui-bar-a">
@@ -24,7 +29,14 @@
 					<span style="display: none">${feed_account_id = $value.feed_account._id}</span>
 					{{each $value.feed_account.user_feeds}}
 						<input type="radio" data-native="true" name="feed-sources-${feed_account_id}" id="source-${feed_account_id}-${$value._id}" data-id="${$value._id}" data-index="${$index}" {{if $index == 0}}checked="checked"{{/if}} data-role="none">
-						<label for="source-${feed_account_id}-${$value._id}">{{if $value.feed_info && $value.feed_info.title}} ${$value.feed_info.title} {{else}} ${$value.name} {{/if}}</label>
+						<label for="source-${feed_account_id}-${$value._id}">
+							{{if $value.feed_info && $value.feed_info.title}} 
+								${$value.feed_info.title} 
+							{{else}} 
+								${$value.name} 
+							{{/if}} 
+
+						</label>
 					{{/each}}
 				</div>
 			</div>
@@ -68,13 +80,13 @@
 	
 </div>
 
-<div data-role="footer">
+<!-- <div data-role="footer">
 	<div class="panel-controls">
 		
 		
 		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
-			<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+			
+			
 		</div>
 	</div>
-</div>
+</div> -->

@@ -23,10 +23,30 @@ finfore.modules.portfolio = function() {
 			$container: $panelContainer,
 			category: category
 		});			
+		// $($container).on('click', '.edit-column-title', function() {
+		// 	finfore.manage.panels.edit({
+		// 		$node: $(this).parents('.mtab-selector').prev(),
+		// 		category: category
+		// 	});			
+		// });
 		
-		$('.edit-portfolio', $container).click(function() {
+		// $('.add-column', $container).click(function() {			
+		// 	finfore.manage.panels.create({
+		// 		$node: $panelContainer,
+		// 		category: category
+		// 	});			
+		// });
+		
+		// $($container).on('click', '.remove-column' ,function() {	
+			
+		// 	finfore.manage.panels.remove({
+		// 		$node: $(this).parents('.mtab-selector').prev(),
+		// 		category: category
+		// 	});			
+		// });
+		$($container).on( 'click', '.edit-portfolio', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});				
 		});
@@ -38,15 +58,15 @@ finfore.modules.portfolio = function() {
 			});
 		});
 		
-		$('.remove-portfolio', $container).click(function() {			
+		$($container).on('click', '.remove-portfolio',function() {			
 			finfore.manage.panels.remove({
 				$node: $('.mtab:checked', $panelContainer),
 				category: category
-			});			
-		});			
+			});
+		});
 
 	};
-	
+
 	var init = function($container, options) {		
 		var feedNumber;
 

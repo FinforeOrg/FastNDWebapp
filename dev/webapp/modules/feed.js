@@ -27,9 +27,9 @@ finfore.modules.feed = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -41,9 +41,10 @@ finfore.modules.feed = function() {
 			});			
 		});
 		
-		$('.remove-column', $container).click(function() {			
+		$($container).on('click', '.remove-column' ,function() {	
+			
 			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});

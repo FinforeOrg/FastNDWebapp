@@ -1,6 +1,10 @@
 <input type="radio" data-native="true" class="mtab" id="${category}-panel-${index}" name="${category}-panels" data-index="${index}" data-role="none">
 <label for="${category}-panel-${index}" class="mtab-selector">
-	${panel.name}
+	<span class="label">${panel.name}</span>
+	<div class="controls-wrap">
+		<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
+		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+	</div>
 </label>
 
 <div id="${category}-tab-${index}" class="mtab-content ui-body-c">
