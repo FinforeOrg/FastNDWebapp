@@ -17,7 +17,8 @@ finfore.modules.feed = function() {
 		var template = $.View('//webapp/views/module.feed.management.tmpl', {		
 			panels: finfore.data.panels.main.feed
 		});
-		$(template).appendTo($container);		
+		
+		$(template).appendTo($container);
 		
 		// panel management
 		var $panelContainer = $('.mtabs-container', $container);		
@@ -58,8 +59,10 @@ finfore.modules.feed = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$(this).parent().prev().attr('checked', 'checked');
 			finfore.manage.sources.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				//$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});
@@ -307,6 +310,7 @@ finfore.modules.feed = function() {
 			// bind panel events
 			$container.bind('refresh', refresh);
 			$container.bind('reinit', function() {
+				
 				// clear refresh interval
 				clearInterval(autorefresh);
 				// cleanup dom

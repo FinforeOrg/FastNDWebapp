@@ -123,6 +123,8 @@ finfore.manage = function() {
 			if(params.category == 'portfolio') {
 				$.data($this[0], 'data', finfore.data.portfolios[params.index].list[sourceIndex]);
 			} else {
+				// console.log('===============');
+				// console.log(finfore.data.panels.main[params.category][params.index].feed_account.user_feeds[sourceIndex]);
 				$.data($this[0], 'data', finfore.data.panels.main[params.category][params.index].feed_account.user_feeds[sourceIndex]);
 			}
 			
@@ -498,7 +500,7 @@ finfore.manage = function() {
 							
 							// refresh column
 							finfore.data.panels.main[params.category][index].$node.trigger('reinit');
-							
+
 							// update data store on sources
 							bindSourcesData({
 								$container: params.$node.parent(),
@@ -529,7 +531,19 @@ finfore.manage = function() {
 			var index = finfore.data.panels.main[params.category].indexOf($.data(params.$node[0], 'data'));
 			
 			var $selectedSource = $('input:checked', params.$node.next().next());
-			var sourceIndex = finfore.data.panels.main[params.category][index].feed_account.user_feeds.indexOf($.data($selectedSource[0], 'data'));
+			
+			//created this method of checking index of item in array because the 
+			//indexOf method -commented down below- is buggy after refreshing the list
+			var uf = finfore.data.panels.main[params.category][index].feed_account.user_feeds;
+			var sourceIndex;
+
+			for (var i = 0; i < uf.length; i++){
+				//console.log(uf[i].feed_info.title);
+				if ($.data($selectedSource[0], 'data').feed_info.title == uf[i].feed_info.title){
+					sourceIndex = i;
+				}
+			}
+			//var sourceIndex = finfore.data.panels.main[params.category][index].feed_account.user_feeds.indexOf($.data($selectedSource[0], 'data'));
 			
 			var sourceTitle = finfore.data.panels.main[params.category][index].feed_account.user_feeds[sourceIndex].feed_info.title;
 			if(!sourceTitle) sourceTitle = finfore.data.panels.main[params.category][index].feed_account.user_feeds[sourceIndex].name;
@@ -629,6 +643,7 @@ finfore.manage = function() {
 						index: sourceIndex,
 						category: params.category
 					});
+
 					params.$node.nextAll('div:first').find('.list-view').append(template);
 					
 					// refresh column

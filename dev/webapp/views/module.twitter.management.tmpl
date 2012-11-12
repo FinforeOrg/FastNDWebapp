@@ -18,7 +18,7 @@
 			<div id="twitter-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
 				<div class="mtab-title ui-bar-a">
 					<div data-role="controlgroup" data-type="horizontal" class="source-list-controls">
-						<a href="#" data-role="button" class="add-custom-source" data-iconpos="notext" data-icon="plus" data-inline="true">Follow Custom User</a>
+						
 						<a href="#" data-role="button" class="remove-source" data-iconpos="notext" data-icon="delete" data-inline="true">Unfollow User</a>
 					</div>
 					<span>${$value.feed_account.name}</span>
@@ -29,6 +29,7 @@
 					
 				</div>
 				<div class="list-view"></div>
+				<a href="#" data-role="button" class="add-custom-source" data-icon="plus" data-inline="true">Follow Custom User</a>
 			</div>
 		{{/each}}	
 		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
