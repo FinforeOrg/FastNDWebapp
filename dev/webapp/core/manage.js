@@ -123,8 +123,7 @@ finfore.manage = function() {
 			if(params.category == 'portfolio') {
 				$.data($this[0], 'data', finfore.data.portfolios[params.index].list[sourceIndex]);
 			} else {
-				// console.log('===============');
-				// console.log(finfore.data.panels.main[params.category][params.index].feed_account.user_feeds[sourceIndex]);
+				
 				$.data($this[0], 'data', finfore.data.panels.main[params.category][params.index].feed_account.user_feeds[sourceIndex]);
 			}
 			
@@ -586,6 +585,7 @@ finfore.manage = function() {
 			});			
 		},
 		addPreset: function(params) {
+
 			var index = finfore.data.panels.main[params.category].indexOf($.data(params.$node[0], 'data'));			
 			var feedAccountID = finfore.data.panels.main[params.category][index].feed_account._id;			
 			
@@ -635,7 +635,7 @@ finfore.manage = function() {
 					*/
 					
 					var sourceIndex = feed_account.user_feeds.length - 1;
-						
+					
 					// add management node
 					var template = $.View('//webapp/views/manage.source.tmpl', {
 						feed_account_id: feed_account._id,
@@ -720,7 +720,7 @@ finfore.manage = function() {
 					
 					// generate friend nodes
 					$.each(data.friends, function(i, n) {
-						var template = $.View('//webapp/views/manage.source.tmpl', {
+						var template = $.View('//webapp/views/manage.twitter.source.tmpl', {
 							feed_account_id: data.feed_account._id,
 							source: finfore.data.panels.main['twitter'][index].friends[i],
 							index: i,
@@ -889,12 +889,13 @@ finfore.manage = function() {
 					var sourceIndex = finfore.data.panels.main['twitter'][index].friends.length - 1;
 					
 					// add management node
-					var template = $.View('//webapp/views/manage.source.tmpl', {
+					var template = $.View('//webapp/views/manage.twitter.source.tmpl', {
 						feed_account_id: feedAccountID,
 						source: finfore.data.panels.main['twitter'][index].friends[sourceIndex],
 						index: sourceIndex,
 						category: 'twitter'
 					});
+
 
 					$tab.find('.list-view').append(template);
 					
