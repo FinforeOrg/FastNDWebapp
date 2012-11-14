@@ -56,8 +56,11 @@ finfore.modules.prices = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$('.mtab:checked', $panelContainer).attr('checked','');
+			$(this).parent().prev().attr('checked', 'checked');
 			finfore.manage.sources.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				// $node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});
