@@ -63,8 +63,11 @@ finfore.modules.podcast = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$(this).parent().prev().attr('checked', 'checked');
+			
 			finfore.manage.sources.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				//$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});

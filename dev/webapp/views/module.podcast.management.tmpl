@@ -19,8 +19,8 @@
 			<div id="podcast-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
 				<div class="mtab-title ui-bar-a">
 					<div data-role="controlgroup" data-type="horizontal" class="source-list-controls">
-						<a href="#" data-role="button" class="add-custom-source" data-iconpos="notext" data-icon="plus" data-inline="true">Add Custom Source</a>
-						<a href="#" data-role="button" class="remove-source" data-iconpos="notext" data-icon="delete" data-inline="true">Remove Source</a>
+						
+						
 					</div>
 					<span>${$value.feed_account.name}</span>
 				</div>
@@ -28,9 +28,19 @@
 					<span style="display: none">${feed_account_id = $value.feed_account._id}</span>
 					{{each $value.feed_account.user_feeds}}
 						<input type="radio" data-native="true" name="podcast-sources-${feed_account_id}" id="source-${feed_account_id}-${$value._id}" data-id="${$value._id}" data-index="${$index}" {{if $index == 0}}checked="checked"{{/if}} data-role="none">
-						<label for="source-${feed_account_id}-${$value._id}">{{if $value.feed_info && $value.feed_info.title}} ${$value.feed_info.title} {{else}} ${$value.name} {{/if}}</label>
+						<label for="source-${feed_account_id}-${$value._id}" class="clearfix">
+							
+							{{if $value.feed_info && $value.feed_info.title}} 
+								${$value.feed_info.title} 
+							{{else}} 
+								${$value.name} 
+							{{/if}}
+
+							<a href="#" data-role="button" class="remove-source right" data-iconpos="notext" data-icon="delete" data-inline="true">Remove Source</a>
+						</label>
 					{{/each}}
 				</div>
+				<a href="#" data-role="button" class="add-custom-source" data-icon="plus" data-inline="true">Add Custom Source</a>
 			</div>
 		{{/each}}	
 		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
