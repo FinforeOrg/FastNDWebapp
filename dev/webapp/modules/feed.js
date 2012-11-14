@@ -68,7 +68,8 @@ finfore.modules.feed = function() {
 		});
 		
 		// preset sources
-		$('.add-preset-source', $container).click(function() {			
+		$('.add-preset-source', $container).click(function() {
+			$(this).parent().prev().attr('checked','checked')	
 			finfore.manage.sources.addPreset({
 				$node: $('.mtab:checked', $panelContainer),
 				$presets: $('.preset-tabs', $container),
