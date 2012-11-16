@@ -171,7 +171,8 @@ finfore.modules.prices = function() {
 			// TODO: use YQL
 			
 			$.ajax({
-				url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+				//url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+				url: 'http://api.fastnd.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
 				dataType: 'jsonp',
 				success: function(stocks) {					
 					var markup = '';					
