@@ -169,13 +169,17 @@ finfore.modules.prices = function() {
 				// TODO: use YQL, for caching
 				
 				$.ajax({
-					url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+					//url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+					url: 'http://api.fastnd.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
 					dataType: 'jsonp',
-					success: function(stocks) {					
+					success: function(stocks) {	
+						
 						var markup = '';					
 						var stocksList = [];
 						
 						$.each(stocks, function(i, n) {
+							
+
 							var symbol = n.e + ':' + n.t,
 								company = n.name,
 								anchor = '<a href="http://www.google.com/finance?q=' + symbol + '" target="_blank">';
@@ -245,6 +249,9 @@ finfore.modules.prices = function() {
 							$stockChart.prependTo($container.find('[data-role=content]'));
 						};					
 					
+					},
+					error: function (data) {
+
 					},
 					complete: function() {
 						// remove loading indicator when request is finished
