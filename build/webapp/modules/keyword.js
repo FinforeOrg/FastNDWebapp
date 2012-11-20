@@ -11,6 +11,11 @@ finfore.modules.keyword = function() {
 		var category = 'keyword';
 		if(!finfore.data.panels.main[category]) finfore.data.panels.main[category] = [];
 		
+		var obj = finfore.data.panels.main.keyword;
+		if (finfore.data.panels.main.keyword.length > 0 ){
+			finfore.data.panels.main.keyword[0].feed_account.keyword_column.keyword = decodeURIComponent(obj[0].feed_account.keyword_column.keyword);
+		}
+		
 		// get and render Keyword Managemenet template
 		var template = $.View('//webapp/views/module.keyword.management.tmpl', {
 			panels: finfore.data.panels.main.keyword
@@ -53,7 +58,7 @@ finfore.modules.keyword = function() {
 				$input = $details.parents('.mtab-content:first').prevAll('.mtab:first'),
 				data = $.data($input[0], 'data'),
 				feed_account = data.feed_account,
-				text = $('.keyword-text', $details).val(),
+				text = encodeURIComponent($('.keyword-text', $details).val()),
 				isAggregate = false;
 				//followers = $('.keyword-followers', $details).val(),
 			
@@ -67,7 +72,9 @@ finfore.modules.keyword = function() {
 					keyword: text,
 					_id: feed_account.keyword_column._id
 				}
-			};			
+			};
+
+			
 			
 			$.ajax({
 				url: finforeBaseUrl + '/feed_accounts/' + feedAccountParams._id + '.json',
@@ -137,7 +144,7 @@ finfore.modules.keyword = function() {
 			};
 		};
 		
-		var refresh = function(loadmore) {
+		var refresh = function(e, loadmore) {
 			$container.addClass('panel-loading');
 			
 			if(loadmore === true) {
@@ -146,7 +153,7 @@ finfore.modules.keyword = function() {
 			
 			$tweets.removeData();
 			
-			var query = options.feed_account.keyword_column.keyword;			
+			var query = decodeURIComponent(options.feed_account.keyword_column.keyword);			
 			if(!query) {
 				$container.removeClass('panel-loading');
 				return false;
@@ -198,7 +205,7 @@ finfore.modules.keyword = function() {
 			$container.addClass('panel-loading');			
 			
 			$loadMore.click(function() {
-				$container.trigger('refresh', [true]);
+				$container.trigger('refresh', true);
 			});
 			
 			// render markup

@@ -1,6 +1,6 @@
 <div class="ui-header ui-bar-b">
 	<strong>RSS News Management</strong>
-	<span>Create Rss Column, grab the hot news and filter them easily. </span>
+	<!-- <span>Create Rss Column, grab the hot news and filter them easily. </span> -->
 </div>
 
 <div class="manage-content">
@@ -41,16 +41,28 @@
 		<label for="feed-preset-all" class="preset-tab-selector ui-btn ui-btn-up-a">
 			All Feeds
 		</label>
-		<div class="preset-tab-content visible-tab preset-sources-all">
-			<div class="list-view" data-count="50"></div>
+		<div id="feedTab"  class="preset-tab-content visible-tab preset-sources-all" style="height: 390px;">
+			<div>
+				<div class="list-view non-touch" data-count="50" id="feedFeedList"></div>
+				<div id="feedpullUp" class="pullToRefresh pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+				</div>
+			</div>
+			
 		</div>
 		
 		<input type="radio" data-native="true" id="feed-preset-suggested" name="feed-preset-tabs" class="preset-tab-radio" data-role="none"/>
 		<label for="feed-preset-suggested" class="preset-tab-selector ui-btn ui-btn-up-a">
 			Suggested Relevant Feeds
 		</label>
-		<div class="preset-tab-content preset-sources-suggested">
-			<div class="list-view" data-count="50"></div>
+		<div id="prefeedTab" class="preset-tab-content preset-sources-suggested" style="height: 390px;">
+			<div>
+				<div class="list-view non-touch" data-count="50" style="max-height: auto !important; " id="prefeedFeedList"></div>
+				<div id="prefeedpullUp" class="pullToRefresh pullUp">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	

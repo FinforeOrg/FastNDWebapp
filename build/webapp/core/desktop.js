@@ -60,7 +60,9 @@ finfore.desktop = function() {
 	/*
 	 * Add Tab
 	 */
+	 
 	tabs.add = function(options) {
+		
 			// tab selector button
 		var $tabSelector,		
 			// is it's not 'main' or 'portfolio', it's a company tab
@@ -102,9 +104,10 @@ finfore.desktop = function() {
 			nodes.$tabletTabs.append($tabSelector);
 			$tabSelector.listview();
 		}
-	
+		
 		if(touchSupport) {
 			// create iScroll for tab content
+
 			var tabScroller = new iScroll(options.id, {
 				vScroll: false,
 				snap: '.panel',

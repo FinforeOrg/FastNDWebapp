@@ -130,6 +130,8 @@ finfore.modules.feed = function() {
 			sources[0] += (options.limit * 1) - 14;
 		}
 		
+
+
 		feedReader.get({
 			callbackId: options.callbackId,
 			sources: sources,
@@ -154,7 +156,7 @@ finfore.modules.feed = function() {
 					// check date
 					if((options.loadMore === true) || (this.pubDate > options.date)) {
 						if(index === entriesLength) {
-							markup += '<li class="last-in-group" data-icon="false">';
+							markup += '<li class="last-in-group" data-i	="false">';
 						} else {
 							markup += '<li data-icon="false">';
 						};
@@ -246,6 +248,7 @@ finfore.modules.feed = function() {
 				feedNumber += multiplier;
 			};
 			
+
 			var callbackId;
 			if(options.feed_account) {
 				callbackId = options.feed_account._id;
@@ -315,8 +318,9 @@ finfore.modules.feed = function() {
 			});
 			
 			var $loadMoreEntriesBtn = $('.load-more-entries', $container);				
-			$loadMoreEntriesBtn.click(function(e) {				
-				$container.trigger('refresh', [true]);
+			$loadMoreEntriesBtn.click(function(e) {	
+
+				$container.trigger('refresh', true);
 				
 				e.preventDefault();
 				return false;

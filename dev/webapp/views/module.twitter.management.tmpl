@@ -1,6 +1,6 @@
 <div class="ui-header ui-bar-b">
 	<strong>Twitters And Suggestions Management</strong>
-	<span>Manage your twitter accounts and suggestions list easily. </span>
+	<!-- <span>Manage your twitter accounts and suggestions list easily. </span> -->
 </div>
 <div class="manage-content">		
 	<div class="mtabs-container">
@@ -39,16 +39,26 @@
 		<label for="twitter-preset-all" class="preset-tab-selector ui-btn ui-btn-up-a">
 			All Users
 		</label>
-		<div class="preset-tab-content visible-tab preset-sources-all">
-			<div class="list-view" data-count="50"></div>
+		<div id="twitterTab" class="preset-tab-content visible-tab preset-sources-all" style="height: 390px;">
+			<div>
+				<div class="list-view non-touch" data-count="50" id="twitterFeedList"></div>
+				<div id="twitterpullUp" class=" pullUp pullToRefresh">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to load more...</span>
+				</div>
+			</div>
 		</div>
 		
 		<input type="radio" data-native="true" id="twitter-preset-suggested" name="twitter-preset-tabs" class="preset-tab-radio" data-role="none">
 		<label for="twitter-preset-suggested" class="preset-tab-selector ui-btn ui-btn-up-a">
 			Suggested Relevant Users
 		</label>
-		<div class="preset-tab-content preset-sources-suggested">
-			<div class="list-view" data-count="50"></div>
+		<div id="pretwitterTab" class="preset-tab-content preset-sources-suggested" style="height: 390px;">
+			<div>
+				<div class="list-view non-touch" data-count="50" id="pretwitterFeedList"></div>
+				<div id="pretwitterpullUp" class=" pullUp pullToRefresh">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to load more...</span>
+				</div>
+			</div>
 		</div>
 	</div>
 	
