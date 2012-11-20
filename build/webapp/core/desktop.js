@@ -488,7 +488,14 @@ finfore.desktop = function() {
 		
 		// creat the feed_accounts object with each column's index
 		$panel.each(function(i, n) {
-			columnId = $.data(n, 'data').feed_account._id;
+			
+			//console.log($.data(n, 'data').feed_account);
+			if ($.data(n, 'data').feed_account){
+				columnId = $.data(n, 'data').feed_account._id;	
+			} else {
+				columnId = $.data(n, 'data').panel.feed_account._id;	
+			}
+			//columnId = $.data(n, 'data').feed_account._id;
 			index = $(n).index();
 			
 			columns.push({
