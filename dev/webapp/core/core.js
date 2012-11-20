@@ -38,7 +38,7 @@ var finfore = function() {
 	// User Details
 	var user = Storage.getItem('user');
 	if(user) {
-		user = JSON.parse(user);
+		user = eval('('+ user + ')');
 		
 		// failsafe
 		if(user.error || !user._id) user = false;
@@ -581,9 +581,10 @@ var finfore = function() {
 	var companies = {
 		// Add Company
 		add: function(companiesList, switchTab) {
+
 			// update data
 			finfore.data.companies = finfore.data.companies.concat(companiesList);			
-			
+
 			// create companies
 			$.each(companiesList, function() {
 				
@@ -646,6 +647,7 @@ var finfore = function() {
 					});
 				}, 10);
 				
+				/*
 				setTimeout(function() {
 					// additional news
 					finfore.panels.create({
@@ -657,6 +659,7 @@ var finfore = function() {
 							}
 					});
 				}, 10);
+				*/
 				
 				setTimeout(function() {
 					// calendar
@@ -707,11 +710,15 @@ var finfore = function() {
 				// switch to newly added company
 				// used by add-company
 				if(switchTab) {
+					$tab = $('.collapsible-company:last', finfore.desktop.nodes.$tabletTabs);
+					
+					/*
+					// no longer needed as we now always use the tablet menu
 					if(largeScreen) {
 						$tab = $('li:last', finfore.desktop.nodes.$tabList);
 					} else {
-						$tab = $('.collapsible-company:last', finfore.desktop.nodes.$tabletTabs);
 					}
+					*/
 					
 					// wait for the panels to be created
 					setTimeout(function() {
@@ -719,6 +726,7 @@ var finfore = function() {
 						// Tablet binds the desktop.tabs.select event
 						// to the expand event.
 						// So we can just trigger expand.
+						
 						$tab.trigger('expand');
 						
 					}, 100);

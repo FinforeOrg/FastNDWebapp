@@ -90,13 +90,23 @@ Templates use jQuery.tmpl, have the .tmpl extension and are parsed by Javascript
 
 ## 3rd Party APIs
 
-### Bing API
+### Old Bing API
 http://www.bing.com/developers/s/APIBasics.html
+
+### NEW Bing API
+http://gavinmhackeling.com/blog/2012/05/using-the-bing-search-api-in-python/
 
 
 # TODO
 
 (When there are no other planned sprints)
+
+* Remove old Bingsearch functionality from Core and Feed module
+
+* Remove old Add-Company functionality, as it was replaced with new autocomplete-like functionality in all UIs
+	- Remove old addcompany template
+	- Rename new addcompaniy templates
+	- Clean-up/deprecate unused code from the addcompany.js core module
 
 * Replace jQuery UI Sortable with 
 	http://farhadi.ir/projects/html5sortable/

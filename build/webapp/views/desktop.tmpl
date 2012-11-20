@@ -15,7 +15,7 @@
 		
 		{{if (user && !user.is_public)}}
 			<div id="header-buttons">
-				<a ontouchstart="" class="add-company-button" data-tooltip="Add Company">Add Company</a>
+				<!-- <a ontouchstart="" class="add-company-button" data-tooltip="Add Company">Add Company</a> -->
 				<a ontouchstart="" id="profile-button" data-tooltip="User Profile">Profile</a>
 				<a ontouchstart="" id="manage-button" data-tooltip="Manage Columns" class="disabled">Manage Columns</a>
 				<a ontouchstart="" class="help-button" data-tooltip="Get Help">Help</a>
@@ -24,19 +24,22 @@
 		{{else}}
 			<div id="public-account-selectors" data-role="controlgroup" data-type="horizontal">
 				<button data-theme="a" data-icon="arrow-r" id="public-account-selector-btn">Use a Public Account</button>
-				<button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button>
+				<!-- <button data-theme="a" data-icon="search" id="find-company-button">Lookup a Company</button> 
+				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-theme="a" data-filter-placeholder="Search companies..."></ul> -->
 			
 				<div class="public-account-select-box">
 					<form id="public-account-box-form">
 						<div data-role="fieldcontain">
-							<select name="user[profession]" id="profession" data-theme="a">
-								<option disabled>${focus.professional.title}</option>
-								{{each focus.professional.profiles}}
+							<select name="user[geographic]" id="geographic" data-theme="a">
+								<option disabled>${focus.geographic.title}</option>
+								${isSelected = false}
+								{{each focus.geographic.profiles}}
 									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
+									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'United States')}} selected="selected" {{/if}}>${$value.title}</option>
 								{{/each}}
 							</select>
 						</div>
+
 						<div data-role="fieldcontain">
 							<select name="user[industry]" id="industry" data-theme="a">
 								<option disabled>${focus.industrial.title}</option>
@@ -46,16 +49,18 @@
 								{{/each}}
 							</select>
 						</div>
+						
 						<div data-role="fieldcontain">
-							<select name="user[geographic]" id="geographic" data-theme="a">
-								<option disabled>${focus.geographic.title}</option>
-								${isSelected = false}
-								{{each focus.geographic.profiles}}
+							<select name="user[profession]" id="profession" data-theme="a">
+								<option disabled>${focus.professional.title}</option>
+								{{each focus.professional.profiles}}
 									${currentFocusId = $value._id}
-									<option value="${$value._id}" {{each selectedFocus.geographic}} {{if $value._id === currentFocusId}} selected="selected" ${isSelected = true} {{/if}} {{/each}} {{if (isSelected == false && $value.title == 'USA & Canada')}} selected="selected" {{/if}}>${$value.title}</option>
+									<option value="${$value._id}" {{each selectedFocus.professional}} {{if $value._id === currentFocusId}} selected="selected" {{/if}} {{/each}}>${$value.title}</option>
 								{{/each}}
 							</select>
 						</div>
+						
+						
 						<button data-theme="b" type="submit">Try a Public Account</button>
 					</form>
 				</div>
@@ -67,8 +72,12 @@
 	</div>
 	
 	<div class="tab-list">
+
 		<div class="tablet-tab-selector" id="tablet-tabs">
 			<div class="tablet-selector-wrapper">
+				{{if user}}
+				<ul data-role="listview" data-filter="true" class="mobile-addcompany hide-mobile-companies companies-list" data-filter-theme="a" data-filter-placeholder="Search companies..."></ul>
+				{{/if}}
 				<div class="tablet-tab-list"></div>
 			</div>
 		</div>
