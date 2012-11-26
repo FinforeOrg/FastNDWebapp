@@ -355,6 +355,8 @@ finfore.desktop = function() {
 			}
 		});
 		
+		
+		
 		finfore.modules[data.type].init($panel, data.options);
 		
 		// if column is created in current tab, load it

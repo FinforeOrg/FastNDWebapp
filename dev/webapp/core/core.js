@@ -419,7 +419,7 @@ var finfore = function() {
 		
 		// sort columns ascending
 		finfore.data.user.user_company_tabs.sort(sortPosition);
-	
+		console.log('var3');
 		companies.add(finfore.data.user.user_company_tabs);
 		
 	};
@@ -543,6 +543,7 @@ var finfore = function() {
 	var panels = {
 		// Create panel
 		create: function(panel) {
+
 			// Create data structure
 			if(panel.options.company) {
 				if(!finfore.data.panels.companies[panel.options.company.feed_info.id]) finfore.data.panels.companies[panel.options.company.feed_info.id] = {};
@@ -561,6 +562,8 @@ var finfore = function() {
 			
 			setTimeout(function() {
 				// Create panel DOM
+
+				
 				finfore.desktop.panels.create(panel);
 			}, 50);
 		},
