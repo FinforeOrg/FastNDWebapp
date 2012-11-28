@@ -54,7 +54,6 @@ finfore.addcompany = function() {
 		if(!companyExists) {
 			
 			if(finfore.data.user.is_public) {
-				console.log('var1');
 				finfore.companies.add([{
 					feed_info: finfore.addcompany.allCompanies[companyIndex],
 					_id: finfore.addcompany.allCompanies[companyIndex]._id,
@@ -76,7 +75,7 @@ finfore.addcompany = function() {
 						}
 					},
 					success: function(company) {
-						console.log('var2');
+						
 						finfore.companies.add([company], true);
 						
 						Loader.hide();

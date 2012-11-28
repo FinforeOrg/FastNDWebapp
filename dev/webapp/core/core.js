@@ -37,6 +37,7 @@ var finfore = function() {
 	
 	// User Details
 	var user = Storage.getItem('user');
+
 	if(user) {
 
 		user = eval('('+ user + ')');
@@ -44,7 +45,7 @@ var finfore = function() {
 		// failsafe
 		if(user.error || !user._id) user = false;
 	}
-	
+
 	// Update profile
 	var updateProfile = Storage.getItem('updateProfile');
 	if(updateProfile) updateProfile = (updateProfile == 'true');
@@ -161,7 +162,7 @@ var finfore = function() {
 	/* Public low-lever Public account sign-in */
 	var publicLogin = function(params, success) {
 		if($.mobile.showPageLoadingMsg) $.mobile.showPageLoadingMsg();
-		
+	
 		$.ajax({
 			url: url.publicLogin,
 			type: 'POST',
@@ -419,7 +420,7 @@ var finfore = function() {
 		
 		// sort columns ascending
 		finfore.data.user.user_company_tabs.sort(sortPosition);
-		console.log('var3');
+		
 		companies.add(finfore.data.user.user_company_tabs);
 		
 	};

@@ -314,8 +314,6 @@ finfore.modules.feed = function() {
 				$container.empty();
 				$container.jqmRemoveData();
 				
-				console.log('varzarie');
-				
 				// reinit
 				init($container, options);
 			});
