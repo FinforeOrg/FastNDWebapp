@@ -1036,7 +1036,7 @@ finfore.manage = function() {
 									}
 								},
 								onScrollEnd: function () {
-									//console.log(this.y);
+									
 									if ( $pullUpEl.hasClass('flip') ) {
 										$pullUpEl.removeClass('flip').addClass('loading') ;
 										$pullUpEl.find('.pullUpLabel').html('Loading...');				
@@ -1169,9 +1169,7 @@ finfore.manage = function() {
 										
 									},
 									onScrollMove: function () {
-										// console.log(this.y);
-										// console.log(this.maxScrollY - 5);
-										// console.log($pullUpEl);
+										
 										if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
 											$pullUpEl.addClass('flip');
 											$pullUpEl.find('.pullUpLabel').html('Release to load more...');

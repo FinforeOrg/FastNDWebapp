@@ -37,6 +37,7 @@ var finfore = function() {
 	
 	// User Details
 	var user = Storage.getItem('user');
+
 	if(user) {
 
 		user = eval('('+ user + ')');
@@ -44,7 +45,7 @@ var finfore = function() {
 		// failsafe
 		if(user.error || !user._id) user = false;
 	}
-	
+
 	// Update profile
 	var updateProfile = Storage.getItem('updateProfile');
 	if(updateProfile) updateProfile = (updateProfile == 'true');
@@ -161,7 +162,7 @@ var finfore = function() {
 	/* Public low-lever Public account sign-in */
 	var publicLogin = function(params, success) {
 		if($.mobile.showPageLoadingMsg) $.mobile.showPageLoadingMsg();
-		
+	
 		$.ajax({
 			url: url.publicLogin,
 			type: 'POST',
@@ -419,7 +420,7 @@ var finfore = function() {
 		
 		// sort columns ascending
 		finfore.data.user.user_company_tabs.sort(sortPosition);
-	
+		
 		companies.add(finfore.data.user.user_company_tabs);
 		
 	};
@@ -543,6 +544,7 @@ var finfore = function() {
 	var panels = {
 		// Create panel
 		create: function(panel) {
+
 			// Create data structure
 			if(panel.options.company) {
 				if(!finfore.data.panels.companies[panel.options.company.feed_info.id]) finfore.data.panels.companies[panel.options.company.feed_info.id] = {};
@@ -561,6 +563,8 @@ var finfore = function() {
 			
 			setTimeout(function() {
 				// Create panel DOM
+
+				
 				finfore.desktop.panels.create(panel);
 			}, 50);
 		},

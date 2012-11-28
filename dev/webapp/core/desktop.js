@@ -355,6 +355,8 @@ finfore.desktop = function() {
 			}
 		});
 		
+		
+		
 		finfore.modules[data.type].init($panel, data.options);
 		
 		// if column is created in current tab, load it
@@ -488,7 +490,13 @@ finfore.desktop = function() {
 		
 		// creat the feed_accounts object with each column's index
 		$panel.each(function(i, n) {
-			columnId = $.data(n, 'data').feed_account._id;
+			
+			if ($.data(n, 'data').feed_account){
+				columnId = $.data(n, 'data').feed_account._id;	
+			} else {
+				columnId = $.data(n, 'data').panel.feed_account._id;	
+			}
+			//columnId = $.data(n, 'data').feed_account._id;
 			index = $(n).index();
 			
 			columns.push({

@@ -159,18 +159,20 @@ finfore.modules.prices = function() {
 			// if we have any tickers
 			if(ticker_data) {
 			
-				// remove all spaces (if they exist, because of web service error) from tickers				
-				ticker_data = ticker_data.replace(/\s/g, '');
-				
-				// TODO: use YQL, for caching
-				
-				$.ajax({
-					url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
-					dataType: 'jsonp',
-					success: function(stocks) {					
-						var markup = '';					
-						var stocksList = [];
-						
+
+			// remove all spaces (if they exist, because of web service error) from tickers				
+			ticker_data = ticker_data.replace(/\s/g, '');
+			
+			// TODO: use YQL
+			
+			$.ajax({
+				//url: 'http://www.google.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+				url: 'http://api.fastnd.com/finance/info?infotype=infoquoteall&q=' + ticker_data,
+				dataType: 'jsonp',
+				success: function(stocks) {					
+					var markup = '';					
+					var stocksList = [];
+					
 						$.each(stocks, function(i, n) {
 							var symbol = n.e + ':' + n.t,
 								company = n.name,
