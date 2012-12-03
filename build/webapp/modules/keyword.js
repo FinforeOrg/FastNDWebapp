@@ -30,9 +30,9 @@ finfore.modules.keyword = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -41,12 +41,13 @@ finfore.modules.keyword = function() {
 			finfore.manage.panels.create({
 				$node: $panelContainer,
 				category: category
-			});
+			});			
 		});
 		
-		$('.remove-column', $container).click(function() {			
+		$($container).on('click', '.remove-column' ,function() {	
+			
 			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});

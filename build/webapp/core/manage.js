@@ -123,6 +123,7 @@ finfore.manage = function() {
 			if(params.category == 'portfolio') {
 				$.data($this[0], 'data', finfore.data.portfolios[params.index].list[sourceIndex]);
 			} else {
+				
 				$.data($this[0], 'data', finfore.data.panels.main[params.category][params.index].feed_account.user_feeds[sourceIndex]);
 			}
 			
@@ -226,7 +227,13 @@ finfore.manage = function() {
 				index: index,
 				category: params.category
 			});			
-			params.$node.append(template);
+			if (params.category == 'portfolio'){
+				params.$node.find('a.add-portfolio').before(template);
+			} else {
+				params.$node.find('a.add-column').before(template);
+			}
+
+			//params.$node.append(template);
 			params.$node.trigger('create');
 			
 			// select new panel
@@ -357,8 +364,8 @@ finfore.manage = function() {
 					
 					// update manage titles
 					$('.mtab-title > span', params.$node.next().next()).text(newTitle);					
-					params.$node.next().text(newTitle);					
-					
+					params.$node.next().find('span.label').text(newTitle);					
+
 				}
 			}
 			
@@ -492,7 +499,7 @@ finfore.manage = function() {
 							
 							// refresh column
 							finfore.data.panels.main[params.category][index].$node.trigger('reinit');
-							
+
 							// update data store on sources
 							bindSourcesData({
 								$container: params.$node.parent(),
@@ -523,7 +530,19 @@ finfore.manage = function() {
 			var index = finfore.data.panels.main[params.category].indexOf($.data(params.$node[0], 'data'));
 			
 			var $selectedSource = $('input:checked', params.$node.next().next());
-			var sourceIndex = finfore.data.panels.main[params.category][index].feed_account.user_feeds.indexOf($.data($selectedSource[0], 'data'));
+			
+			//created this method of checking index of item in array because the 
+			//indexOf method -commented down below- is buggy after refreshing the list
+			var uf = finfore.data.panels.main[params.category][index].feed_account.user_feeds;
+			var sourceIndex;
+
+			for (var i = 0; i < uf.length; i++){
+				//console.log(uf[i].feed_info.title);
+				if ($.data($selectedSource[0], 'data').feed_info.title == uf[i].feed_info.title){
+					sourceIndex = i;
+				}
+			}
+			//var sourceIndex = finfore.data.panels.main[params.category][index].feed_account.user_feeds.indexOf($.data($selectedSource[0], 'data'));
 			
 			var sourceTitle = finfore.data.panels.main[params.category][index].feed_account.user_feeds[sourceIndex].feed_info.title;
 			if(!sourceTitle) sourceTitle = finfore.data.panels.main[params.category][index].feed_account.user_feeds[sourceIndex].name;
@@ -566,6 +585,7 @@ finfore.manage = function() {
 			});			
 		},
 		addPreset: function(params) {
+
 			var index = finfore.data.panels.main[params.category].indexOf($.data(params.$node[0], 'data'));			
 			var feedAccountID = finfore.data.panels.main[params.category][index].feed_account._id;			
 			
@@ -615,7 +635,7 @@ finfore.manage = function() {
 					*/
 					
 					var sourceIndex = feed_account.user_feeds.length - 1;
-						
+					
 					// add management node
 					var template = $.View('//webapp/views/manage.source.tmpl', {
 						feed_account_id: feed_account._id,
@@ -623,6 +643,7 @@ finfore.manage = function() {
 						index: sourceIndex,
 						category: params.category
 					});
+
 					params.$node.nextAll('div:first').find('.list-view').append(template);
 					
 					// refresh column
@@ -699,7 +720,7 @@ finfore.manage = function() {
 					
 					// generate friend nodes
 					$.each(data.friends, function(i, n) {
-						var template = $.View('//webapp/views/manage.source.tmpl', {
+						var template = $.View('//webapp/views/manage.twitter.source.tmpl', {
 							feed_account_id: data.feed_account._id,
 							source: finfore.data.panels.main['twitter'][index].friends[i],
 							index: i,
@@ -868,12 +889,13 @@ finfore.manage = function() {
 					var sourceIndex = finfore.data.panels.main['twitter'][index].friends.length - 1;
 					
 					// add management node
-					var template = $.View('//webapp/views/manage.source.tmpl', {
+					var template = $.View('//webapp/views/manage.twitter.source.tmpl', {
 						feed_account_id: feedAccountID,
 						source: finfore.data.panels.main['twitter'][index].friends[sourceIndex],
 						index: sourceIndex,
 						category: 'twitter'
 					});
+
 
 					$tab.find('.list-view').append(template);
 					
@@ -1014,7 +1036,7 @@ finfore.manage = function() {
 									}
 								},
 								onScrollEnd: function () {
-									//console.log(this.y);
+									
 									if ( $pullUpEl.hasClass('flip') ) {
 										$pullUpEl.removeClass('flip').addClass('loading') ;
 										$pullUpEl.find('.pullUpLabel').html('Loading...');				
@@ -1147,9 +1169,7 @@ finfore.manage = function() {
 										
 									},
 									onScrollMove: function () {
-										// console.log(this.y);
-										// console.log(this.maxScrollY - 5);
-										// console.log($pullUpEl);
+										
 										if (this.y < (this.maxScrollY - 5) && !$pullUpEl.hasClass('flip')) {
 											$pullUpEl.addClass('flip');
 											$pullUpEl.find('.pullUpLabel').html('Release to load more...');

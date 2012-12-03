@@ -8,7 +8,11 @@
 		{{each panels}}			
 			<input type="radio" data-native="true" class="mtab" id="keyword-panel-${$index}" name="keyword-panels" {{if $index == 0}}checked="checked"{{/if}} data-index="${$index}" data-role="none">
 			<label for="keyword-panel-${$index}" class="mtab-selector">
-				${$value.feed_account.name}
+				<span class="label">${$value.feed_account.name}</span>
+				<div class="controls-wrap">
+					<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
+					<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+				</div>
 			</label>
 			
 			<div id="keyword-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
@@ -42,18 +46,7 @@
 				</div>
 			</div>
 		{{/each}}	
-	
-	</div>
-	
-</div>
-
-<div data-role="footer">
-	<div class="panel-controls">
 		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
-		
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
-			<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
-		</div>
 	</div>
+	
 </div>

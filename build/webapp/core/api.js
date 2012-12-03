@@ -209,7 +209,7 @@ var WebService = {
 	},
 	
 	getCompanies: function(param) {
-	
+		
 		if(!param) param = {};
 	
 		$.ajax({
@@ -219,6 +219,7 @@ var WebService = {
 				category: 'all_companies'
 			},
 			success: function(companies) {
+				
 				if(param.success) param.success(companies);
 			}
 		});

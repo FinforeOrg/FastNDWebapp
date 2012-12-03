@@ -17,7 +17,8 @@ finfore.modules.feed = function() {
 		var template = $.View('//webapp/views/module.feed.management.tmpl', {		
 			panels: finfore.data.panels.main.feed
 		});
-		$(template).appendTo($container);		
+		
+		$(template).appendTo($container);
 		
 		// panel management
 		var $panelContainer = $('.mtabs-container', $container);		
@@ -27,9 +28,9 @@ finfore.modules.feed = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -41,9 +42,10 @@ finfore.modules.feed = function() {
 			});			
 		});
 		
-		$('.remove-column', $container).click(function() {			
+		$($container).on('click', '.remove-column' ,function() {	
+			
 			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -57,14 +59,17 @@ finfore.modules.feed = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$(this).parent().prev().attr('checked', 'checked');
 			finfore.manage.sources.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				//$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});
 		
 		// preset sources
-		$('.add-preset-source', $container).click(function() {			
+		$('.add-preset-source', $container).click(function() {
+			$(this).parent().prev().attr('checked','checked')	
 			finfore.manage.sources.addPreset({
 				$node: $('.mtab:checked', $panelContainer),
 				$presets: $('.preset-tabs', $container),
@@ -217,6 +222,7 @@ finfore.modules.feed = function() {
 				
 				sourceUrl = 'http://api.bing.com/rss.aspx?Source=News&Market=en-US&Version=2.0&Query=' + $.URLEncode(options.company.feed_info.company_competitor.bing_keyword) + '&news.count=' + multiplier;
 			} else {
+				
 				sourceUrl = 'http://www.google.com/finance/company_news?q=' + options.company.feed_info.company_competitor.finance_keyword + '&authuser=0&output=rss&num=100';
 			}
 			
@@ -306,6 +312,7 @@ finfore.modules.feed = function() {
 			// bind panel events
 			$container.bind('refresh', refresh);
 			$container.bind('reinit', function() {
+				
 				// clear refresh interval
 				clearInterval(autorefresh);
 				// cleanup dom

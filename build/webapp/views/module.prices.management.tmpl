@@ -8,26 +8,39 @@
 		{{each panels}}			
 			<input type="radio" data-native="true" class="mtab" id="prices-panel-${$index}" name="prices-panels" {{if $index == 0}}checked="checked"{{/if}} data-index="${$index}" data-role="none">
 			<label for="prices-panel-${$index}" class="mtab-selector">
-				${$value.feed_account.name}
+				<span class="label">${$value.feed_account.name}</span>
+				<div class="controls-wrap">
+					<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
+					<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+				</div>
 			</label>
 			
 			<div id="prices-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
 				<div class="mtab-title ui-bar-a">
 					<div data-role="controlgroup" data-type="horizontal" class="source-list-controls">
-						<a href="#" data-role="button" class="add-custom-source" data-iconpos="notext" data-icon="plus" data-inline="true">Add Custom Source</a>
-						<a href="#" data-role="button" class="remove-source" data-iconpos="notext" data-icon="delete" data-inline="true">Remove Source</a>
+						
+						
 					</div>
 					<span>${$value.feed_account.name}</span>
 				</div>
 				<div class="list-view">
 					{{each $value.feed_account.user_feeds}}
 						<input type="radio" data-native="true" name="prices-sources-${$value.feed_account_id}" id="source-${$value.feed_account_id}-${$value._id}" data-id="${$value._id}" data-index="${$index}" {{if $index == 0}}checked="checked"{{/if}} data-role="none">
-						<label for="source-${$value.feed_account_id}-${$value._id}">{{if $value.feed_info.title}} ${$value.feed_info.title} {{else}} ${$value.name} {{/if}}</label>
+						<label for="source-${$value.feed_account_id}-${$value._id}" class="clearfix">
+							{{if $value.feed_info.title}} 
+								${$value.feed_info.title} 
+							{{else}} 
+								${$value.name} 
+							{{/if}}
+							<a href="#" data-role="button" class="right remove-source" data-iconpos="notext" data-icon="delete" data-inline="true">Remove Source</a>
+						</label>
+
 					{{/each}}
 				</div>
+				<a href="#" data-role="button" class="add-custom-source" data-icon="plus" data-inline="true">Add Custom Source</a>
 			</div>
 		{{/each}}	
-	
+		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
 	</div>	
 		
 	<div class="preset-tabs ui-corner-all ui-body-b">
@@ -63,15 +76,4 @@
 		</div>
 	</div>
 	
-</div>
-
-<div data-role="footer">
-	<div class="panel-controls">
-		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
-		
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
-			<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
-		</div>
-	</div>
 </div>

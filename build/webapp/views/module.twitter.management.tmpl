@@ -8,14 +8,18 @@
 		{{each panels}}			
 			<input type="radio" data-native="true" class="mtab" id="twitter-panel-${$index}" name="twitter-panels" {{if $index == 0}}checked="checked"{{/if}} data-index="${$index}" data-role="none">
 			<label for="twitter-panel-${$index}" class="mtab-selector">
-				${$value.feed_account.name}
+				<span class="label">${$value.feed_account.name}</span>
+				<div class="controls-wrap">
+					<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
+					<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
+				</div>
 			</label>
 			
 			<div id="twitter-tab-${$index}" class="mtab-content ui-body-c {{if $index == 0}}visible-tab{{/if}}">
 				<div class="mtab-title ui-bar-a">
 					<div data-role="controlgroup" data-type="horizontal" class="source-list-controls">
-						<a href="#" data-role="button" class="add-custom-source" data-iconpos="notext" data-icon="plus" data-inline="true">Follow Custom User</a>
-						<a href="#" data-role="button" class="remove-source" data-iconpos="notext" data-icon="delete" data-inline="true">Unfollow User</a>
+						
+						
 					</div>
 					<span>${$value.feed_account.name}</span>
 					
@@ -25,9 +29,10 @@
 					
 				</div>
 				<div class="list-view"></div>
+				<a href="#" data-role="button" class="add-custom-source" data-icon="plus" data-inline="true">Follow Custom User</a>
 			</div>
 		{{/each}}	
-	
+		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
 	</div>	
 		
 	<div class="preset-tabs ui-corner-all ui-body-b">
@@ -62,15 +67,4 @@
 		</div>
 	</div>
 	
-</div>
-
-<div data-role="footer">
-	<div class="panel-controls">
-		<a href="#" data-role="button" data-icon="plus" class="add-column">Add Column</a>
-		
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="#" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" class="edit-column-title">Edit Title</a>
-			<a href="#" data-role="button" data-icon="delete" data-iconpos="notext" data-inline="true" class="remove-column">Delete Column</a>
-		</div>
-	</div>
 </div>

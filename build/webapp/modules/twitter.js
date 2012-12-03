@@ -25,9 +25,9 @@ finfore.modules.twitter = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -36,15 +36,16 @@ finfore.modules.twitter = function() {
 			finfore.manage.panels.create({
 				$node: $panelContainer,
 				category: category
-			});
-		});
-		
-		$('.remove-column', $container).click(function() {			
-			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
-				category: category
 			});			
 		});
+		
+		$($container).on('click', '.remove-column' ,function() {	
+			
+			finfore.manage.panels.remove({
+				$node: $(this).parents('.mtab-selector').prev(),
+				category: category
+			});			
+		});	
 		
 		// users events		
 		$panelContainer.delegate('.add-custom-source', 'click', function() {
@@ -55,8 +56,9 @@ finfore.modules.twitter = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$(this).parent().prev().attr('checked', 'checked');
 			finfore.manage.twitter.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node:  $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});

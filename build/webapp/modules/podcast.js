@@ -32,9 +32,9 @@ finfore.modules.podcast = function() {
 			category: category
 			});
 		
-		$('.edit-column-title', $container).click(function() {
+		$($container).on('click', '.edit-column-title', function() {
 			finfore.manage.panels.edit({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
 		});
@@ -46,12 +46,13 @@ finfore.modules.podcast = function() {
 			});			
 		});
 		
-		$('.remove-column', $container).click(function() {			
+		$($container).on('click', '.remove-column' ,function() {	
+			
 			finfore.manage.panels.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
 			});			
-		});
+		});	
 		
 		// sources events		
 		$panelContainer.delegate('.add-custom-source', 'click', function() {
@@ -62,8 +63,11 @@ finfore.modules.podcast = function() {
 		});
 		
 		$panelContainer.delegate('.remove-source', 'click', function() {
+			$(this).parent().prev().attr('checked', 'checked');
+			
 			finfore.manage.sources.remove({
-				$node: $('.mtab:checked', $panelContainer),
+				//$node: $('.mtab:checked', $panelContainer),
+				$node: $(this).parents('.mtab-content').prev().prev(),
 				category: category
 			});
 		});
