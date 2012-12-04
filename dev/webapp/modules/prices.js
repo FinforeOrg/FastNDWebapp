@@ -66,7 +66,10 @@ finfore.modules.prices = function() {
 		});
 		
 		// preset sources
-		$('.add-preset-source', $container).click(function() {			
+		$container.on('click', '.add-preset-source' , function(e) {		
+			e.preventDefault();
+			$(this).parent().prev().attr('checked','checked');
+						
 			finfore.manage.sources.addPreset({
 				$node: $('.mtab:checked', $panelContainer),
 				$presets: $('.preset-tabs', $container),

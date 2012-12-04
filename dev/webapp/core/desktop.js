@@ -4,6 +4,10 @@
  * 
  */
 
+$(window).resize(function () {
+	alert('ceva');
+})
+
 // Desktop
 finfore.desktop = function() {
 	// DOM nodes
