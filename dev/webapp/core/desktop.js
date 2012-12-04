@@ -4,9 +4,7 @@
  * 
  */
 
-$(window).resize(function () {
-	alert('ceva');
-})
+
 
 // Desktop
 finfore.desktop = function() {
@@ -724,7 +722,16 @@ finfore.desktop = function() {
 	
 	// init desktop
 	var init = function() {
-	
+		
+		// Forcing a reflow on iPad to fix the shrinking 
+		// of the page width when user comes back
+		// from a story.
+		$(window).resize(function () {
+			alert('reflow');
+			$(document).width($(document).width());
+		});
+
+
 		var template = $.View('//webapp/views/desktop.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,
