@@ -728,7 +728,7 @@ finfore.desktop = function() {
 		// from a story.
 		$(window).resize(function () {
 			alert('reflow');
-			$(document).width($(document).width());
+			$(document).width($(document).width() + 1);
 		});
 
 
