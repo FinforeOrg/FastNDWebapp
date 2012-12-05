@@ -4,6 +4,8 @@
  * 
  */
 
+
+
 // Desktop
 finfore.desktop = function() {
 	// DOM nodes
@@ -720,7 +722,7 @@ finfore.desktop = function() {
 	
 	// init desktop
 	var init = function() {
-	
+
 		var template = $.View('//webapp/views/desktop.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,

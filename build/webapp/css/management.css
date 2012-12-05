@@ -392,11 +392,17 @@
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;	
 }
+
+.preset-tabs .ui-header{
+	min-height: 22px;
+}
+
 .preset-tabs input {
 	position: absolute;
 	left: -1000px;
 	visibility: hidden;
 }
+
 .loading-content:after {
 	content: '';
 	position: absolute;
@@ -423,6 +429,14 @@
 	width: 96%;
 	height: 380px;
 }
+
+.preset-tab-content label {
+	line-height: 27px;
+}
+.preset-tab-content label a.add-preset-source {
+	margin: 0;
+}
+
 .preset-tab-content .list-view.non-touch {
 	max-height: 390px;
 	overflow-y: auto;
