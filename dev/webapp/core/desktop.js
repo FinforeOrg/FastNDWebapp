@@ -723,6 +723,12 @@ finfore.desktop = function() {
 	// init desktop
 	var init = function() {
 
+		if (window.orientation == 90 || window.orientation == -90) {
+			alert('90 sau -90');
+		} else {
+			alert('none');
+		}
+
 		var template = $.View('//webapp/views/desktop.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,
