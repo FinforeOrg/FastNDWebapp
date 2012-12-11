@@ -297,10 +297,12 @@
 	font-size: 12px;	
 }
 .mtabs-container .controls-wrap {
-	position:absolute; 
+	/*position:absolute; 
 	z-index:2; 
 	top:15%; 
-	right:5%;
+	right:5%;*/
+	float: right;
+	margin-top: -10px;
 }
 
 /* mtab listview */
