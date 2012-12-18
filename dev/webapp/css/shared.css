@@ -314,6 +314,16 @@
 	white-space: normal !important;
 }
 
+.podcast .ui-li {
+	position: relative;
+}
+
+.podcast .ui-li a.addthis_button_email {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+}
+
 .blinkx h3 {
 	margin-top: 0;
 }

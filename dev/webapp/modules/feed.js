@@ -221,7 +221,7 @@ finfore.modules.feed = function() {
 				
 				options.$container.removeClass('panel-loading');
 				
-				
+				//initialize the addthis script
 				var script = 'http://s7.addthis.com/js/250/addthis_widget.js#domready=1';
 				$.getScript( script , function() { addthis.init(); });
 			}

@@ -174,7 +174,7 @@ finfore.modules.podcast = function() {
 						var extension = filename.split('.').pop();				
 						
 						markup += '<abbr>' + this.source + '</abbr>';
-						markup += '<h3><a href="' + this.link + '" target="_blank">' + this.title + '</a></h3>';
+						markup += '<h3><a href="' + this.link + '" target="_blank" title="'+this.title+'">' + this.title + '</a></h3>';
 						
 						if($.inArray(extension, videoExt) === 0) {
 							markup += '<video src="' + filename + '" width="270" height="150" controls="controls" type="video/' + extension + '" preload="none"></video>';
@@ -198,6 +198,21 @@ finfore.modules.podcast = function() {
 					$content.listview();
 				}
 				
+				var itemsLength = $content.find('li.ui-li').length - 1;
+
+				$content.find('li.ui-li').each(function(i) {
+					var url = '',
+						title = '';
+					
+					if (typeof $($(this).find('a')[0]).attr('href') == 'string'){
+						url = $($(this).find('a')[0]).attr('href');
+						title = $($(this).find('a')[0]).attr('title');
+					}
+					if ( i < itemsLength){
+						$(this).append('<a class="addthis_button_email" addthis:url="'+url+'" addthis:title="'+title+'"></a>');
+					}
+				});
+
 				if(finfore.smallScreen || finforeNative || touchSupport) {
 					// native media
 				} else {
