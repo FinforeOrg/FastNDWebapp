@@ -63,5 +63,7 @@ steal('jquery/view/tmpl')
 .then('../modules/feed.js', '../modules/podcast.js', '../modules/twitter.js', '../modules/prices.js', '../modules/portfolio.js', '../modules/agenda.js', '../modules/linkedin.js', '../modules/blinkx.js', '../modules/keyword.js')
 // Init Finfore.net
 .then(function(){
+	
 	if(!(typeof window.hideBrowserNotice == 'function')) finfore.init();
+	
 });

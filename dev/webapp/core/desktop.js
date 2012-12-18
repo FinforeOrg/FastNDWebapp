@@ -722,7 +722,7 @@ finfore.desktop = function() {
 	
 	// init desktop
 	var init = function() {
-
+		
 		var template = $.View('//webapp/views/desktop.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,
@@ -1038,6 +1038,8 @@ finfore.desktop = function() {
 		$(document).on('pagehide', '[data-role=dialog]', function() {
 			finfore.$body.removeClass('small-dialog-overlay');
 		});
+
+
 		
 	};
 

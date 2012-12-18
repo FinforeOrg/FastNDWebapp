@@ -296,6 +296,13 @@
 .feed .ui-li .ui-btn-text, .feed .ui-li-desc, .feed h3 {
 	white-space: normal !important;
 }
+
+.ui-btn-text .addthis_button_email {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+}
+
 .feed h3 a, .podcast h3 a, .blinkx h3 a {
     display: block;
 	color: #2F3E46;

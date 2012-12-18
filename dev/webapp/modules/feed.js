@@ -174,15 +174,15 @@ finfore.modules.feed = function() {
 							markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
 							markup += '</a><a href="' + this.link + '" target="_blank" class="mobile-column-select"></a>';
 						} else {
-							markup += '<a href="' + this.link + '" target="_blank"><abbr>' + this.source + '</abbr>';
+							markup += '<a title="'+this.title+'" href="' + this.link + '" target="_blank"><abbr>' + this.source + '</abbr>';
 							markup += '<h3>' + this.title + '</h3>';
 							markup += '<p>' + this.description + '</p>';
 							markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
-							markup += '</a>';
+							markup += '</a>';							
 						}
 						
 						markup += '</li>';
-
+						
 						if(!options.company || !finfore.smallScreen) {
 							if(this.pubDate > finfore.ticker.date) {
 								finfore.ticker.updateNews(this);
@@ -196,13 +196,34 @@ finfore.modules.feed = function() {
 				$(markup).insertBefore($loadMoreLi);
 				
 				var $content = $('[data-role=content] ul', options.$container);
+				
+
 				if($content.jqmData('listview')) {
 					$content.listview('refresh');
 				} else {
 					$content.listview();
-				}	
+				}
+				
+				//add addthis email button to each feed item
+				var itemsLength = $content.find('li.ui-li').length - 1;
+				$content.find('li.ui-li').each(function(i) {
+					var url = '',
+						title = '';
+					
+					if (typeof $($(this).find('a')[0]).attr('href') == 'string'){
+						url = $($(this).find('a')[0]).attr('href');
+						title = $($(this).find('a')[0]).attr('title');
+					}
+					if ( i < itemsLength){
+						$('.ui-btn-text',this).append('<a class="addthis_button_email" addthis:url="'+url+'" addthis:title="'+title+'"></a>');
+					}
+				});
 				
 				options.$container.removeClass('panel-loading');
+				
+				
+				var script = 'http://s7.addthis.com/js/250/addthis_widget.js#domready=1';
+				$.getScript( script , function() { addthis.init(); });
 			}
 		});
 		
@@ -279,6 +300,7 @@ finfore.modules.feed = function() {
 				company: options.company,
 				callbackId: callbackId
 			});
+
 			
 		};		
 		
@@ -344,6 +366,9 @@ finfore.modules.feed = function() {
 			
 			// trigger init event
 			$container.trigger('init');
+
+
+
 		}();
 	
 	};
