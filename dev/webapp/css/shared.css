@@ -297,10 +297,15 @@
 	white-space: normal !important;
 }
 
-.ui-btn-text .addthis_button_email {
+.ui-btn-text .addthis_button_email,
+.ui-btn-up-c .addthis_button_email {
 	position: absolute;
 	bottom: 5px;
 	right: 0;
+}
+
+.tweets .ui-btn-up-c .addthis_button_email {
+	right: 5px;
 }
 
 .feed h3 a, .podcast h3 a, .blinkx h3 a {

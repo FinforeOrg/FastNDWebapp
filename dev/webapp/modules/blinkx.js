@@ -150,7 +150,8 @@ var blinkxCallback = function(result, params) {
 		summary,
 		image,
 		url,
-		pubDate;
+		pubDate,
+		addthisToolboxMarkup = [];
 	
 	// check for response
 	if(result.query.results && result.query.results.response.responsedata) hits = result.query.results.response.responsedata.hit;
@@ -194,6 +195,7 @@ var blinkxCallback = function(result, params) {
 				markup += '<abbr>' + pubDate.toUTCString() + '</abbr>';
 				markup += '</a></li>';
 			}
+			addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + url + '" addthis:title="' + title + '"></a></div>');
 		});
 		
 		var $loadMoreLi = $('.load-more-entries', params.$container).parents('li').first();
@@ -202,6 +204,19 @@ var blinkxCallback = function(result, params) {
 		
 		var $listview = $('[data-role=content] ul', params.$container);
 		$listview.listview('refresh');
+
+		// append and init addthis
+		var $this;
+		addthisToolboxMarkup.reverse();
+		$( params.$container.find('.ui-li-desc').get().reverse() ).each(function(index) {
+			$this = $(this);
+			$this.after(addthisToolboxMarkup[index]);
+			addthis.toolbox( $this.next('.toolbox')[0] );
+
+			if(index === entriesLength) {
+				return false;
+			}
+		});
 		
 	};
 	

@@ -61,6 +61,8 @@ steal('jquery/view/tmpl')
 .then('//webapp/views/module.tmpl', '//webapp/views/module.feed.tmpl', '//webapp/views/module.feed.management.tmpl', '//webapp/views/module.podcast.tmpl', '//webapp/views/module.podcast.management.tmpl', '//webapp/views/module.twitter.tmpl', '//webapp/views/module.twitter.tweet.tmpl', '//webapp/views/module.twitter.management.tmpl', '//webapp/views/module.prices.tmpl', '//webapp/views/module.prices.management.tmpl', '//webapp/views/module.portfolio.tmpl', '//webapp/views/module.portfolio.management.tmpl', '//webapp/views/module.agenda.tmpl', '//webapp/views/module.linkedin.tmpl', '//webapp/views/module.linkedin.management.tmpl', '//webapp/views/module.blinkx.tmpl', '//webapp/views/module.keyword.management.tmpl', '//webapp/views/module.keyword.tmpl')
 // Load Modules
 .then('../modules/feed.js', '../modules/podcast.js', '../modules/twitter.js', '../modules/prices.js', '../modules/portfolio.js', '../modules/agenda.js', '../modules/linkedin.js', '../modules/blinkx.js', '../modules/keyword.js')
+// load external script
+.then('http://s7.addthis.com/js/250/addthis_widget.js#domready=1')
 // Init Finfore.net
 .then(function(){
 	

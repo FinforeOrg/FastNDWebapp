@@ -4,8 +4,6 @@
  * 
  */
 
-
-
 // Desktop
 finfore.desktop = function() {
 	// DOM nodes

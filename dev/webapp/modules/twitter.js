@@ -6,6 +6,7 @@
  
 // Define module
 finfore.modules.twitter = function() {	
+
 	// Twitter Module Management
 	var management = function($container) {
 		var category = 'twitter';
@@ -16,7 +17,7 @@ finfore.modules.twitter = function() {
 			panels: finfore.data.panels.main.twitter
 		});
 		$(template).appendTo($container);
-		
+
 		// panel management
 		var $panelContainer = $('.mtabs-container', $container);		
 		
@@ -148,6 +149,7 @@ finfore.modules.twitter = function() {
 			
 			$tweets.append(tweetTemplate);
 			
+			
 			if(tweets) {
 				$.each(tweets, function() {
 					var tweetDate = new Date(this.created_at);
@@ -159,6 +161,10 @@ finfore.modules.twitter = function() {
 					};
 				});
 			};
+
+			$tweets.find('.toolbox').each(function() {
+				addthis.toolbox(this);
+			})
 		};
 		
 		var refresh = function(e, loadmore) {

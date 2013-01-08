@@ -150,7 +150,8 @@ finfore.modules.podcast = function() {
 				// parse entries
 				var markup = '',
 					entriesLength = entries.length - 1,
-					filename;
+					filename,
+					addthisToolboxMarkup = [];
 				
 				$.each(entries, function(index, value) {
 				
@@ -184,6 +185,7 @@ finfore.modules.podcast = function() {
 						markup += '<p>' + this.description + '</p>';
 						markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
 						markup += '</li>';
+						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
 					}
 				});
 				
@@ -198,21 +200,6 @@ finfore.modules.podcast = function() {
 					$content.listview();
 				}
 				
-				var itemsLength = $content.find('li.ui-li').length - 1;
-
-				$content.find('li.ui-li').each(function(i) {
-					var url = '',
-						title = '';
-					
-					if (typeof $($(this).find('a')[0]).attr('href') == 'string'){
-						url = $($(this).find('a')[0]).attr('href');
-						title = $($(this).find('a')[0]).attr('title');
-					}
-					if ( i < itemsLength){
-						$(this).append('<a class="addthis_button_email" addthis:url="'+url+'" addthis:title="'+title+'"></a>');
-					}
-				});
-
 				if(finfore.smallScreen || finforeNative || touchSupport) {
 					// native media
 				} else {
@@ -223,6 +210,19 @@ finfore.modules.podcast = function() {
 						pluginPath: 'webapp/lib/mediaelement/'
 					});	
 				};
+
+				// append and init addthis
+				var $this;
+				addthisToolboxMarkup.reverse();
+				$( $content.find('.ui-li-desc').get().reverse() ).each(function(index) {
+					$this = $(this);
+					$this.after(addthisToolboxMarkup[index]);
+					addthis.toolbox( $this.next('.toolbox')[0] );
+
+					if(index === entries.length) {
+						return false;
+					}
+				});
 				
 				options.$container.removeClass('panel-loading');
 				
