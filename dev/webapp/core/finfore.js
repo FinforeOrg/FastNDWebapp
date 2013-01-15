@@ -62,7 +62,7 @@ steal('jquery/view/tmpl')
 // Load Modules
 .then('../modules/feed.js', '../modules/podcast.js', '../modules/twitter.js', '../modules/prices.js', '../modules/portfolio.js', '../modules/agenda.js', '../modules/linkedin.js', '../modules/blinkx.js', '../modules/keyword.js')
 // load external script
-.then('http://s7.addthis.com/js/250/addthis_widget.js#domready=1')
+.then('../vendor/addthis_widget.js')
 // Init Finfore.net
 .then(function(){
 	

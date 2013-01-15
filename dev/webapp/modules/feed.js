@@ -185,7 +185,14 @@ finfore.modules.feed = function() {
 
 						markup += '</li>';
 
-						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
+						var addThisTools  = '<div class="toolbox">';
+							addThisTools += '<a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
+							addThisTools += '<a class="addthis_button_facebook" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
+							addThisTools += '<a class="addthis_button_linkedin" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
+							addThisTools += '<a class="addthis_button_twitter" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
+							addThisTools += '</div>';
+
+						addthisToolboxMarkup.push(addThisTools);
 						
 						if(!options.company || !finfore.smallScreen) {
 							if(this.pubDate > finfore.ticker.date) {

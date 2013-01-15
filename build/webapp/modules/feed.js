@@ -157,8 +157,9 @@ finfore.modules.feed = function() {
 				
 				// parse entries
 				var markup = '',
-					entriesLength = entries.length - 1;
-				
+					entriesLength = entries.length - 1,
+					addthisToolboxMarkup = [];
+
 				$.each(entries, function(index) {
 					// check date
 					if((options.loadMore === true) || (this.pubDate > options.date)) {
@@ -170,19 +171,22 @@ finfore.modules.feed = function() {
 						
 						if(finfore.smallScreen) {
 							markup += '<a><abbr>' + this.source + '</abbr>';
+
 							markup += '<h3>' + this.title + '</h3>';
 							markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
 							markup += '</a><a href="' + this.link + '" target="_blank" class="mobile-column-select"></a>';
 						} else {
-							markup += '<a href="' + this.link + '" target="_blank"><abbr>' + this.source + '</abbr>';
+							markup += '<a title="'+this.title+'" href="' + this.link + '" target="_blank"><abbr>' + this.source + '</abbr>';
 							markup += '<h3>' + this.title + '</h3>';
-							markup += '<p>' + this.description + '</p>';
+							markup += '<p class="feed-item-description">' + this.description + '</p>';
 							markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
-							markup += '</a>';
+							markup += '</a>';							
 						}
-						
+
 						markup += '</li>';
 
+						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
+						
 						if(!options.company || !finfore.smallScreen) {
 							if(this.pubDate > finfore.ticker.date) {
 								finfore.ticker.updateNews(this);
@@ -191,22 +195,43 @@ finfore.modules.feed = function() {
 					}
 					
 				});
-				
+
 				var $loadMoreLi = $('.load-more-entries', options.$container).parents('li').first();
 				$(markup).insertBefore($loadMoreLi);
 				
 				var $content = $('[data-role=content] ul', options.$container);
+
 				if($content.jqmData('listview')) {
 					$content.listview('refresh');
 				} else {
 					$content.listview();
-				}	
+				}
+
+				// append and init addthis
+				var $this;
+				addthisToolboxMarkup.reverse();
+				$( $content.find('.feed-item-description').get().reverse() ).each(function(index) {
+					$this = $(this);
+					$this.after(addthisToolboxMarkup[index]);
+					addthis.toolbox( $this.next('.toolbox')[0] );
+
+					if(index === entries.length) {
+						return false;
+					}
+				});
 				
+				//remove the arrow from last item
+				$content.find('span.ui-icon-arrow-r').remove();
+
+				//hide loading gif
 				options.$container.removeClass('panel-loading');
+
+				
 			}
 		});
-		
-	};
+
+
+	}; //end getFeedData
 	
 	var init = function($container, options) {
 		var feedNumber = 0,
@@ -279,6 +304,20 @@ finfore.modules.feed = function() {
 				company: options.company,
 				callbackId: callbackId
 			});
+
+/*
+			setTimeout(function() {
+				$('.toolbox').each(function() {
+			
+					if ($('>a', this).attr('class').indexOf('at300b') < 0){
+						addthis.toolbox(this);
+					}
+					
+
+				});
+			}, 1000);
+*/
+
 			
 		};		
 		
@@ -344,6 +383,7 @@ finfore.modules.feed = function() {
 			
 			// trigger init event
 			$container.trigger('init');
+
 		}();
 	
 	};

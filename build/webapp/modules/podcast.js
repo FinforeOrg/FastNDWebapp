@@ -150,7 +150,8 @@ finfore.modules.podcast = function() {
 				// parse entries
 				var markup = '',
 					entriesLength = entries.length - 1,
-					filename;
+					filename,
+					addthisToolboxMarkup = [];
 				
 				$.each(entries, function(index, value) {
 				
@@ -174,7 +175,7 @@ finfore.modules.podcast = function() {
 						var extension = filename.split('.').pop();				
 						
 						markup += '<abbr>' + this.source + '</abbr>';
-						markup += '<h3><a href="' + this.link + '" target="_blank">' + this.title + '</a></h3>';
+						markup += '<h3><a href="' + this.link + '" target="_blank" title="'+this.title+'">' + this.title + '</a></h3>';
 						
 						if($.inArray(extension, videoExt) === 0) {
 							markup += '<video src="' + filename + '" width="270" height="150" controls="controls" type="video/' + extension + '" preload="none"></video>';
@@ -184,6 +185,7 @@ finfore.modules.podcast = function() {
 						markup += '<p>' + this.description + '</p>';
 						markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
 						markup += '</li>';
+						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
 					}
 				});
 				
@@ -208,6 +210,19 @@ finfore.modules.podcast = function() {
 						pluginPath: 'webapp/lib/mediaelement/'
 					});	
 				};
+
+				// append and init addthis
+				var $this;
+				addthisToolboxMarkup.reverse();
+				$( $content.find('.ui-li-desc').get().reverse() ).each(function(index) {
+					$this = $(this);
+					$this.after(addthisToolboxMarkup[index]);
+					addthis.toolbox( $this.next('.toolbox')[0] );
+
+					if(index === entries.length) {
+						return false;
+					}
+				});
 				
 				options.$container.removeClass('panel-loading');
 				

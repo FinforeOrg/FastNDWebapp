@@ -297,6 +297,26 @@
 	white-space: normal !important;
 }
 
+/* Addthis */
+.toolbox a {
+	position: absolute;
+}
+
+.toolbox a.addthis_button_facebook {
+	bottom: 5px;
+	right: 36px;
+}
+
+.toolbox a.addthis_button_linkedin {
+	bottom: 5px;
+	right: 18px;
+}
+
+.toolbox a.addthis_button_twitter {
+	bottom: 5px;
+	right: 54px;
+}
+
 .ui-btn-text .addthis_button_email,
 .ui-btn-up-c .addthis_button_email {
 	position: absolute;
@@ -306,6 +326,22 @@
 
 .tweets .ui-btn-up-c .addthis_button_email {
 	right: 5px;
+}
+
+.tweets .toolbox .at300b {
+	bottom: 8px;
+}
+
+.tweets .toolbox .addthis_button_facebook {
+	right: 39px;
+}
+
+.tweets .toolbox .addthis_button_linkedin {
+	right: 22px;
+}
+
+.tweets .toolbox .addthis_button_twitter {
+	right: 56px;
 }
 
 .feed h3 a, .podcast h3 a, .blinkx h3 a {
