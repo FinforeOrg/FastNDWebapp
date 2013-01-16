@@ -3,10 +3,18 @@
  * Feed Module
  *
  */
+
+var addthis_config = {
+	pubid: 'ra-50cf034a5562d612',
+	email_vars: {
+    	itemDescription: 'asddasd asda dasdasdas'
+    }	
+}
  
 // Define module
 finfore.modules.feed = function() {
 	var multiplier = 15;
+
 	
 	// Feed Module Management
 	var management = function($container) {
@@ -158,9 +166,15 @@ finfore.modules.feed = function() {
 				// parse entries
 				var markup = '',
 					entriesLength = entries.length - 1,
-					addthisToolboxMarkup = [];
+					addthisToolboxProperties = [];
 
 				$.each(entries, function(index) {
+					
+					//check if link is string or object
+					if (typeof this.link == 'object'){
+						this.link = this.link.href;
+					}
+
 					// check date
 					if((options.loadMore === true) || (this.pubDate > options.date)) {
 						if(index === entriesLength) {
@@ -184,15 +198,14 @@ finfore.modules.feed = function() {
 						}
 
 						markup += '</li>';
+						
+						var props = {
+							link: this.link,
+							title: this.title,
+							description: this.description
+						}
 
-						var addThisTools  = '<div class="toolbox">';
-							addThisTools += '<a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
-							addThisTools += '<a class="addthis_button_facebook" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
-							addThisTools += '<a class="addthis_button_linkedin" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
-							addThisTools += '<a class="addthis_button_twitter" addthis:url="' + this.link + '" addthis:title="' + this.title + '" addthis:description="' + this.description + '"></a>';
-							addThisTools += '</div>';
-
-						addthisToolboxMarkup.push(addThisTools);
+						addthisToolboxProperties.push(props);
 						
 						if(!options.company || !finfore.smallScreen) {
 							if(this.pubDate > finfore.ticker.date) {
@@ -216,11 +229,44 @@ finfore.modules.feed = function() {
 
 				// append and init addthis
 				var $this;
-				addthisToolboxMarkup.reverse();
+				var addthisToolboxMarkup = '<div class="toolbox">';
+				addthisToolboxMarkup += '<a class="addthis_button_email" ></a>';
+				addthisToolboxMarkup += '<a class="addthis_button_facebook" ></a>';
+				addthisToolboxMarkup += '<a class="addthis_button_linkedin" ></a>';
+				addthisToolboxMarkup += '<a class="addthis_button_twitter" ></a>';
+				addthisToolboxMarkup += '</div>';
+
+				addthisToolboxProperties.reverse();
+
 				$( $content.find('.feed-item-description').get().reverse() ).each(function(index) {
 					$this = $(this);
-					$this.after(addthisToolboxMarkup[index]);
-					addthis.toolbox( $this.next('.toolbox')[0] );
+
+					//append .toolbox markup
+					$this.after(addthisToolboxMarkup);
+
+
+					//create settings objects
+					var confObj = {
+		                ui_email_note: addthisToolboxProperties[index].description
+		            };
+
+		            var shareObj = {
+		                url: addthisToolboxProperties[index].link,
+		                title: addthisToolboxProperties[index].title + ' (via fastnd.com)',
+		                description: addthisToolboxProperties[index].description,
+		                passthrough: {
+		                    twitter: {
+		                        via: 'fastnd',
+		                        text: addthisToolboxProperties[index].description.substr(0,50)
+		                    }
+		                },
+		                email_vars: {
+		                	itemDescription: 'asdasdasds'
+		                }
+		                
+		            };
+					
+					addthis.toolbox( $this.next('.toolbox')[0], confObj, shareObj );
 
 					if(index === entries.length) {
 						return false;
