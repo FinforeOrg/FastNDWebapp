@@ -195,7 +195,15 @@ var blinkxCallback = function(result, params) {
 				markup += '<abbr>' + pubDate.toUTCString() + '</abbr>';
 				markup += '</a></li>';
 			}
-			addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + url + '" addthis:title="' + title + '"></a></div>');
+			var addThisTools  = '<div class="toolbox">';
+				addThisTools += '<a class="addthis_button_email" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
+				addThisTools += '<a class="addthis_button_facebook" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
+				addThisTools += '<a class="addthis_button_linkedin" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
+				addThisTools += '<a class="addthis_button_twitter" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
+				addThisTools += '</div>';
+
+			addthisToolboxMarkup.push(addThisTools);
+
 		});
 		
 		var $loadMoreLi = $('.load-more-entries', params.$container).parents('li').first();

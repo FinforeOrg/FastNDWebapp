@@ -148,8 +148,6 @@ finfore.modules.twitter = function() {
 				this.created_at += new_date.getFullYear() + ' ' ;
 				this.created_at += new_date.getUTCHours() + ':' ;
 				this.created_at += new_date.getUTCMinutes()  + ' UTC';
-				
-				
 
 				if(this.user) {
 					this.screen_name = this.user.screen_name;
@@ -178,8 +176,64 @@ finfore.modules.twitter = function() {
 				});
 			};
 
-			$tweets.find('.toolbox').each(function() {
-				addthis.toolbox(this);
+			$tweets.find('.sharing').each(function(index) {
+				
+				var confObj = {
+	                ui_email_note: tweets[index].html
+	            };
+
+	            var confObjButton = {
+	            	services_compact: 'facebook,twitter,linkedin',
+	            	services_exclude: 'email,gmail,yahoomail,hotmail'
+	            }
+
+	            var shareObj = {
+	                url: 'http://www.twitter.com/' + tweets[index].screen_name,
+	                title: tweets[index].html + ' (via fastnd.com)',
+	                description: tweets[index].html,
+	                passthrough: {
+	                    twitter: {
+	                        via: 'fastnd',
+	                        text: tweets[index].html
+	                    }
+	                }
+	                
+	            };
+
+				var toolbox = $(this).find('.toolbox').get();
+				var button = $(this).find('.at_compact').get();
+
+				addthis.toolbox( toolbox, confObj, shareObj );
+				addthis.button( button, confObjButton, shareObj );
+
+				//fix for the addthis popup position rendering issue
+				var st;
+				function onOver () {
+					var $this = $(this);
+					var offset = $this.offset();
+					var oleft = offset.left;
+					var otop = offset.top;
+					
+					st = setTimeout(function () {
+						var $popUp = $('#at15s');
+						var limit = $('body').width() - $popUp.width();
+						
+						if (oleft > limit){
+							oleft = limit
+						}
+
+						$popUp.css({
+							top: otop + 'px',
+							left: oleft + 'px'
+						});
+					}, 40);
+				}
+
+				function onOut () {
+					window.clearTimeout(st);
+				}
+
+				$(button).hover(onOver, onOut);	
 			})
 		};
 		

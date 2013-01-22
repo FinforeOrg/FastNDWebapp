@@ -141,7 +141,7 @@ finfore.modules.podcast = function() {
 			limit: options.limit,
 			podcast: true,
 			complete: function(entries) {
-		
+				
 				// if loading more entries, slice the array to only show the latest 5
 				if((options.loadMore === true) && (options.limit > 5)) {
 					entries = entries.slice(options.limit - multiplier, options.limit);
@@ -151,10 +151,10 @@ finfore.modules.podcast = function() {
 				var markup = '',
 					entriesLength = entries.length - 1,
 					filename,
-					addthisToolboxMarkup = [];
+					addthisToolboxProperties = [];
 				
 				$.each(entries, function(index, value) {
-				
+					
 					// check for podcast file
 					filename = '';
 					if(this.link) {
@@ -162,9 +162,10 @@ finfore.modules.podcast = function() {
 					} else if(this.enclosure) {
 						filename = this.enclosure.url;
 					}
-				
+
 					if((options.loadMore === true || this.pubDate > options.date) && filename) {
-					
+
+						
 						if(index === entriesLength) {
 							markup += '<li class="last-in-group" data-icon="false">';
 						} else {
@@ -179,16 +180,24 @@ finfore.modules.podcast = function() {
 						
 						if($.inArray(extension, videoExt) === 0) {
 							markup += '<video src="' + filename + '" width="270" height="150" controls="controls" type="video/' + extension + '" preload="none"></video>';
+
 						} else {
 							markup += '<audio src="' + filename + '" controls="controls" type="audio/' + extension + '" preload="none"></audio>';
 						}
 						markup += '<p>' + this.description + '</p>';
 						markup += '<abbr>' + this.pubDate.toUTCString() + '</abbr>';
 						markup += '</li>';
-						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
 					}
+					
+					var props = {
+						link: this.link,
+						title: this.title,
+						description: this.description
+					}
+					addthisToolboxProperties.push(props);
+
 				});
-				
+
 				var $loadMoreLi = $('.load-more-entries', options.$container).parents('li').first(),
 					$markup = $(markup),
 					$content = $('[data-role=content] ul', options.$container);
@@ -213,11 +222,76 @@ finfore.modules.podcast = function() {
 
 				// append and init addthis
 				var $this;
-				addthisToolboxMarkup.reverse();
+				
+				var addthisToolboxMarkup = '<div class="sharing">';
+					addthisToolboxMarkup += '<a href="" class="at_compact" ></a>';
+					addthisToolboxMarkup += '<div class="toolbox">';
+					addthisToolboxMarkup += '<a href="" class="addthis_button_email" ></a>';
+					addthisToolboxMarkup += '</div>';
+					addthisToolboxMarkup += '</div>';
+
+				addthisToolboxProperties.reverse();
+
 				$( $content.find('.ui-li-desc').get().reverse() ).each(function(index) {
 					$this = $(this);
-					$this.after(addthisToolboxMarkup[index]);
-					addthis.toolbox( $this.next('.toolbox')[0] );
+					
+					//append .toolbox markup
+					$this.after(addthisToolboxMarkup);
+
+					//create settings objects
+					var confObj = {
+		                ui_email_note: addthisToolboxProperties[index].description
+		            };
+
+		            var confObjButton = {
+		            	services_compact: 'facebook,twitter,linkedin',
+		            	services_exclude: 'email,gmail,yahoomail,hotmail'
+		            }
+
+		            var shareObj = {
+		                url: addthisToolboxProperties[index].link,
+		                title: addthisToolboxProperties[index].title + ' (via fastnd.com)',
+		                description: addthisToolboxProperties[index].description,
+		                passthrough: {
+		                    twitter: {
+		                        via: 'fastnd',
+		                        text: addthisToolboxProperties[index].title
+		                    }
+		                }
+		                
+		            };
+					
+					addthis.toolbox( $this.next('div').find('.toolbox')[0], confObj, shareObj );
+					addthis.button( $this.next('div').find('.at_compact')[0], confObjButton, shareObj );
+
+					//fix for the addthis popup position rendering issue
+					var st;
+					function onOver () {
+						var $this = $(this);
+						var offset = $this.offset();
+						var oleft = offset.left;
+						var otop = offset.top;
+						
+						st = setTimeout(function () {
+							var $popUp = $('#at15s');
+							var limit = $('body').width() - $popUp.width();
+							
+							if (oleft > limit){
+								oleft = limit
+							}
+
+							$popUp.css({
+								top: otop + 'px',
+								left: oleft + 'px'
+							});
+						}, 100);
+					}
+
+					function onOut () {
+						window.clearTimeout(st);
+					}
+
+					$this.next('div').find('.at_compact').hover(onOver, onOut);	
 
 					if(index === entries.length) {
 						return false;
@@ -242,7 +316,7 @@ finfore.modules.podcast = function() {
 		var refresh = function(e, loadmore) {
 			$container.addClass('panel-loading');			
 			
-			if(loadmore === true) {				
+			if(loadmore === true) {		
 				feedNumber += multiplier;				
 			};
 			

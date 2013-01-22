@@ -3,10 +3,19 @@
  * Feed Module
  *
  */
- 
+
+//add this global config
+var addthis_config = {
+	pubid: 'ra-50cf034a5562d612',
+    ui_cobrand: "Fastnd.com"
+}
+
+
+
 // Define module
 finfore.modules.feed = function() {
 	var multiplier = 15;
+
 	
 	// Feed Module Management
 	var management = function($container) {
@@ -158,9 +167,15 @@ finfore.modules.feed = function() {
 				// parse entries
 				var markup = '',
 					entriesLength = entries.length - 1,
-					addthisToolboxMarkup = [];
+					addthisToolboxProperties = [];
 
 				$.each(entries, function(index) {
+					
+					//check if link is string or object
+					if (typeof this.link == 'object'){
+						this.link = this.link.href;
+					}
+
 					// check date
 					if((options.loadMore === true) || (this.pubDate > options.date)) {
 						if(index === entriesLength) {
@@ -184,8 +199,8 @@ finfore.modules.feed = function() {
 						}
 
 						markup += '</li>';
-
-						addthisToolboxMarkup.push('<div class="toolbox"><a class="addthis_button_email" addthis:url="' + this.link + '" addthis:title="' + this.title + '"></a></div>');
+						
+						
 						
 						if(!options.company || !finfore.smallScreen) {
 							if(this.pubDate > finfore.ticker.date) {
@@ -193,6 +208,14 @@ finfore.modules.feed = function() {
 							};
 						};
 					}
+
+					var props = {
+						link: this.link,
+						title: this.title,
+						description: this.description
+					}
+
+					addthisToolboxProperties.push(props);
 					
 				});
 
@@ -209,15 +232,81 @@ finfore.modules.feed = function() {
 
 				// append and init addthis
 				var $this;
-				addthisToolboxMarkup.reverse();
-				$( $content.find('.feed-item-description').get().reverse() ).each(function(index) {
-					$this = $(this);
-					$this.after(addthisToolboxMarkup[index]);
-					addthis.toolbox( $this.next('.toolbox')[0] );
+				var addthisToolboxMarkup = '<div class="sharing">';
+				addthisToolboxMarkup += '<a class="at_compact" ></a>';
+				addthisToolboxMarkup += '<div class="toolbox">';
+				addthisToolboxMarkup += '<a class="addthis_button_email" ></a>';
+				addthisToolboxMarkup += '</div>';
+				addthisToolboxMarkup += '</div>';
 
+				addthisToolboxProperties.reverse();
+
+				$( $content.find('.feed-item-description').get().reverse() ).each(function(index) {
+					//stop when list of new loaded items is finished
 					if(index === entries.length) {
 						return false;
 					}
+
+					$this = $(this);
+
+					//append .toolbox markup
+					$this.after(addthisToolboxMarkup);
+
+					//create settings objects
+					var confObj = {
+		                ui_email_note: addthisToolboxProperties[index].description
+		            };
+
+		            var confObjButton = {
+		            	services_compact: 'facebook,twitter,linkedin',
+		            	services_exclude: 'email,gmail,yahoomail,hotmail'
+		            }
+
+		            var shareObj = {
+		                url: addthisToolboxProperties[index].link,
+		                title: addthisToolboxProperties[index].title + ' (via fastnd.com)',
+		                description: addthisToolboxProperties[index].description,
+		                passthrough: {
+		                    twitter: {
+		                        via: 'fastnd',
+		                        text: addthisToolboxProperties[index].title
+		                    }
+		                }
+		                
+		            };
+					
+					addthis.toolbox( $this.next('div').find('.toolbox')[0], confObj, shareObj );
+					addthis.button( $this.next('div').find('.at_compact')[0], confObjButton, shareObj );
+
+					//fix for the addthis popup position rendering issue
+					var st;
+					function onOver () {
+						var $this = $(this);
+						var offset = $this.offset();
+						var oleft = offset.left;
+						var otop = offset.top;
+						
+						st = setTimeout(function () {
+							var $popUp = $('#at15s');
+							var limit = $('body').width() - $popUp.width();
+							
+							if (oleft > limit){
+								oleft = limit
+							}
+
+							$popUp.css({
+								top: otop + 'px',
+								left: oleft + 'px'
+							});
+						}, 100);
+					}
+
+					function onOut () {
+						window.clearTimeout(st);
+					}
+
+					$this.next('div').find('.at_compact').hover(onOver, onOut);					
+
 				});
 				
 				//remove the arrow from last item
@@ -304,21 +393,7 @@ finfore.modules.feed = function() {
 				company: options.company,
 				callbackId: callbackId
 			});
-
-/*
-			setTimeout(function() {
-				$('.toolbox').each(function() {
-			
-					if ($('>a', this).attr('class').indexOf('at300b') < 0){
-						addthis.toolbox(this);
-					}
-					
-
-				});
-			}, 1000);
-*/
-
-			
+		
 		};		
 		
 		var build = function() {		
@@ -385,6 +460,7 @@ finfore.modules.feed = function() {
 			$container.trigger('init');
 
 		}();
+		
 	
 	};
 	

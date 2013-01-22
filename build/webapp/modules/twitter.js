@@ -123,6 +123,9 @@ finfore.modules.twitter = function() {
 	};
 	
 	var init = function($container, options) {
+		var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 		var tweetTemplate;
 		
 		var timelineCount = 20, multiplier = 5;
@@ -137,12 +140,23 @@ finfore.modules.twitter = function() {
 			$.each(tweets, function() {
 				this.html = $.linkUrl(this.text);				
 				
+				var new_date = new Date(this.created_at);
+				
+				this.created_at  = weekdays[new_date.getDay()] + ', ';
+				this.created_at += new_date.getDate() + ' ' ;
+				this.created_at += months[new_date.getMonth()] + ' ';
+				this.created_at += new_date.getFullYear() + ' ' ;
+				this.created_at += new_date.getUTCHours() + ':' ;
+				this.created_at += new_date.getUTCMinutes()  + ' UTC';
+
 				if(this.user) {
 					this.screen_name = this.user.screen_name;
 					this.profile_image_url = this.user.profile_image_url;
 				};
 			});
 			
+
+
 			tweetTemplate = $.View('//webapp/views/module.twitter.tweet.tmpl', {
 								tweets: tweets
 							});
@@ -162,8 +176,64 @@ finfore.modules.twitter = function() {
 				});
 			};
 
-			$tweets.find('.toolbox').each(function() {
-				addthis.toolbox(this);
+			$tweets.find('.sharing').each(function(index) {
+				
+				var confObj = {
+	                ui_email_note: tweets[index].html
+	            };
+
+	            var confObjButton = {
+	            	services_compact: 'facebook,twitter,linkedin',
+	            	services_exclude: 'email,gmail,yahoomail,hotmail'
+	            }
+
+	            var shareObj = {
+	                url: 'http://www.twitter.com/' + tweets[index].screen_name,
+	                title: tweets[index].html + ' (via fastnd.com)',
+	                description: tweets[index].html,
+	                passthrough: {
+	                    twitter: {
+	                        via: 'fastnd',
+	                        text: tweets[index].html
+	                    }
+	                }
+	                
+	            };
+
+				var toolbox = $(this).find('.toolbox').get();
+				var button = $(this).find('.at_compact').get();
+
+				addthis.toolbox( toolbox, confObj, shareObj );
+				addthis.button( button, confObjButton, shareObj );
+
+				//fix for the addthis popup position rendering issue
+				var st;
+				function onOver () {
+					var $this = $(this);
+					var offset = $this.offset();
+					var oleft = offset.left;
+					var otop = offset.top;
+					
+					st = setTimeout(function () {
+						var $popUp = $('#at15s');
+						var limit = $('body').width() - $popUp.width();
+						
+						if (oleft > limit){
+							oleft = limit
+						}
+
+						$popUp.css({
+							top: otop + 'px',
+							left: oleft + 'px'
+						});
+					}, 40);
+				}
+
+				function onOut () {
+					window.clearTimeout(st);
+				}
+
+				$(button).hover(onOver, onOut);	
 			})
 		};
 		

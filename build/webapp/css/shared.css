@@ -297,16 +297,63 @@
 	white-space: normal !important;
 }
 
+/* Addthis */
+.sharing {
+	position: absolute;
+	right: 0;
+	width: 50px;
+	height: 16px;
+}
+.at_compact {
+	width: 16px ;
+	height: 16px ;
+	background: url(../images/addthis_compact_gray.gif) no-repeat 0 0;
+	display: block;
+	position: absolute;
+	right: 19px;
+	bottom: 0;
+}
+.at_compact img {
+	width: 1px;
+	height: 1px;
+	display:block;
+}
+
+.toolbox {
+	width: 50px;
+	height: 16px;
+}
+
+.toolbox a {
+	position: absolute;
+}
+
+.toolbox a.addthis_button_facebook {
+	bottom: 5px;
+	right: 36px;
+}
+
+.toolbox a.addthis_button_linkedin {
+	bottom: 5px;
+	right: 18px;
+}
+
+.toolbox a.addthis_button_twitter {
+	bottom: 5px;
+	right: 54px;
+}
+
 .ui-btn-text .addthis_button_email,
 .ui-btn-up-c .addthis_button_email {
 	position: absolute;
-	bottom: 5px;
 	right: 0;
 }
 
-.tweets .ui-btn-up-c .addthis_button_email {
+.tweets .sharing {
+	bottom: 8px;
 	right: 5px;
 }
+
 
 .feed h3 a, .podcast h3 a, .blinkx h3 a {
     display: block;
@@ -325,7 +372,6 @@
 
 .podcast .ui-li a.addthis_button_email {
 	position: absolute;
-	bottom: 5px;
 	right: 0;
 }
 
