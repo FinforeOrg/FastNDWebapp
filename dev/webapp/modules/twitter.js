@@ -194,7 +194,7 @@ finfore.modules.twitter = function() {
 	                passthrough: {
 	                    twitter: {
 	                        via: 'fastnd',
-	                        text: tweets[index].html
+	                        text: tweets[index].text
 	                    }
 	                }
 	                
@@ -261,7 +261,8 @@ finfore.modules.twitter = function() {
 					dataType: 'jsonp',
 					data: {
 						q: query,
-						rpp: timelineCount
+						rpp: timelineCount,
+						result_type: 'popular'
 					},
 					success: tweetCallback
 				});

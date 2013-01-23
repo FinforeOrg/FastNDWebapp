@@ -194,11 +194,13 @@ finfore.modules.twitter = function() {
 	                passthrough: {
 	                    twitter: {
 	                        via: 'fastnd',
-	                        text: tweets[index].html
+	                        text: tweets[index].text
 	                    }
 	                }
 	                
 	            };
+
+	            console.log(tweets[index]);
 
 				var toolbox = $(this).find('.toolbox').get();
 				var button = $(this).find('.at_compact').get();
@@ -261,7 +263,8 @@ finfore.modules.twitter = function() {
 					dataType: 'jsonp',
 					data: {
 						q: query,
-						rpp: timelineCount
+						rpp: timelineCount,
+						result_type: 'popular'
 					},
 					success: tweetCallback
 				});
