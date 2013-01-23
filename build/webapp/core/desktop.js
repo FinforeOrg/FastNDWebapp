@@ -733,311 +733,313 @@ finfore.desktop = function() {
 		nodes.$page = $('#desktop');
 
 		nodes.$mobileAddCompany = $('.mobile-addcompany');
-
-		$.mobile.changePage(nodes.$page, {
-			changeHash: false
-		});		
 		
-		
-		// If the user is logged-in
-		if(finfore.data.user) {
-			nodes.$tabBar = $('#tab-bar');
-			nodes.$tabList = $('ul', nodes.$tabBar);
-			nodes.$desktopContent = $('#desktop-content');
-		
-			nodes.$tabletTabsContainer = $('.tablet-tab-selector', nodes.$page);
-			
-			if(touchSupport) {
-				nodes.tabletTabsScroller = new iScroll('tablet-tabs', {
-					hScroll: false,
-					hScrollbar: false,
-					vScrollbar: false,
-					useTransition:true
-				});
-				
-				tabletOrientationRefresh();
-			}
-			
-			nodes.$tabletTabs = $('.tablet-tab-list', nodes.$tabletTabsContainer);
-			
-			tabs.init();
-			
-			// Add Main tab
-			var $mainTabBtn = tabs.add({
-				id: 'main',
-				title: 'Main',
-				closable: false
-			});			
-			nodes.tabs.$main = $('#main');
-			
-			// Add Portfolio tab
-			tabs.add({
-				id: 'portfolio',
-				title: 'Portfolio',
-				closable: false
+		setTimeout(function() {
+			$.mobile.changePage(nodes.$page, {
+				changeHash: false
 			});
-			nodes.tabs.$portfolio = $('#portfolio');
+		}, 10);
+		
+		setTimeout(function() {
+			// If the user is logged-in
+			if(finfore.data.user) {
+				nodes.$tabBar = $('#tab-bar');
+				nodes.$tabList = $('ul', nodes.$tabBar);
+				nodes.$desktopContent = $('#desktop-content');
 			
-			// add tab loaders
-			nodes.tabs.$main.add(nodes.tabs.$portfolio);
-			
-			// ticker nodes
-			ticker.$node = $('.scrolling-ticker', nodes.$page);
-						
-			// ticker hover events
-			ticker.$node.delegate('marquee', 'mouseover', function () {
-				$('marquee', ticker.$node)[0].stop();
-			});
-			ticker.$node.delegate('marquee', 'mouseout', function() {
-				$('marquee', ticker.$node)[0].start();
-			});			
-			
-			// The user is logged-in into Registered Account
-			if(!finfore.data.user.is_public) {
-				finfore.$body.addClass('registered-user');
-			
-				// makes tabs and panels sortable				
-				if(!finfore.data.user.is_public) {
+				nodes.$tabletTabsContainer = $('.tablet-tab-selector', nodes.$page);
 				
-					// Make panels in Main tab sortable, and remember their position
-					nodes.$panelsSortable = $("#main .tab-scroller");
-					nodes.$panelsSortable.sortable({
-						helper: 'clone',		
-						handle: '[data-role="header"]',
-						delay: 400,
-						stop: panels.sort
-					});					
-
-				};				
-				
-				// bind user actions
-				$('.logout-button', nodes.$page).bind('click', function() {			
-					Storage.removeItem('user');
-					Storage.removeItem('updateProfile');
+				if(touchSupport) {
+					nodes.tabletTabsScroller = new iScroll('tablet-tabs', {
+						hScroll: false,
+						hScrollbar: false,
+						vScrollbar: false,
+						useTransition:true
+					});
 					
-					window.location.reload();
-					return false;
-				});		
+					tabletOrientationRefresh();
+				}
 				
-				$('#manage-button', nodes.$page).click(function() {					
-					finfore.manage.init();				
-					return false;
-				});
-								
-				$('#profile-button', nodes.$page).bind('click', function() {					
-					finfore.profile.init();
-					return false;
-				});
+				nodes.$tabletTabs = $('.tablet-tab-list', nodes.$tabletTabsContainer);
 				
-				$('.help-button', nodes.$page).bind('click', function() {					
-					finfore.help.init();					
-					return false;
-				});
+				tabs.init();
 				
-				$('.add-company-button', nodes.$page).click(finfore.addcompany.init);
+				// Add Main tab
+				var $mainTabBtn = tabs.add({
+					id: 'main',
+					title: 'Main',
+					closable: false
+				});			
+				nodes.tabs.$main = $('#main');
+				
+				// Add Portfolio tab
+				tabs.add({
+					id: 'portfolio',
+					title: 'Portfolio',
+					closable: false
+				});
+				nodes.tabs.$portfolio = $('#portfolio');
+				
+				// add tab loaders
+				nodes.tabs.$main.add(nodes.tabs.$portfolio);
+				
+				// ticker nodes
+				ticker.$node = $('.scrolling-ticker', nodes.$page);
+							
+				// ticker hover events
+				ticker.$node.delegate('marquee', 'mouseover', function () {
+					$('marquee', ticker.$node)[0].stop();
+				});
+				ticker.$node.delegate('marquee', 'mouseout', function() {
+					$('marquee', ticker.$node)[0].start();
+				});			
+				
+				// The user is logged-in into Registered Account
+				if(!finfore.data.user.is_public) {
+					finfore.$body.addClass('registered-user');
+				
+					// makes tabs and panels sortable				
+					if(!finfore.data.user.is_public) {
+					
+						// Make panels in Main tab sortable, and remember their position
+						nodes.$panelsSortable = $("#main .tab-scroller");
+						nodes.$panelsSortable.sortable({
+							helper: 'clone',		
+							handle: '[data-role="header"]',
+							delay: 400,
+							stop: panels.sort
+						});					
+
+					};				
+					
+					// bind user actions
+					$('.logout-button', nodes.$page).bind('click', function() {			
+						Storage.removeItem('user');
+						Storage.removeItem('updateProfile');
+						
+						window.location.reload();
+						return false;
+					});		
+					
+					$('#manage-button', nodes.$page).click(function() {					
+						finfore.manage.init();				
+						return false;
+					});
+									
+					$('#profile-button', nodes.$page).bind('click', function() {					
+						finfore.profile.init();
+						return false;
+					});
+					
+					$('.help-button', nodes.$page).bind('click', function() {					
+						finfore.help.init();					
+						return false;
+					});
+					
+					$('.add-company-button', nodes.$page).click(finfore.addcompany.init);
+				};
+				
+				finfore.populate();
+				
+				setTimeout(function() {
+					tabs.select($mainTabBtn);
+				}, 10);
+			
 			};
 			
-			finfore.populate();
-			
-			setTimeout(function() {
-				tabs.select($mainTabBtn);
-			}, 10);
-		
-		};
-		
-		// User is not logged-in or Public Account
-		if(!finfore.data.user || finfore.data.user.is_public) {
-			// bind login button
-			$('#login-button').click(function() {
-				finfore.login.init();
-				return false;
-			});
-			
-			// signup button
-			$('#signup-button').click(function() {					
-				finfore.signup.init();				
-				return false;
-			});
-			
-			// find company button
-			$('#find-company-button').click(function() {
-				finfore.addcompany.init();
-				return false;
-			});
-			
-			initPublicAccountSelector();
-		};		
-	
-		// init blank state notice
-		if(finfore.data.blankState) {
-			initBlankState();
-		}
-		
-		bindControlgroupEvents();
-		
-		// update profile focus details for social sign-in accounts
-		if(finfore.data.updateProfile) finfore.profile.init();
-		
-		// Really, REALLY ugly fix for iOS+iScroll4 double click issues
-		if(touchSupport) {
-			var debounce = false;
-			nodes.$desktopContent.delegate('a[target="_blank"]', 'click', function() {
-				if(!debounce) {
-					debounce = true;
-					setTimeout(function() {
-						debounce = false;
-					}, 500);
-					return true;		
-				} else {
+			// User is not logged-in or Public Account
+			if(!finfore.data.user || finfore.data.user.is_public) {
+				// bind login button
+				$('#login-button').click(function() {
+					finfore.login.init();
 					return false;
-				}
-			}); 
-		};
-
-		// bind vclick event to the form, because iScroll was preventing tap-ing the input
-		var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
-		
-		if(touchSupport) {
-			nodes.$mobileAddCompany.siblings('form').bind('vclick', function() {
-				$filterInput.focus();
-			});
-		}
-		
-		// facebook-like inline company search autocomplete
-		WebService.getCompanies({
-			success: function (companies) {
-				// Sort companies alphabeticaly
-				companies.sort(finfore.addcompany.abSorting);
-
-				finfore.addcompany.allCompanies = companies;
-
-				var template = $.View('//webapp/views/addcompanymobile.tmpl', {
-					companies: companies
-				});
-
-				nodes.$mobileAddCompany.html(template);
-
-				$('li', nodes.$mobileAddCompany).on('click', finfore.addcompany.saveCompany);
-
-				nodes.$mobileAddCompany.listview('refresh');
-				
-				// unbind jquery mobile fitlers
-				$filterInput.unbind('keyup change');
-				
-				var list = nodes.$mobileAddCompany,
-					listview = list.data( "listview" ),
-					filterThread,
-					$bodyHeight = parseInt($('body').height()) - 190;
-					
-				list.css({
-					'max-height': $bodyHeight + 'px',
-					'overflow-y': 'auto'
 				});
 				
-				// rewrite jquery mobile filters
-				$filterInput.bind('keyup change', function() {
-					
-					var val = this.value.toLowerCase(),
-						listItems = null,
-						lastval = $filterInput.jqmData( "lastval" ) + "",
-						childItems = false,
-						itemtext = "",
-						item;
-					
-					/* In case there was a previously set filter, stop it.
-					 * This makes only the latest version of the val to count,
-					 * and prevents performance issues when typing multiple letters
-					 * at an interval smaller than 1s.
-					 */
-					if(filterThread) clearTimeout(filterThread);
-					
-					// delay filter execution by 1s, from the last keyup, to not block the ui
-					filterThread = setTimeout(function() {
-							
-						// Change val as lastval for next execution
-						$filterInput.jqmData( "lastval" , val );
-						if ( val.length < lastval.length || val.indexOf(lastval) !== 0 ) {
+				// signup button
+				$('#signup-button').click(function() {					
+					finfore.signup.init();				
+					return false;
+				});
+				
+				// find company button
+				$('#find-company-button').click(function() {
+					finfore.addcompany.init();
+					return false;
+				});
+				
+				initPublicAccountSelector();
+			};		
+		
+			// init blank state notice
+			if(finfore.data.blankState) {
+				initBlankState();
+			}
+			
+			bindControlgroupEvents();
+			
+			// update profile focus details for social sign-in accounts
+			if(finfore.data.updateProfile) finfore.profile.init();
+			
+			// Really, REALLY ugly fix for iOS+iScroll4 double click issues
+			if(touchSupport) {
+				var debounce = false;
+				nodes.$desktopContent.delegate('a[target="_blank"]', 'click', function() {
+					if(!debounce) {
+						debounce = true;
+						setTimeout(function() {
+							debounce = false;
+						}, 500);
+						return true;		
+					} else {
+						return false;
+					}
+				}); 
+			};
 
-							// Removed chars or pasted something totally different, check all items
-							listItems = list.children();
-						} else {
+			// bind vclick event to the form, because iScroll was preventing tap-ing the input
+			var $filterInput = $('input', nodes.$mobileAddCompany.siblings('form'));
+			
+			if(touchSupport) {
+				nodes.$mobileAddCompany.siblings('form').bind('vclick', function() {
+					$filterInput.focus();
+				});
+			}
+			
+			// facebook-like inline company search autocomplete
+			WebService.getCompanies({
+				success: function (companies) {
+					// Sort companies alphabeticaly
+					companies.sort(finfore.addcompany.abSorting);
 
-							// Only chars added, not removed, only use visible subset
-							listItems = list.children( ":not(.ui-screen-hidden)" );
-						}
+					finfore.addcompany.allCompanies = companies;
 
-						if ( val.length > 2 ) {
+					var template = $.View('//webapp/views/addcompanymobile.tmpl', {
+						companies: companies
+					});
+
+					nodes.$mobileAddCompany.html(template);
+
+					$('li', nodes.$mobileAddCompany).on('click', finfore.addcompany.saveCompany);
+
+					nodes.$mobileAddCompany.listview('refresh');
+					
+					// unbind jquery mobile fitlers
+					$filterInput.unbind('keyup change');
+					
+					var list = nodes.$mobileAddCompany,
+						listview = list.data( "listview" ),
+						filterThread,
+						$bodyHeight = parseInt($('body').height()) - 190;
 						
-							list.removeClass( "hide-mobile-companies");
+					list.css({
+						'max-height': $bodyHeight + 'px',
+						'overflow-y': 'auto'
+					});
+					
+					// rewrite jquery mobile filters
+					$filterInput.bind('keyup change', function() {
+						
+						var val = this.value.toLowerCase(),
+							listItems = null,
+							lastval = $filterInput.jqmData( "lastval" ) + "",
+							childItems = false,
+							itemtext = "",
+							item;
+						
+						/* In case there was a previously set filter, stop it.
+						* This makes only the latest version of the val to count,
+						* and prevents performance issues when typing multiple letters
+						* at an interval smaller than 1s.
+						*/
+						if(filterThread) clearTimeout(filterThread);
+						
+						// delay filter execution by 1s, from the last keyup, to not block the ui
+						filterThread = setTimeout(function() {
+								
+							// Change val as lastval for next execution
+							$filterInput.jqmData( "lastval" , val );
+							if ( val.length < lastval.length || val.indexOf(lastval) !== 0 ) {
 
-							// This handles hiding regular rows without the text we search for
-							// and any list dividers without regular rows shown under it
+								// Removed chars or pasted something totally different, check all items
+								listItems = list.children();
+							} else {
 
-							for ( var i = listItems.length - 1; i >= 0; i-- ) {
-								item = $( listItems[ i ] );
-								itemtext = item.jqmData( "filtertext" ) || item.text();
-
-								if ( listview.options.filterCallback( itemtext, val ) ) {
-
-									//mark to be hidden
-									item.toggleClass( "ui-filter-hidequeue" , true );
-								} else {
-
-									// There's a shown item in the bucket
-									childItems = true;
-								}
+								// Only chars added, not removed, only use visible subset
+								listItems = list.children( ":not(.ui-screen-hidden)" );
 							}
 
-							// Show items, not marked to be hidden
-							listItems
-								.filter( ":not(.ui-filter-hidequeue)" )
-								.toggleClass( "ui-screen-hidden", false );
-
-							// Hide items, marked to be hidden
-							listItems
-								.filter( ".ui-filter-hidequeue" )
-								.toggleClass( "ui-screen-hidden", true )
-								.toggleClass( "ui-filter-hidequeue", false );
-
-						} else {
-						
-							//change theme color for list items
-							list.find('.ui-body-c').removeClass('ui-body-c').addClass('ui-body-a');
-
-							//filtervalue is empty, hide list
-							list.addClass( "hide-mobile-companies");
+							if ( val.length > 2 ) {
 							
-							//filtervalue is empty => show all
-							listItems.toggleClass( "ui-screen-hidden", false );
+								list.removeClass( "hide-mobile-companies");
 
-						}
-					
-						// refresh iscroll
-						if(touchSupport) {
-							// refresh tab selector iScroll to account for new added tab
-							nodes.tabletTabsScroller.refresh();
-						}
-					
-					}, 1000);
-					
-				});
+								// This handles hiding regular rows without the text we search for
+								// and any list dividers without regular rows shown under it
 
-				// trigger keyup, in case text was entered before the items were loaded
-				$filterInput.trigger('keyup');
-			}
-		});
+								for ( var i = listItems.length - 1; i >= 0; i-- ) {
+									item = $( listItems[ i ] );
+									itemtext = item.jqmData( "filtertext" ) || item.text();
 
-		// set overlay class for small-dialog on body
-		$(document).on('pagebeforeshow', '[data-role=dialog]', function() {
-			finfore.$body.addClass('small-dialog-overlay');
-		});
-		
-		// remove overlay class for small-dialog on body
-		$(document).on('pagehide', '[data-role=dialog]', function() {
-			finfore.$body.removeClass('small-dialog-overlay');
-		});
+									if ( listview.options.filterCallback( itemtext, val ) ) {
 
+										//mark to be hidden
+										item.toggleClass( "ui-filter-hidequeue" , true );
+									} else {
 
+										// There's a shown item in the bucket
+										childItems = true;
+									}
+								}
+
+								// Show items, not marked to be hidden
+								listItems
+									.filter( ":not(.ui-filter-hidequeue)" )
+									.toggleClass( "ui-screen-hidden", false );
+
+								// Hide items, marked to be hidden
+								listItems
+									.filter( ".ui-filter-hidequeue" )
+									.toggleClass( "ui-screen-hidden", true )
+									.toggleClass( "ui-filter-hidequeue", false );
+
+							} else {
+							
+								//change theme color for list items
+								list.find('.ui-body-c').removeClass('ui-body-c').addClass('ui-body-a');
+
+								//filtervalue is empty, hide list
+								list.addClass( "hide-mobile-companies");
+								
+								//filtervalue is empty => show all
+								listItems.toggleClass( "ui-screen-hidden", false );
+
+							}
+						
+							// refresh iscroll
+							if(touchSupport) {
+								// refresh tab selector iScroll to account for new added tab
+								nodes.tabletTabsScroller.refresh();
+							}
+						
+						}, 1000);
+						
+					});
+
+					// trigger keyup, in case text was entered before the items were loaded
+					$filterInput.trigger('keyup');
+				}
+			});
+
+			// set overlay class for small-dialog on body
+			$(document).on('pagebeforeshow', '[data-role=dialog]', function() {
+				finfore.$body.addClass('small-dialog-overlay');
+			});
+			
+			// remove overlay class for small-dialog on body
+			$(document).on('pagehide', '[data-role=dialog]', function() {
+				finfore.$body.removeClass('small-dialog-overlay');
+			});
+
+		}, 20);
 		
 	};
 
