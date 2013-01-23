@@ -8,6 +8,7 @@
 var addthis_config = {
 	pubid: 'ra-50cf034a5562d612',
     ui_cobrand: "Fastnd.com"
+    //,ui_click: true
 }
 
 

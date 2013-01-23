@@ -165,7 +165,8 @@ finfore.modules.keyword = function() {
 				dataType: 'jsonp',
 				data: {
 					q: query,
-					rpp: timelineCount
+					rpp: timelineCount,
+					result_type: 'popular'
 				},
 				success: tweetCallback
 			});
