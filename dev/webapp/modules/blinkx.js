@@ -151,7 +151,7 @@ var blinkxCallback = function(result, params) {
 		image,
 		url,
 		pubDate,
-		addthisToolboxMarkup = [];
+		addthisToolboxProperties = [];
 	
 	// check for response
 	if(result.query.results && result.query.results.response.responsedata) hits = result.query.results.response.responsedata.hit;
@@ -195,14 +195,14 @@ var blinkxCallback = function(result, params) {
 				markup += '<abbr>' + pubDate.toUTCString() + '</abbr>';
 				markup += '</a></li>';
 			}
-			var addThisTools  = '<div class="toolbox">';
-				addThisTools += '<a class="addthis_button_email" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
-				addThisTools += '<a class="addthis_button_facebook" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
-				addThisTools += '<a class="addthis_button_linkedin" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
-				addThisTools += '<a class="addthis_button_twitter" addthis:url="' + url + '" addthis:title="' + title + '" addthis:description="' + summary.substring(0, 100) + '"></a>';
-				addThisTools += '</div>';
+			
+			var props = {
+				link: url,
+				title: title,
+				description: summary.substring(0, 100)
+			}
 
-			addthisToolboxMarkup.push(addThisTools);
+			addthisToolboxProperties.push(props);
 
 		});
 		
@@ -215,11 +215,74 @@ var blinkxCallback = function(result, params) {
 
 		// append and init addthis
 		var $this;
-		addthisToolboxMarkup.reverse();
+		var addthisToolboxMarkup = '<div class="sharing">';
+			addthisToolboxMarkup += '<a class="at_compact" ></a>';
+			addthisToolboxMarkup += '<div class="toolbox">';
+			addthisToolboxMarkup += '<a class="addthis_button_email" ></a>';
+			addthisToolboxMarkup += '</div>';
+			addthisToolboxMarkup += '</div>';
+
+		addthisToolboxProperties.reverse();
 		$( params.$container.find('.ui-li-desc').get().reverse() ).each(function(index) {
+			
+
 			$this = $(this);
-			$this.after(addthisToolboxMarkup[index]);
-			addthis.toolbox( $this.next('.toolbox')[0] );
+
+			$this.after(addthisToolboxMarkup);
+
+			//create settings objects
+			var confObj = {
+                ui_email_note: addthisToolboxProperties[index].description
+            };
+
+            var confObjButton = {
+            	services_compact: 'facebook,twitter,linkedin',
+            	services_exclude: 'email,gmail,yahoomail,hotmail'
+            }
+
+            var shareObj = {
+                url: addthisToolboxProperties[index].link,
+                title: addthisToolboxProperties[index].title + ' (via fastnd.com)',
+                description: addthisToolboxProperties[index].description,
+                passthrough: {
+                    twitter: {
+                        via: 'fastnd',
+                        text: addthisToolboxProperties[index].title
+                    }
+                }
+                
+            };
+
+            addthis.toolbox( $this.next('div').find('.toolbox')[0], confObj, shareObj );
+			addthis.button( $this.next('div').find('.at_compact')[0], confObjButton, shareObj );
+			
+			var st;
+			function onOver () {
+				var $this = $(this);
+				var offset = $this.offset();
+				var oleft = offset.left;
+				var otop = offset.top;
+				
+				st = setTimeout(function () {
+					var $popUp = $('#at15s');
+					var limit = $('body').width() - $popUp.width();
+					
+					if (oleft > limit){
+						oleft = limit
+					}
+
+					$popUp.css({
+						top: otop + 'px',
+						left: oleft + 'px'
+					});
+				}, 100);
+			}
+
+			function onOut () {
+				window.clearTimeout(st);
+			}
+
+			$this.next('div').find('.at_compact').hover(onOver, onOut);		
 
 			if(index === entriesLength) {
 				return false;

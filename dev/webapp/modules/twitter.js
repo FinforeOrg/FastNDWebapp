@@ -261,8 +261,8 @@ finfore.modules.twitter = function() {
 					dataType: 'jsonp',
 					data: {
 						q: query,
-						rpp: timelineCount,
-						result_type: 'popular'
+						rpp: timelineCount
+						//,result_type: 'popular'
 					},
 					success: tweetCallback
 				});
