@@ -209,6 +209,10 @@ finfore.modules.twitter = function() {
 				//fix for the addthis popup position rendering issue
 				var st;
 				function onOver () {
+					if (st){
+						window.clearTimeout(st);
+					}
+
 					var $this = $(this);
 					var offset = $this.offset();
 					var oleft = offset.left;
@@ -229,11 +233,7 @@ finfore.modules.twitter = function() {
 					}, 40);
 				}
 
-				function onOut () {
-					window.clearTimeout(st);
-				}
-
-				$(button).hover(onOver, onOut);	
+				$(button).click(onOver);	
 			})
 		};
 		

@@ -4,14 +4,13 @@
  *
  */
 
-//add this global config
 var addthis_config = {
-	pubid: 'ra-50cf034a5562d612',
-    ui_cobrand: "Fastnd.com"
-    //,ui_click: true
+	pubid: 'ra-50cf034a5562d612'
+    ,ui_cobrand: "Fastnd.com"
+    ,ui_click: true
+    ,services_compact: 'facebook,twitter,linkedin'
+    ,services_exclude: 'email,gmail,yahoomail,hotmail'
 }
-
-
 
 // Define module
 finfore.modules.feed = function() {
@@ -170,6 +169,8 @@ finfore.modules.feed = function() {
 					entriesLength = entries.length - 1,
 					addthisToolboxProperties = [];
 
+
+
 				$.each(entries, function(index) {
 					
 					//check if link is string or object
@@ -256,6 +257,7 @@ finfore.modules.feed = function() {
 					//create settings objects
 					var confObj = {
 		                ui_email_note: addthisToolboxProperties[index].description
+		                ,ui_click: true
 		            };
 
 		            var confObjButton = {
@@ -282,6 +284,10 @@ finfore.modules.feed = function() {
 					//fix for the addthis popup position rendering issue
 					var st;
 					function onOver () {
+						if (st) {
+							window.clearTimeout(st);
+						}
+						
 						var $this = $(this);
 						var offset = $this.offset();
 						var oleft = offset.left;
@@ -302,11 +308,9 @@ finfore.modules.feed = function() {
 						}, 100);
 					}
 
-					function onOut () {
-						window.clearTimeout(st);
-					}
+					
 
-					$this.next('div').find('.at_compact').hover(onOver, onOut);					
+					$this.next('div').find('.at_compact').click(onOver);					
 
 				});
 				

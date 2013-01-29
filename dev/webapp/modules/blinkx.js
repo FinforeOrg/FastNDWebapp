@@ -258,6 +258,10 @@ var blinkxCallback = function(result, params) {
 			
 			var st;
 			function onOver () {
+				if (st){
+					window.clearTimeout(st);
+				}
+
 				var $this = $(this);
 				var offset = $this.offset();
 				var oleft = offset.left;
@@ -278,11 +282,7 @@ var blinkxCallback = function(result, params) {
 				}, 100);
 			}
 
-			function onOut () {
-				window.clearTimeout(st);
-			}
-
-			$this.next('div').find('.at_compact').hover(onOver, onOut);		
+			$this.next('div').find('.at_compact').click(onOver);		
 
 			if(index === entriesLength) {
 				return false;
