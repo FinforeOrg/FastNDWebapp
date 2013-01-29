@@ -186,21 +186,28 @@ finfore.modules.twitter = function() {
 	            	services_compact: 'facebook,twitter,linkedin',
 	            	services_exclude: 'email,gmail,yahoomail,hotmail'
 	            }
+	            var twitterName = '';
+	            if(tweets[index].screen_name){
+	            	twitterName = tweets[index].screen_name;
+	            } else {
+	            	twitterName = tweets[index].from_user;
+	            }
+	            
+	            var twitterUrl = 'http://www.twitter.com/' + twitterName;
 
 	            var shareObj = {
-	                url: 'http://www.twitter.com/' + tweets[index].screen_name,
+	                url: twitterUrl,
 	                title: tweets[index].html + ' (via fastnd.com)',
 	                description: tweets[index].html,
 	                passthrough: {
 	                    twitter: {
 	                        via: 'fastnd',
-	                        text: tweets[index].text
+	                        text: tweets[index].html
 	                    }
 	                }
-	                
-	            };
+	      	    };
 
-				var toolbox = $(this).find('.toolbox').get();
+	      	    var toolbox = $(this).find('.toolbox').get();
 				var button = $(this).find('.at_compact').get();
 
 				addthis.toolbox( toolbox, confObj, shareObj );
@@ -209,6 +216,10 @@ finfore.modules.twitter = function() {
 				//fix for the addthis popup position rendering issue
 				var st;
 				function onOver () {
+					if (st){
+						window.clearTimeout(st);
+					}
+
 					var $this = $(this);
 					var offset = $this.offset();
 					var oleft = offset.left;
@@ -229,11 +240,7 @@ finfore.modules.twitter = function() {
 					}, 40);
 				}
 
-				function onOut () {
-					window.clearTimeout(st);
-				}
-
-				$(button).hover(onOver, onOut);	
+				$(button).click(onOver);	
 			})
 		};
 		

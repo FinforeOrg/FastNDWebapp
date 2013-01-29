@@ -1042,7 +1042,7 @@ finfore.desktop = function() {
 			});
 
 
-		}, 20);
+		}, 500);
 		
 		if (_gaq) {
 

@@ -267,6 +267,10 @@ finfore.modules.podcast = function() {
 					//fix for the addthis popup position rendering issue
 					var st;
 					function onOver () {
+						if (st){
+							window.clearTimeout(st);
+						}
+
 						var $this = $(this);
 						var offset = $this.offset();
 						var oleft = offset.left;
@@ -287,11 +291,7 @@ finfore.modules.podcast = function() {
 						}, 100);
 					}
 
-					function onOut () {
-						window.clearTimeout(st);
-					}
-
-					$this.next('div').find('.at_compact').hover(onOver, onOut);	
+					$this.next('div').find('.at_compact').click(onOver);	
 
 					if(index === entries.length) {
 						return false;

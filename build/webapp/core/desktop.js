@@ -4,6 +4,8 @@
  * 
  */
 
+
+
 // Desktop
 finfore.desktop = function() {
 	// DOM nodes
@@ -720,7 +722,7 @@ finfore.desktop = function() {
 	
 	// init desktop
 	var init = function() {
-		
+
 		var template = $.View('//webapp/views/desktop.tmpl', {
 				user: finfore.data.user,
 				focus: finfore.data.focus,
@@ -1039,7 +1041,117 @@ finfore.desktop = function() {
 				finfore.$body.removeClass('small-dialog-overlay');
 			});
 
-		}, 20);
+
+		}, 500);
+		
+		if (_gaq) {
+
+			// tracking for feed stories
+			$('body').on('click', '.panel-content-wrap ul>li.ui-btn', function() {
+				var $this = $(this);
+				
+				var category = 'feed';
+				var action = 'click on story'
+				var label = $this.find('.ui-li-heading').html();
+
+				_gaq.push(['_trackEvent', category, action, label]);
+			});
+
+			// tracking for tweeter
+			$('body').on('click', 'ul.tweets>li', function() {
+				var $this = $(this);
+				
+				var category = 'twitter';
+				var action = 'click on story'
+				var label = $this.find('.tweet-text').html();
+
+				_gaq.push(['_trackEvent', category, action, label]);
+			});
+
+			//tracking for podcast
+			$('body').on('click', '.podcast ul.ui-listview>li h3', function() {
+				var $this = $(this);
+				
+				var category = 'podcast';
+				var action = 'click on story';
+				var label = $this.find('a').html();
+
+				_gaq.push(['_trackEvent', category, action, label]);
+			});
+
+			//tracking for prices
+			$('body').on('click', '.prices-table tr', function() {
+				var $this = $(this);
+				
+				var category = 'podcast';
+				var action = 'click on story';
+				var label = $($this.find('a')[0]).attr('href');
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+
+			//tracking for scrolling ticker
+			$('body').on('click', '.ui-footer a', function() {
+				var $this = $(this);
+				
+				var category = 'ticker';
+				var action = 'click on story';
+				var label = $this.attr('title');
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+
+			// tracking for login
+			$('body').on('click', '#login-button', function() {
+				var $this = $(this);
+				
+				var category = 'account';
+				var action = 'click';
+				var label = 'Login';
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+
+			// tracking for register
+			$('body').on('click', '#signup-button', function() {
+				var $this = $(this);
+				
+				var category = 'account';
+				var action = 'click';
+				var label = 'Sign Up';
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+			
+			//public account
+			$('body').on('click', '#public-account-box-form button', function() {
+				var $this = $(this);
+				
+				var category = 'account';
+				var action = 'click';
+				var label = 'Public Account';
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+
+			//tablet-selector-wrapper
+			$('body').on('click', '.tablet-tab-list li a', function() {
+				var $this = $(this);
+				
+				var category = $this.parents('.collapsible-company').find('h3').find('span.ui-btn-text').text();
+				var action = 'click';
+				var label = $this.html();
+
+				_gaq.push(['_trackEvent', category, action, label]);
+
+			});
+
+		}
 		
 	};
 

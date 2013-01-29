@@ -59,7 +59,7 @@ finfore.modules.portfolio = function() {
 		});
 		
 		$($container).on('click', '.remove-portfolio',function() {	
-		console.log('remove');		
+		
 			finfore.manage.panels.remove({
 				$node: $(this).parents('.mtab-selector').prev(),
 				category: category
