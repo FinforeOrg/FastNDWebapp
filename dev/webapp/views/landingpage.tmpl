@@ -1,0 +1,66 @@
+<div id="landing-page" data-role="dialog" class="small-dialog" data-theme="a" data-content-theme="c">
+	<div data-role="header">
+		<h1>
+			Welcome to Fast News &amp; Data
+		</h1>
+	</div>
+	<div data-role="content">
+		<p>We only ever ask this question once, cookies willing!</p>
+		<p>Please tell us a little about your investing interests:</p>
+		<form id="landing_form">
+			<div data-role="fieldcontain">	
+				<label for="user_geographic">${focus.geographic.title}</label>
+				<select id="user_geographic" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
+					<option>Choose focus areas</option>
+					{{each focus.geographic.profiles}}
+						<option value="${$value._id}">${$value.title}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div data-role="fieldcontain">
+				<label for="user_profession">${focus.professional.title}</label>
+				<select id="user_profession" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
+					<option>Choose focus areas</option>
+					{{each focus.professional.profiles}}
+						<option value="${$value._id}">${$value.title}</option>
+					{{/each}}
+				</select>
+			</div>
+			
+			<div data-role="fieldcontain">
+				<label for="user_industry">${focus.industrial.title}</label>
+				<select id="user_industry" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
+					<option>Choose focus areas</option>
+					{{each focus.industrial.profiles}}
+						<option value="${$value._id}">${$value.title}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="fnd-btn-wrap">
+				<input id="landingpage_submit" name="commit" type="submit" value="Let's Get Going" data-theme="b" /> 
+			</div>
+		</form>
+		<hr>
+		<p class="separator-text">OR</p>
+			
+			<div class="social-signin">
+				<p>Sign-in with your account at: </p>
+				
+					<div data-role="controlgroup" data-type="horizontal">
+						<a href="${finforeBaseUrl}/auth/google?callback=${finforeAppUrl}socialcallback.html" data-role="button" data-icon="google" data-inline="true">Google</a>
+						<a href="${finforeBaseUrl}/auth/facebook?callback=${finforeAppUrl}socialcallback.html" data-role="button" data-icon="facebook" data-inline="true">Facebook</a>
+						
+				{{if smallScreen}}
+					</div>
+					<div data-role="controlgroup" data-type="horizontal">
+				{{/if}}
+						
+						<a href="${finforeBaseUrl}/auth/twitter?callback=${finforeAppUrl}socialcallback.html" data-role="button" data-icon="twitter" data-inline="true">Twitter</a>
+						<a href="${finforeBaseUrl}/auth/linkedin?callback=${finforeAppUrl}socialcallback.html" data-role="button" data-icon="linkedin" data-inline="true">Linkedin</a>
+					</div>
+			</div>
+			
+		
+				
+	</div>
+</div>

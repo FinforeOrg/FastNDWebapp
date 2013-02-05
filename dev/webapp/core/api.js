@@ -258,13 +258,13 @@ feedReader.get = function(params) {
 		if(i !== 0) q += ',';
 		q += '"' + n + '"';
 	});
-
+	
 	q += ') | unique(field="channel.item.link") | sort(field="channel.item.date", descending="true") | sort(field="channel.item.pubDate", descending="true")  | truncate(count=' + params.limit + ')';
 	
 	/* using a specific jsonp callback named function we can take advantage of
 	 * both the browser's and yql's caching mechanisms.
 	 */
-	 
+	
 	// generated callback name
 	var callbackName = 'feedReaderCallback';
 	

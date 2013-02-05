@@ -336,7 +336,7 @@ finfore.modules.feed = function() {
 			
 			var sourceUrl;
 			if(options.blogsearch) {
-				sourceUrl = 'http://www.google.com/search?hl=en&q=' + $.URLEncode(options.company.feed_info.company_competitor.blog_keyword) + '&ie=utf-8&tbm=blg&num=100&output=rss';
+				sourceUrl = 'http://api.fastnd.com/finance/blog?hl=en&q=' + $.URLEncode(options.company.feed_info.company_competitor.blog_keyword) + '&ie=utf-8&tbm=blg&num=100&output=rss';
 			} else if(options.bingsearch) {
 				// replace the ',' character in the string with ' OR ', to be compatible with Bing Search API
 				options.company.feed_info.company_competitor.bing_keyword = options.company.feed_info.company_competitor.bing_keyword.replace(',', ' OR ');
