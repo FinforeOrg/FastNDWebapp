@@ -412,7 +412,7 @@ finfore.modules.feed = function() {
 			if(options.company) {
 				var title = 'Company News';
 				if(options.blogsearch) {
-					title = 'News from Blogs';
+					title = 'Ideas & Opinions';
 				}
 				if(options.bingsearch) {
 					title = 'Additional News';

@@ -15,7 +15,8 @@ finfore.desktop = function() {
 				tabIndex: 0
 			}
 		};
-	
+
+
 	// determine if a fixed height class has been set for the pannel content wrapper
 	var fixedHeight = false;
 	
@@ -268,7 +269,7 @@ finfore.desktop = function() {
 			if(data.type === 'feed') {
 				panelTitle = 'Company News';
 				if(data.options.bingsearch) panelTitle = 'Additional News';
-				if(data.options.blogsearch) panelTitle = 'News From Blogs';
+				if(data.options.blogsearch) panelTitle = 'Ideas & Opinions';
 			}
 			
 			if(data.type === 'podcast') panelTitle = 'Podcasts';
