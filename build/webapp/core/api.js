@@ -264,7 +264,7 @@ feedReader.get = function(params) {
 	/* using a specific jsonp callback named function we can take advantage of
 	 * both the browser's and yql's caching mechanisms.
 	 */
-	console.log(q); 
+	
 	// generated callback name
 	var callbackName = 'feedReaderCallback';
 	

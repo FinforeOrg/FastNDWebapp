@@ -15,7 +15,8 @@ finfore.desktop = function() {
 				tabIndex: 0
 			}
 		};
-	
+
+
 	// determine if a fixed height class has been set for the pannel content wrapper
 	var fixedHeight = false;
 	

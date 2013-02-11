@@ -159,6 +159,30 @@
 	background-position: left -46px;
 }
 
+/* ===== LANDING Page ====== */
+#landing-page>div[data-role=header] h1 {
+	background: url(../images/finforeLogo.png) no-repeat 95% 50%;
+	text-align: left;
+	padding: 10px 20px;
+}
+
+#landing-page form {
+	padding-top: 10px;
+}
+
+#landing-page>div[data-role=header] a[data-icon=delete]{
+display: none !important;
+}
+
+#landing-page p {
+	text-align: center;
+}
+
+#landing-page .fnd-btn-wrap{
+	margin: 30px 0 40px;
+}
+
+
 /* ===== LOGIN Page ====== */
 #login-page [data-role="header"] {
 	position: relative;
@@ -174,7 +198,8 @@
 	border-bottom: 0;
 	padding: 0.4em 0px;
 }
-#login-page hr {
+#login-page hr,
+#landing-page hr {
 	border-width: 1px 0px;
 	border-style: dotted;
 	border-color: #999 transparent #fff transparent;
@@ -185,7 +210,8 @@
 	line-height: 2.5em;
 }
 
-#login-page .separator-text {	
+#login-page .separator-text,
+#landing-page .separator-text {	
 	width: 30px;
 	margin: -25px auto 10px auto;
 	background-color: #E2E2E2;

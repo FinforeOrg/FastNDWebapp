@@ -10,7 +10,7 @@
 		<form id="landing_form">
 			<div data-role="fieldcontain">	
 				<label for="user_geographic">${focus.geographic.title}</label>
-				<select id="user_geographic" name="user[profile_ids][]" data-native-menu="false" required>
+				<select id="user_geographic" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
 					<option>Choose focus areas</option>
 					{{each focus.geographic.profiles}}
 						<option value="${$value._id}">${$value.title}</option>
@@ -19,7 +19,7 @@
 			</div>
 			<div data-role="fieldcontain">
 				<label for="user_profession">${focus.professional.title}</label>
-				<select id="user_profession" name="user[profile_ids][]" data-native-menu="false" required>
+				<select id="user_profession" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
 					<option>Choose focus areas</option>
 					{{each focus.professional.profiles}}
 						<option value="${$value._id}">${$value.title}</option>
@@ -29,7 +29,7 @@
 			
 			<div data-role="fieldcontain">
 				<label for="user_industry">${focus.industrial.title}</label>
-				<select id="user_industry" name="user[profile_ids][]" data-native-menu="false" required>
+				<select id="user_industry" name="user[profile_ids][]" multiple="multiple" data-native-menu="false" required>
 					<option>Choose focus areas</option>
 					{{each focus.industrial.profiles}}
 						<option value="${$value._id}">${$value.title}</option>

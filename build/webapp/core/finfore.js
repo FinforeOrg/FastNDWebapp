@@ -49,14 +49,14 @@ steal('jquery/view/tmpl')
 // Libs
 .then('//webapp/lib/flash_detect_min.js', '//webapp/lib/jquery-ui/jquery-ui.min.js', '//webapp/lib/mediaelement/mediaelement-and-player.js','//webapp/lib/toast/jquery.toastmessage.js', '//webapp/lib/jquery-impromptu.3.1.js', '//webapp/lib/iscroll.js')
 // Load Core Templates
-.then('//webapp/views/desktop.tmpl', '//webapp/views/tab-view.tmpl', '//webapp/views/login.tmpl', '//webapp/views/addcompanymobile.tmpl', '//webapp/views/profile.tmpl', '//webapp/views/panel.controlgroup.tmpl', '//webapp/views/manage.tmpl', '//webapp/views/manage.feed-infos.tmpl', '//webapp/views/manage.panels.tmpl', '//webapp/views/manage.source.tmpl', '//webapp/views/signup.tmpl', '//webapp/views/help.tmpl')
+.then('//webapp/views/desktop.tmpl', '//webapp/views/tab-view.tmpl', '//webapp/views/login.tmpl', '//webapp/views/landingpage.tmpl', '//webapp/views/addcompanymobile.tmpl', '//webapp/views/profile.tmpl', '//webapp/views/panel.controlgroup.tmpl', '//webapp/views/manage.tmpl', '//webapp/views/manage.feed-infos.tmpl', '//webapp/views/manage.panels.tmpl', '//webapp/views/manage.source.tmpl', '//webapp/views/signup.tmpl', '//webapp/views/help.tmpl')
 // Load Core CSS
 .then('../lib/mediaelement/mediaelementplayer.css', '../lib/toast/jquery.toastmessage.css')
 .then('../css/shared.css').then('../css/base.css').then('../css/management.css')
 // Load Core Components
 //.then('./models.js')
 .then('./core.js')
-.then('./desktop.js', './manage.js', './login.js', './publiclogin.js', './signup.js', './profile.js', './addcompany.js', './help.js')
+.then('./desktop.js', './manage.js', './login.js', './landingpage.js', './signup.js', './profile.js', './addcompany.js', './help.js')
 // Load Module Templates
 .then('//webapp/views/module.tmpl', '//webapp/views/module.feed.tmpl', '//webapp/views/module.feed.management.tmpl', '//webapp/views/module.podcast.tmpl', '//webapp/views/module.podcast.management.tmpl', '//webapp/views/module.twitter.tmpl', '//webapp/views/module.twitter.tweet.tmpl', '//webapp/views/module.twitter.management.tmpl', '//webapp/views/module.prices.tmpl', '//webapp/views/module.prices.management.tmpl', '//webapp/views/module.portfolio.tmpl', '//webapp/views/module.portfolio.management.tmpl', '//webapp/views/module.agenda.tmpl', '//webapp/views/module.linkedin.tmpl', '//webapp/views/module.linkedin.management.tmpl', '//webapp/views/module.blinkx.tmpl', '//webapp/views/module.keyword.management.tmpl', '//webapp/views/module.keyword.tmpl')
 // Load Modules
