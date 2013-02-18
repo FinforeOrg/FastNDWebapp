@@ -249,10 +249,14 @@ div.arrow-left .a10 {
 }
 
 /* ===== LANDING Page ====== */
+#landing-page h1.ui-title {
+	font-size: 14px;
+}
+
 #landing-page>div[data-role=header] h1 {
 	background: url(../images/finforeLogo.png) no-repeat 95% 50%;
 	text-align: left;
-	padding: 10px 20px;
+	padding: 14px 20px;
 }
 
 #landing-page form {
