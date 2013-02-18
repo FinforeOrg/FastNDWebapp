@@ -1169,7 +1169,7 @@ finfore.desktop = function() {
 
 			});
 
-		}
+		} //end if _gaq
 
 		//Start landing page
 		var landingPage = Storage.getItem('landingpage');
@@ -1177,6 +1177,9 @@ finfore.desktop = function() {
 		if (!landingPage && finfore.data.user.is_public){
 			finfore.landingPage.init();	
 		}
+
+		//Start socialite
+		Socialite.load('.socialite-wrap');
 		
 	};
 

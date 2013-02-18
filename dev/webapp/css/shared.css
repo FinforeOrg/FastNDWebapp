@@ -19,6 +19,24 @@
 	text-indent: -9999px;
 }
 
+/* Socialite */
+.socialite-wrap {
+	clear: both;
+	height: 20px;
+	padding: 14px 0 0 10px;
+}
+.socialite-wrap>div {
+	float: left;
+}
+
+.socialite-wrap .facebook-like {
+	margin-right: 10px
+}
+
+.socialite-wrap .twitter-share {
+	width: 97px;
+}
+
 /* jQuery Impromptu */
 .jqibox {
 	z-index: 10000;	
