@@ -253,6 +253,10 @@ div.arrow-left .a10 {
 	font-size: 14px;
 }
 
+#landing-page .spacer {
+	padding: 5px 0 0;
+}
+
 #landing-page>div[data-role=header] h1 {
 	background: url(../images/finforeLogo.png) no-repeat 95% 50%;
 	text-align: left;

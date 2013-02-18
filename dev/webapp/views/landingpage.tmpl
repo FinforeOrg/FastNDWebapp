@@ -5,8 +5,8 @@
 		</h1>
 	</div>
 	<div data-role="content">
-		<p>We only ever ask this question once, cookies willing!</p>
-		<p>Please tell us a little about your investing interests:</p>
+		
+		<p>Please tell us a little about your investing interests, and we'll show you the most relevant news &amp; ideeas for you.</p>
 		<form id="landing_form">
 			<div data-role="fieldcontain">	
 				<label for="user_geographic">${focus.geographic.title}</label>
@@ -36,6 +36,9 @@
 					{{/each}}
 				</select>
 			</div>
+			<div class="spacer">
+				<p>We only ever ask this question once, cookies willing!</p>
+			</div>
 			<div class="fnd-btn-wrap">
 				<input id="landingpage_submit" name="commit" type="submit" value="Let's Get Going" data-theme="b" /> 
 			</div>
@@ -44,7 +47,7 @@
 		<p class="separator-text">OR</p>
 			
 			<div class="social-signin">
-				<p>Sign-in with your account at: </p>
+				<p>Sign-in with your account, and you can choose multiple sectors and countries that you invest in: </p>
 				
 					<div data-role="controlgroup" data-type="horizontal">
 						<a href="${finforeBaseUrl}/auth/google?callback=${finforeAppUrl}socialcallback.html" data-role="button" data-icon="google" data-inline="true">Google</a>
