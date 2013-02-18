@@ -859,11 +859,25 @@ finfore.desktop = function() {
 					finfore.login.init();
 					return false;
 				});
+
+				//show tooltip while hovering on login button
+				var $loginTooltip = $('.hover-up-login');
+				$('#login-button').hover(function () {
+					$loginTooltip.removeClass('hide').addClass('show');
+				}, function () {
+					$loginTooltip.removeClass('show').addClass('hide');
+				});
 				
 				// signup button
 				$('#signup-button').click(function() {					
 					finfore.signup.init();				
 					return false;
+				});
+
+				$('#signup-button').hover(function () {
+					$loginTooltip.removeClass('hide').addClass('show');
+				}, function () {
+					$loginTooltip.removeClass('show').addClass('hide');
 				});
 				
 				// find company button
