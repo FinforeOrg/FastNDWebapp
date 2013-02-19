@@ -209,6 +209,15 @@ finfore.modules.twitter = function() {
 
 	      	    var toolbox = $(this).find('.toolbox').get();
 				var button = $(this).find('.at_compact').get();
+				var mailbutton = $(this).find('.addthis_button_email');
+
+				mailbutton.click(function () {
+					var note = $(this).parents('.ui-li').find('.tweet-text').html();
+					setTimeout(function(){
+						$('textarea#at_msg').val('');
+						$('textarea#at_msg').val(note + ' | via <a href="http://fastnd.com">fastnd.com</a>');
+					}, 100)
+				})
 
 				addthis.toolbox( toolbox, confObj, shareObj );
 				addthis.button( button, confObjButton, shareObj );

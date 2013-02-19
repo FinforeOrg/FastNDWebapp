@@ -19,6 +19,24 @@
 	text-indent: -9999px;
 }
 
+/* Socialite */
+.socialite-wrap {
+	clear: both;
+	height: 20px;
+	padding: 14px 0 0 10px;
+}
+.socialite-wrap>div {
+	float: left;
+}
+
+.socialite-wrap .facebook-like {
+	margin-right: 10px
+}
+
+.socialite-wrap .twitter-share {
+	width: 97px;
+}
+
 /* jQuery Impromptu */
 .jqibox {
 	z-index: 10000;	
@@ -159,11 +177,108 @@
 	background-position: left -46px;
 }
 
+/* signin actions */
+#signin-actions {
+
+}
+
+#signin-actions .hover-up-login{
+	background: #fff;
+	color: #000;
+	padding: 10px;
+	position: absolute;
+	z-index: 1000;
+	top: 55px;
+	left: 200px;
+	box-shadow: rgba(0,0,0,.6) 0 0 6px;
+	width: 230px;
+	border-radius: 5px;
+}
+
+#signin-actions .hover-up-login.hide {
+	display: none;
+}
+
+#signin-actions .hover-up-login.show {
+	display: block;
+}
+
+div.arrow-left{
+    width: 10px;
+    height: 20px;
+    position: absolute;
+    left: -10px;
+    top:42px;
+}
+
+div.arrow-left .a {
+    position:absolute;
+    width: 1px;
+    background: #fff;
+    height: 1px;
+}
+div.arrow-left .a1 {
+    top: 9px;
+}
+div.arrow-left .a2 {
+    left: 1px;
+    height: 3px;
+    top: 8px;    
+}
+div.arrow-left .a3 {
+    left: 2px;
+    height: 5px;
+    top: 7px;    
+}
+div.arrow-left .a4 {
+    left: 3px;
+    height: 7px;
+    top: 6px;    
+}
+div.arrow-left .a5 {
+    left: 4px;
+    height: 9px;
+    top: 5px;
+}
+div.arrow-left .a6 {
+    left: 5px;
+    height: 11px;
+    top: 4px;    
+}
+div.arrow-left .a7 {
+    left: 6px;
+    height: 13px;
+    top: 3px;    
+}
+div.arrow-left .a8 {
+    left: 7px;
+    height: 15px;
+    top: 2px;
+}
+div.arrow-left .a9 {
+    left: 8px;
+    height: 17px;
+    top: 1px;
+}
+div.arrow-left .a10 {
+    left: 9px;
+    height: 19px;
+    top: 0px;
+}
+
 /* ===== LANDING Page ====== */
+#landing-page h1.ui-title {
+	font-size: 14px;
+}
+
+#landing-page .spacer {
+	padding: 5px 0 0;
+}
+
 #landing-page>div[data-role=header] h1 {
 	background: url(../images/finforeLogo.png) no-repeat 95% 50%;
 	text-align: left;
-	padding: 10px 20px;
+	padding: 14px 20px;
 }
 
 #landing-page form {

@@ -859,11 +859,25 @@ finfore.desktop = function() {
 					finfore.login.init();
 					return false;
 				});
+
+				//show tooltip while hovering on login button
+				var $loginTooltip = $('.hover-up-login');
+				$('#login-button').hover(function () {
+					$loginTooltip.removeClass('hide').addClass('show');
+				}, function () {
+					$loginTooltip.removeClass('show').addClass('hide');
+				});
 				
 				// signup button
 				$('#signup-button').click(function() {					
 					finfore.signup.init();				
 					return false;
+				});
+
+				$('#signup-button').hover(function () {
+					$loginTooltip.removeClass('hide').addClass('show');
+				}, function () {
+					$loginTooltip.removeClass('show').addClass('hide');
 				});
 				
 				// find company button
@@ -1155,7 +1169,7 @@ finfore.desktop = function() {
 
 			});
 
-		}
+		} //end if _gaq
 
 		//Start landing page
 		var landingPage = Storage.getItem('landingpage');
@@ -1163,6 +1177,9 @@ finfore.desktop = function() {
 		if (!landingPage && finfore.data.user.is_public){
 			finfore.landingPage.init();	
 		}
+
+		//Start socialite
+		Socialite.load('.socialite-wrap');
 		
 	};
 
