@@ -27,7 +27,8 @@
 }
 
 .registered-user .socialite-wrap{
-	padding-top: 13px
+	padding-top: 13px;
+	display: none;
 }
 
 .socialite-wrap>div {
