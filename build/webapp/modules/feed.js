@@ -311,6 +311,13 @@ finfore.modules.feed = function() {
 					
 
 					$this.next('div').find('.at_compact').click(onOver);					
+					$this.next('div').find('.addthis_button_email').click(function () {
+						var note = $(this).parents('.ui-btn-text').find('.feed-item-description').text();
+						setTimeout(function(){
+							$('textarea#at_msg').val('');
+							$('textarea#at_msg').val(note + ' | via <a href="http://fastnd.com">fastnd.com</a>');
+						}, 100)
+					});
 
 				});
 				
