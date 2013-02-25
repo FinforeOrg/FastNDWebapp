@@ -62,7 +62,7 @@ html, body {
 	width: 200px;
 	padding: 140px 0 30px 0;
 	
-	z-index: 4;
+	z-index: 2;
 }
 
 #desktop-content {
@@ -815,7 +815,7 @@ html, body {
 	
 	/* Enlarge main-actions */
 	.main-actions {
-		height: 287px;
+		height: 250px;
 	}
 	
 	.tab-list {
