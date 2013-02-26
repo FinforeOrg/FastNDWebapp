@@ -488,6 +488,30 @@ div[data-role="dialog"] {
 	z-index: 10;
 }
 
+/* Sharing */
+.sharing {
+	right: 43px;
+	/*border: 1px solid cyan;*/
+}
+
+.sharing .at_compact {
+	/*border: 1px solid red;*/
+	padding: 10px;
+	position: absolute;
+	/*background-color: yellow;*/
+	right: 22px;
+	top: -19px;
+}
+
+.sharing .addthis_button_email {
+	/*border: 1px solid green;*/
+	padding: 10px;
+	position: absolute;
+	/*background-color: green;*/
+	top: -19px;
+	right: -17px;
+}
+
 /* Faux column for columns to show full-height dark background behind menu, using pseudo-elements */
 .panel:before {
 	content: '.';

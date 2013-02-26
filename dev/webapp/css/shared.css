@@ -457,7 +457,7 @@ display: none !important;
 .at_compact {
 	width: 16px ;
 	height: 16px ;
-	background: url(../images/addthis_compact_gray.gif) no-repeat 0 0;
+	background: url(../images/addthis_compact_gray.gif) no-repeat 50% 50%;
 	display: block;
 	position: absolute;
 	right: 19px;

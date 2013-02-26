@@ -243,7 +243,15 @@ finfore.modules.feed = function() {
 
 				addthisToolboxProperties.reverse();
 
-				$( $content.find('.feed-item-description').get().reverse() ).each(function(index) {
+				var $elements;
+				if (finfore.smallScreen) {
+					$elements = $content.find('h3.ui-li-heading');
+				} else {
+					$elements = $content.find('.feed-item-description');
+				}
+
+
+				$( $elements.get().reverse() ).each(function(index) {
 					//stop when list of new loaded items is finished
 					if(index === entries.length) {
 						return false;
