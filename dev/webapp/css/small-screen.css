@@ -488,26 +488,61 @@ div[data-role="dialog"] {
 	z-index: 10;
 }
 
+.mobile-column-select .ui-btn-up-b {
+	background-image: url(../lib/images/icons-18-white.png);
+	background-repeat: no-repeat;
+	background-position: -105px 3px;
+}
+
 /* Sharing */
+
+
 .sharing {
 	right: 43px;
-	/*border: 1px solid cyan;*/
+	bottom: 12px;
+}
+
+.tweets .sharing {
+	right: 15px;
+	bottom: 0;
+}
+
+.podcast .sharing {
+	right: 0;
+	bottom: 0;
+}
+
+.blinkx .sharing {
+	right: 0;
+	bottom: 0;
+}
+
+.blinkx .sharing .at_compact {
+	right: 27px;
+}
+
+.blinkx .sharing .addthis_button_email {
+	right: -5px;
+}
+
+.podcast .sharing .at_compact {
+	right: 32px;
 }
 
 .sharing .at_compact {
-	/*border: 1px solid red;*/
+	
 	padding: 10px;
 	position: absolute;
-	/*background-color: yellow;*/
+	
 	right: 22px;
 	top: -19px;
 }
 
 .sharing .addthis_button_email {
-	/*border: 1px solid green;*/
+	
 	padding: 10px;
 	position: absolute;
-	/*background-color: green;*/
+	
 	top: -19px;
 	right: -17px;
 }
