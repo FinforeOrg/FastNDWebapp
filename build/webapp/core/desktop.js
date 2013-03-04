@@ -1181,6 +1181,10 @@ finfore.desktop = function() {
 		//Start socialite
 		Socialite.load('.socialite-wrap');
 		
+		//Hide addthis after user clicks on icon
+		$('body').on('click', '#at_hover a', function(){
+			_atw.clb();
+		});
 	};
 
 	return {

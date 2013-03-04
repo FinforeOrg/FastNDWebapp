@@ -489,9 +489,11 @@ div[data-role="dialog"] {
 }
 
 .mobile-column-select .ui-btn-up-b {
-	background-image: url(../lib/images/icons-18-white.png);
+	background-color: transparent;
+	background-image: url(../lib/images/icons-18-black.png);
 	background-repeat: no-repeat;
 	background-position: -105px 3px;
+	border: none;
 }
 
 /* Sharing */
@@ -500,6 +502,10 @@ div[data-role="dialog"] {
 .sharing {
 	right: 43px;
 	bottom: 12px;
+}
+
+.sharing .toolbox {
+	display: none;
 }
 
 .tweets .sharing {
@@ -518,7 +524,7 @@ div[data-role="dialog"] {
 }
 
 .blinkx .sharing .at_compact {
-	right: 27px;
+	right: 5px;
 }
 
 .blinkx .sharing .addthis_button_email {
@@ -526,7 +532,7 @@ div[data-role="dialog"] {
 }
 
 .podcast .sharing .at_compact {
-	right: 32px;
+	right: 5px;
 }
 
 .sharing .at_compact {
@@ -534,7 +540,7 @@ div[data-role="dialog"] {
 	padding: 10px;
 	position: absolute;
 	
-	right: 22px;
+	right: -5px;
 	top: -19px;
 }
 
