@@ -56,7 +56,7 @@ steal('jquery/view/tmpl')
 // Load Core Components
 //.then('./models.js')
 .then('./core.js')
-.then('./desktop.js', './manage.js', './login.js', './landingpage.js', './signup.js', './profile.js', './addcompany.js', './help.js')
+.then('./desktop.js', './manage.js', './login.js', './landingpage.js', './signup.js', './profile.js', './addcompany.js', './help.js', './analytics.js')
 // Load Module Templates
 .then('//webapp/views/module.tmpl', '//webapp/views/module.feed.tmpl', '//webapp/views/module.feed.management.tmpl', '//webapp/views/module.podcast.tmpl', '//webapp/views/module.podcast.management.tmpl', '//webapp/views/module.twitter.tmpl', '//webapp/views/module.twitter.tweet.tmpl', '//webapp/views/module.twitter.management.tmpl', '//webapp/views/module.prices.tmpl', '//webapp/views/module.prices.management.tmpl', '//webapp/views/module.portfolio.tmpl', '//webapp/views/module.portfolio.management.tmpl', '//webapp/views/module.agenda.tmpl', '//webapp/views/module.linkedin.tmpl', '//webapp/views/module.linkedin.management.tmpl', '//webapp/views/module.blinkx.tmpl', '//webapp/views/module.keyword.management.tmpl', '//webapp/views/module.keyword.tmpl')
 // Load Modules
