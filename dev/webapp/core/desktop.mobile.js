@@ -414,11 +414,11 @@ finfore.desktop = function() {
 			nodes.tabs.$main = $('#main');
 			
 			// Add Portfolio tab
-			tabs.add({
-				id: 'portfolio',
-				title: 'Portfolio',
-				closable: false
-			});
+			// tabs.add({
+			// 	id: 'portfolio',
+			// 	title: 'Portfolio',
+			// 	closable: false
+			// });
 			nodes.tabs.$portfolio = $('#portfolio');
 			
 			// add tab loaders
