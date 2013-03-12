@@ -7,9 +7,11 @@
 finfore.analytics = function() {
 
 	var init = function () {
+		
+		var analytics = !!('_gaq' in window);
 
 		//Google events analytics setup
-		if (_gaq) {
+		if (analytics) {
 			
 
 			//feed/rss
@@ -163,6 +165,6 @@ finfore.analytics = function() {
 	};
 
 	return {
-		init: init,
+		init: init
 	}
 }();

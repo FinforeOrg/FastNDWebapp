@@ -6,11 +6,15 @@
 
 finfore.analytics = function() {
 
+
+
 	var init = function () {
 
+		var analytics = !!('_gaq' in window);
+
 		//Google events analytics setup
-		if (_gaq) {
-			
+		if (analytics) {
+
 
 			//feed/rss
 			$('body').on('click', '.panel-content-wrap ul>li.ui-btn', function(e) {
@@ -36,8 +40,6 @@ finfore.analytics = function() {
 						}
 					})
 				}
-				
-				
 				
 				var newsTitle = $this.find('.ui-li-heading').html();
 				var columnName = $(this).parents('.panel-content-wrap').prev().find('h1').text();
@@ -95,20 +97,30 @@ finfore.analytics = function() {
 
 			});
 
-			// Search for company
-
-			// Open company tab (tablet-selector-wrapper)
-			$('body').on('click', '.tablet-tab-list li a', function() {
-				var $this = $(this);
+			// click on a company tab
+			$('body').on('click', '.collapsible-company h3', function() {
+				var companyName = $(this).find('.ui-btn-text').html().split('<')[0];
 				
-				var category = $this.parents('.collapsible-company').find('h3').find('span.ui-btn-text').text();
+				var category = 'Open Company Tab';
 				var action = 'click';
-				var label = $this.html();
-
+				var label = 'Company tab: ' + companyName;
+				
 				_gaq.push(['_trackEvent', category, action, label]);
-
+				
 			});
 
+
+			// // Open company tab (tablet-selector-wrapper)
+			// $('body').on('click', '.tablet-tab-list li a', function() {
+			// 	var $this = $(this);
+				
+			// 	var category = $this.parents('.collapsible-company').find('h3').find('span.ui-btn-text').text();
+			// 	var action = 'click';
+			// 	var label = $this.html();
+
+			// 	_gaq.push(['_trackEvent', category, action, label]);
+
+			// });
 
 			// tracking for twitter
 			$('body').on('click', 'ul.tweets>li', function() {
@@ -116,41 +128,117 @@ finfore.analytics = function() {
 				
 				var category = 'Twitter';
 				var action = 'click on story'
-				var label = $this.find('.tweet-text').html();
+				var label = '';
+
+				//Find Tab name
+				var tabId = $this.parents('.tab').attr('id');
+				var tabName = '';
+
+				if (tabId == 'main') {
+
+					tabName = 'Main Tab'
+
+				} else {
+					$.each(finfore.data.companies, function ( index, value ) {
+						if ( value._id == tabId ) {
+							tabName = 'Company Tab: ' + value.feed_info.title;
+						}
+					})
+				}
+
+				var newsTitle = $this.find('.tweet-text').html();
+				var columnName = $(this).parents('.panel-content-wrap').prev().find('h1').text();
+
+
+				label = 'Twitter news title: ' + newsTitle;
+				label += ', in column: ' + columnName;
+				label += ', ' + tabName;
 
 				_gaq.push(['_trackEvent', category, action, label]);
+			});
+			
+			// tracking for prices
+			$('body').on('click', '.prices-table tr', function() {
+				var $this = $(this);
+				
+				var category = 'Prices';
+				var action = 'click';
+				var companyName = $($this.find('a')[0]).text();
+
+
+				//Find Tab name
+				var tabId = $this.parents('.tab').attr('id');
+				var tabName = '';
+
+				if (tabId == 'main') {
+
+					tabName = 'Main Tab'
+
+				} else {
+					$.each(finfore.data.companies, function ( index, value ) {
+						if ( value._id == tabId ) {
+							tabName = 'Company Tab: ' + value.feed_info.title;
+						}
+					})
+				}
+
+				var label = 'Prices column, click on ' + companyName + ', ' + tabName
+				
+				_gaq.push(['_trackEvent', category, action, label]);
+
 			});
 
 			//tracking for podcast
 			$('body').on('click', '.podcast ul.ui-listview>li h3', function() {
 				var $this = $(this);
 				
-				var category = 'podcast';
-				var action = 'click on story';
-				var label = $this.find('a').html();
+				//Find Tab name
+				var tabId = $this.parents('.tab').attr('id');
+				var tabName = '';
+
+				if (tabId == 'main') {
+
+					tabName = 'Main Tab'
+
+				} else {
+					$.each(finfore.data.companies, function ( index, value ) {
+						if ( value._id == tabId ) {
+							tabName = 'Company Tab: ' + value.feed_info.title;
+						}
+					})
+				}
+
+				var category = 'Podcast';
+				var action = 'click';
+				var label = 'Podcast column, ' + $this.find('a').html() + ', ' + tabName;
 
 				_gaq.push(['_trackEvent', category, action, label]);
 			});
-
-			//tracking for prices
-			$('body').on('click', '.prices-table tr', function() {
-				var $this = $(this);
-				
-				var category = 'podcast';
-				var action = 'click on story';
-				var label = $($this.find('a')[0]).attr('href');
-
-				_gaq.push(['_trackEvent', category, action, label]);
-
-			});
+			
 
 			//tracking for scrolling ticker
 			$('body').on('click', '.ui-footer a', function() {
 				var $this = $(this);
 				
-				var category = 'ticker';
+				//Find Tab name
+				var tabId = $this.parents('.tab').attr('id');
+				var tabName = '';
+
+				if (tabId == 'main') {
+
+					tabName = 'Main Tab'
+
+				} else {
+					$.each(finfore.data.companies, function ( index, value ) {
+						if ( value._id == tabId ) {
+							tabName = 'Company Tab: ' + value.feed_info.title;
+						}
+					})
+				}
+
+				var category = 'Scrolling Ticker';
 				var action = 'click on story';
-				var label = $this.attr('title');
+				var label = 'Scrolling Ticker news, ' + $this.attr('title') + ', ' + tabName;
 
 				_gaq.push(['_trackEvent', category, action, label]);
 
@@ -163,6 +251,6 @@ finfore.analytics = function() {
 	};
 
 	return {
-		init: init,
+		init: init
 	}
 }();

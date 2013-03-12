@@ -798,6 +798,7 @@ var finfore = function() {
 
 		// init analytics
 		finfore.analytics.init();
+
 		
 		// security measures for public users
 		if(finfore.data.user.is_public) secureApp();

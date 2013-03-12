@@ -58,7 +58,7 @@ steal('jquery/view/tmpl')
 .then('../css/shared.css').then('../css/small-screen.css')
 // Load Core Components
 .then('./core.js')
-.then('./desktop.mobile.js', './login.js', './signup.js', './profile.js', './addcompany.js')
+.then('./desktop.mobile.js', './login.js', './signup.js', './profile.js', './addcompany.js', './analytics.js')
 // Load Module Templates
 .then('//webapp/views/module.tmpl', '//webapp/views/module.feed.tmpl', '//webapp/views/module.podcast.tmpl', '//webapp/views/module.twitter.tmpl', '//webapp/views/module.twitter.tweet.tmpl', '//webapp/views/module.prices.tmpl', '//webapp/views/module.agenda.tmpl', '//webapp/views/module.linkedin.tmpl', '//webapp/views/module.blinkx.tmpl', '//webapp/views/module.keyword.tmpl')
 // Load Modules
