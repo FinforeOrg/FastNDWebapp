@@ -6,18 +6,17 @@
 
 finfore.analytics = function() {
 
-
-
 	var init = function () {
-
+		
 		var analytics = !!('_gaq' in window);
-
+		
+		
 		//Google events analytics setup
 		if (analytics) {
 
-
 			//feed/rss
-			$('body').on('click', '.panel-content-wrap ul>li.ui-btn', function(e) {
+			$('body').on('click', '.feed .panel-content-wrap ul>li.ui-btn', function(e) {
+				
 				var $this = $(this);
 				
 				var category = 'feed';
@@ -48,9 +47,9 @@ finfore.analytics = function() {
 				label += ', in column: ' + columnName;
 				label += ', ' + tabName;
 
-				
 				_gaq.push(['_trackEvent', category, action, label]);
 				
+
 			});
 
 			//how often people click on changing public profile
@@ -73,8 +72,9 @@ finfore.analytics = function() {
 				
 			});
 
-			// tracking for login
-			$('body').on('click', '#login-button', function() {
+			
+			$('#login-button').click(function(){
+				
 				var $this = $(this);
 				
 				var category = 'Account';
@@ -86,7 +86,7 @@ finfore.analytics = function() {
 			});
 
 			// tracking for register
-			$('body').on('click', '#signup-button', function() {
+			$('#signup-button').click(function() {
 				var $this = $(this);
 				
 				var category = 'Account';
@@ -108,19 +108,6 @@ finfore.analytics = function() {
 				_gaq.push(['_trackEvent', category, action, label]);
 				
 			});
-
-
-			// // Open company tab (tablet-selector-wrapper)
-			// $('body').on('click', '.tablet-tab-list li a', function() {
-			// 	var $this = $(this);
-				
-			// 	var category = $this.parents('.collapsible-company').find('h3').find('span.ui-btn-text').text();
-			// 	var action = 'click';
-			// 	var label = $this.html();
-
-			// 	_gaq.push(['_trackEvent', category, action, label]);
-
-			// });
 
 			// tracking for twitter
 			$('body').on('click', 'ul.tweets>li', function() {
@@ -155,12 +142,13 @@ finfore.analytics = function() {
 				label += ', ' + tabName;
 
 				_gaq.push(['_trackEvent', category, action, label]);
+
 			});
 			
 			// tracking for prices
 			$('body').on('click', '.prices-table tr', function() {
 				var $this = $(this);
-				
+
 				var category = 'Prices';
 				var action = 'click';
 				var companyName = $($this.find('a')[0]).text();
@@ -185,7 +173,7 @@ finfore.analytics = function() {
 				var label = 'Prices column, click on ' + companyName + ', ' + tabName
 				
 				_gaq.push(['_trackEvent', category, action, label]);
-
+				
 			});
 
 			//tracking for podcast
@@ -213,6 +201,7 @@ finfore.analytics = function() {
 				var label = 'Podcast column, ' + $this.find('a').html() + ', ' + tabName;
 
 				_gaq.push(['_trackEvent', category, action, label]);
+
 			});
 			
 
@@ -244,8 +233,27 @@ finfore.analytics = function() {
 
 			});
 
-						
-			
+			//tracking for search form
+			var logger = function () {
+				var searchText = $('.tablet-selector-wrapper .ui-listview-filter input.ui-input-text').val();
+				var category = 'Search';
+				var action = 'type';
+				var label = 'Search term: ' + searchText;
+
+				_gaq.push(['_trackEvent', category, action, label]);
+				
+			}
+
+			var timer;
+
+			$('body').on('keyup', '.tablet-selector-wrapper .ui-listview-filter input.ui-input-text', function (){
+				
+				if (timer) {
+					clearTimeout(timer);
+				}
+
+				timer = setTimeout(logger, 1000);
+			});
 
 		} //end if _gaq
 	};

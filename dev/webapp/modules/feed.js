@@ -10,6 +10,8 @@ var addthis_config = {
     ,ui_click: true
     ,services_compact: 'facebook,twitter,linkedin'
     ,services_exclude: 'email,gmail,yahoomail,hotmail'
+    ,data_ga_property: 'UA-29328610-4'
+    ,data_ga_social: true
 }
 
 // Define module

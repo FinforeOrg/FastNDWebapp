@@ -239,9 +239,15 @@ finfore.modules.podcast = function() {
 					$this.after(addthisToolboxMarkup);
 
 					//create settings objects
-					var confObj = {
-		                ui_email_note: addthisToolboxProperties[index].description
-		            };
+					if (addthisToolboxProperties[index].description) {
+						var confObj = {
+			                ui_email_note: addthisToolboxProperties[index].description
+			            };
+		            } else {
+		            	var confObj = {
+			                ui_email_note: ''
+			            };
+		            }
 
 		            var confObjButton = {
 		            	services_compact: 'facebook,twitter,linkedin',
