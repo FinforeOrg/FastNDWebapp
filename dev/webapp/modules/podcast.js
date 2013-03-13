@@ -239,7 +239,7 @@ finfore.modules.podcast = function() {
 					$this.after(addthisToolboxMarkup);
 
 					//create settings objects
-					if (addthisToolboxProperties[index].description) {
+					if (addthisToolboxProperties[index]) {
 						var confObj = {
 			                ui_email_note: addthisToolboxProperties[index].description
 			            };
